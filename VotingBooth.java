@@ -19,7 +19,11 @@ public class VotingBooth extends JPanel {
 
     String simpleDialogDesc = "";
 
+    User bill = new User();
+
+
     public VotingBooth(JFrame frame) {
+        bill.setFunds(1000);
         this.frame = frame;
         JLabel title;
 
@@ -81,22 +85,43 @@ public class VotingBooth extends JPanel {
         voteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String command = group.getSelection().getActionCommand();
+                boolean broke = false;
 
                 // ok dialog
                 if (command == defaultMessageCommand) {
                     JOptionPane.showMessageDialog(frame,
                             "Thank you for choosing Bert!");
-                    String value = JOptionPane.showInputDialog("Would you LIke to Wager?","0");
-                    int totel = Integer.parseInt(value);
-                    JOptionPane.showMessageDialog(null,"Totel Wager on Bert is:  " + totel);
+                    while(!broke) {
+                        String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                        int totel = Integer.parseInt(value);
+                        if (totel > bill.getFunds()) {
+                            JOptionPane.showMessageDialog(null, "Insufficent Funds");
+                        }
+                        else{
+                            broke = true;
+                            bill.setBet(totel);
+                            bill.setFunds(bill.getFunds() - totel);
+                            JOptionPane.showMessageDialog(null,"Total Wager on Bert is:  " + totel + "\n You have " + bill.getFunds());
+                        }
+                    }
 
                     // yes/no dialog
                 } else if (command == yesNoCommand) {
                     JOptionPane.showMessageDialog(frame,
                             "Thank you for choosing Gandhi!");
-                    String value = JOptionPane.showInputDialog("How Many Coins Would You Like the Wager","0");
-                    int totel = Integer.parseInt(value);
-                    JOptionPane.showMessageDialog(null,"Total Wager on Gandhi is:  " + totel + " coins");
+                    while(!broke) {
+                        String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                        int totel = Integer.parseInt(value);
+                        if (totel > bill.getFunds()) {
+                            JOptionPane.showMessageDialog(null, "Insufficent Funds");
+                        }
+                        else{
+                            broke = true;
+                            bill.setBet(totel);
+                            bill.setFunds(bill.getFunds() - totel);
+                            JOptionPane.showMessageDialog(null,"Total Wager on Bert is:  " + totel + "\n You have " + bill.getFunds());
+                        }
+                    }
                 }
                 else{
                     setVisible(false);
