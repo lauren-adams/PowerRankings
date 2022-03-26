@@ -1,11 +1,17 @@
 package test;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 public class HomePage {
 	
@@ -15,31 +21,70 @@ public class HomePage {
 		mainFrame.setSize(960, 540);
 		
 		//add the menu to mainFrame
-		mainFrame.setJMenuBar(addMenu());
+		//mainFrame.setLayout(new BorderLayout());
+		//mainFrame.add(addMenu(), BorderLayout.CENTER);
+		mainFrame.add(addMenu());
 		
 		//set mainFrame to true
 		mainFrame.setVisible(true);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	protected static JMenuBar addMenu() {
-		//variable declarations
-		JMenu menu;
-		JMenuBar menuBar;
-		JMenuItem editProfile;
+	
+	protected static JPanel addMenu() {
+	//variable declarations
+		JPanel menuPanel;
+		JButton editProfile, charSearch, leaderboard;
 		
-		//initializing variables
-		menu = new JMenu("Menu");
-		menuBar = new JMenuBar();
-		editProfile = new JMenuItem("Edit Profile");
+	//variable initialization
+		menuPanel = new JPanel();
 		
-		//adding menu attributes
-		menu.setMnemonic(KeyEvent.VK_A);
-    	menu.getAccessibleContext().setAccessibleDescription(
-    	        "This menu contains...");
+		editProfile = new JButton("Edit Profile");
+		editProfile.setFocusPainted(false);
 		
-		menu.add(editProfile);
-		menuBar.add(menu);
+		charSearch = new JButton("Search Characters");
+		charSearch.setFocusPainted(false);
 		
-		return menuBar;
+		leaderboard = new JButton("View Leaderboards");
+		leaderboard.setFocusPainted(false);
+		
+	//leaderboard action listener
+		leaderboard.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			//variable declaration
+				JFrame selectLead;
+				JPanel buttonPanel;
+				JButton charLead, userLead;
+			
+			//variable initialization
+				selectLead = new JFrame("Select Leaderboard");
+				
+				buttonPanel = new JPanel();
+				
+				charLead = new JButton("Character Leaderboard");
+				charLead.setFocusPainted(false);
+				
+				userLead = new JButton("User Leaderboard");
+				userLead.setFocusPainted(false);
+				
+			//add items to JFrame
+				buttonPanel.add(charLead);
+				buttonPanel.add(userLead);
+				
+				selectLead.add(buttonPanel);
+				selectLead.setSize(350, 75);
+				selectLead.setVisible(true);
+			}
+		});
+		
+	//add items to JPanel
+		menuPanel.add(editProfile);
+		menuPanel.add(charSearch);
+		menuPanel.add(leaderboard);
+		
+	//return the menu JPanel
+		menuPanel.setVisible(true);
+		return menuPanel;
 	}
 }
