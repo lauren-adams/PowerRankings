@@ -23,12 +23,18 @@ public class VotingBooth extends JPanel {
 
 
     public VotingBooth(JFrame frame) {
+        Character bert = new Character();
+        Character gandhi = new Character();
+        bert.setName("Bert");
+        bert.setWorld("Seasame Street");
+        gandhi.setName("Ghandi");
+        gandhi.setWorld("Clone High");
         bill.setFunds(1000);
         this.frame = frame;
         JLabel title;
 
         // Create the components.
-        JPanel choicePanel = createSimpleDialogBox();
+        JPanel choicePanel = createSimpleDialogBox(bert, gandhi);
 
         System.out.println("passed createSimpleDialogBox");
 
@@ -50,7 +56,7 @@ public class VotingBooth extends JPanel {
         label.setText(newText);
     }
 
-    private JPanel createSimpleDialogBox() {
+    private JPanel createSimpleDialogBox(Character a, Character b) {
         final int numButtons = 3;
         JRadioButton[] radioButtons = new JRadioButton[numButtons];
 
@@ -58,21 +64,21 @@ public class VotingBooth extends JPanel {
 
         JButton voteButton = null;
 
-        final String defaultMessageCommand = "default";
-        final String yesNoCommand = "yesno";
-        final String yeahNahCommand = "yeahnah";
+        final String choosingA = "default";
+        final String choosingB = "yesno";
+        final String Skip = "yeahnah";
 
         radioButtons[0] = new JRadioButton(
-                "Bert from Seasame Street");
-        radioButtons[0].setActionCommand(defaultMessageCommand);
+                a.getName() + " from " + a.getWorld());
+        radioButtons[0].setActionCommand(choosingA);
 
         radioButtons[1] = new JRadioButton(
-                "Gandhi from Clone High");
-        radioButtons[1].setActionCommand(yesNoCommand);
+                b.getName() + " from " + b.getWorld());
+        radioButtons[1].setActionCommand(choosingB);
 
         radioButtons[2] = new JRadioButton(
                 "SKIP");
-        radioButtons[2].setActionCommand(yeahNahCommand);
+        radioButtons[2].setActionCommand(Skip);
 
         for (int i = 0; i < numButtons; i++) {
             group.add(radioButtons[i]);
@@ -88,11 +94,14 @@ public class VotingBooth extends JPanel {
                 boolean broke = false;
 
                 // ok dialog
-                if (command == defaultMessageCommand) {
+                if (command == choosingA) {
                     JOptionPane.showMessageDialog(frame,
-                            "Thank you for choosing Bert!");
+                            "Thank you for choosing " + a.getName() + "!");
                     while(!broke) {
                         String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                        if(value == null){
+                            value = "0";
+                        }
                         int totel = Integer.parseInt(value);
                         if (totel > bill.getFunds()) {
                             JOptionPane.showMessageDialog(null, "Insufficent Funds");
@@ -101,14 +110,14 @@ public class VotingBooth extends JPanel {
                             broke = true;
                             bill.setBet(totel);
                             bill.setFunds(bill.getFunds() - totel);
-                            JOptionPane.showMessageDialog(null,"Total Wager on Bert is:  " + totel + "\n You have " + bill.getFunds());
+                            JOptionPane.showMessageDialog(null,"Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
                         }
                     }
 
                     // yes/no dialog
-                } else if (command == yesNoCommand) {
+                } else if (command == choosingB) {
                     JOptionPane.showMessageDialog(frame,
-                            "Thank you for choosing Gandhi!");
+                            "Thank you for choosing " + b.getName() + "!");
                     while(!broke) {
                         String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
                         int totel = Integer.parseInt(value);
@@ -119,7 +128,7 @@ public class VotingBooth extends JPanel {
                             broke = true;
                             bill.setBet(totel);
                             bill.setFunds(bill.getFunds() - totel);
-                            JOptionPane.showMessageDialog(null,"Total Wager on Bert is:  " + totel + "\n You have " + bill.getFunds());
+                            JOptionPane.showMessageDialog(null,"Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
                         }
                     }
                 }
