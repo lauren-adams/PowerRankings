@@ -43,7 +43,7 @@ public class HomePage {
 		editProfile = new JButton("Edit Profile");
 		editProfile.setFocusPainted(false);
 		
-		charSearch = new JButton("Search Characters");
+		charSearch = new JButton("Characters");
 		charSearch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

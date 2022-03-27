@@ -239,7 +239,7 @@ class PizzaGridBagLayout extends JFrame{
     JButton closeButton = new JButton("Close");
 
     public PizzaGridBagLayout(Character c) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
