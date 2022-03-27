@@ -24,6 +24,7 @@ public class HomePage {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	//FIXME WILL NOT NEED MAIN
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
