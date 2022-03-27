@@ -4,15 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.*;
 
 public class VotingBooth extends JPanel {
     JLabel label;
@@ -92,80 +84,87 @@ public class VotingBooth extends JPanel {
 
         voteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String command = group.getSelection().getActionCommand();
-                boolean broke = false;
+                boolean exit = false;
+                while (!exit) {
+                    String command = group.getSelection().getActionCommand();
+                    boolean broke = false;
+
 
                 // ok dialog
-                if (command == choosingA) {
-                    JOptionPane.showMessageDialog(frame,
-                            "Thank you for choosing " + a.getName() + "!");
-                    while(!broke) {
-                        String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
-                        if(value == null){
-                            value = "0";
-                        }
-                        int totel = Integer.parseInt(value);
-                        if (totel > bill.getFunds()) {
-                            JOptionPane.showMessageDialog(null, "Insufficent Funds");
-                        }
-                        else{
-                            broke = true;
-                            bill.setBet(totel);
-                            bill.setFunds(bill.getFunds() - totel);
-                            JOptionPane.showMessageDialog(null,"Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
-                        }
-                    }
 
-                    // yes/no dialog
-                } else if (command == choosingB) {
-                    JOptionPane.showMessageDialog(frame,
-                            "Thank you for choosing " + b.getName() + "!");
-                    while(!broke) {
-                        String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
-                        int totel = Integer.parseInt(value);
-                        if (totel > bill.getFunds()) {
-                            JOptionPane.showMessageDialog(null, "Insufficent Funds");
+                    if (command == choosingA) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Thank you for choosing " + a.getName() + "!");
+                        while (!broke) {
+                            String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                            if (value == null) {
+                                value = "0";
+                            }
+                            int totel = Integer.parseInt(value);
+                            if (totel > bill.getFunds()) {
+                                JOptionPane.showMessageDialog(null, "Insufficent Funds");
+                            } else {
+                                broke = true;
+                                exit = true;
+                                bill.setBet(totel);
+                                bill.setFunds(bill.getFunds() - totel);
+                                JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
+                            }
                         }
-                        else{
-                            broke = true;
-                            bill.setBet(totel);
-                            bill.setFunds(bill.getFunds() - totel);
-                            JOptionPane.showMessageDialog(null,"Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
+
+                        // yes/no dialog
+                    } else if (command == choosingB) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Thank you for choosing " + b.getName() + "!");
+                        while (!broke) {
+                            String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                            int totel = Integer.parseInt(value);
+                            if (totel > bill.getFunds()) {
+                                JOptionPane.showMessageDialog(null, "Insufficent Funds");
+                            } else {
+                                broke = true;
+                                exit = true;
+                                bill.setBet(totel);
+                                bill.setFunds(bill.getFunds() - totel);
+                                JOptionPane.showMessageDialog(null, "Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
+                            }
                         }
+                    } else {
+                        exit = true;
                     }
                 }
-                else{
-                    setVisible(false);
-                    System.exit(1);
-                }
+                JComponent comp = (JComponent) e.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
                 return;
             }
+
         });
         System.out.println("calling createPane");
         return createPane(simpleDialogDesc, radioButtons, voteButton);
     }
 
-        private JPanel createPane(String description, JRadioButton[] radioButtons,
-                                  JButton showButton) {
-            int numChoices = radioButtons.length;
-            JPanel box = new JPanel();
-            JLabel label = new JLabel(description);
+    private JPanel createPane(String description, JRadioButton[] radioButtons,
+                              JButton showButton) {
+        int numChoices = radioButtons.length;
+        JPanel box = new JPanel();
+        JLabel label = new JLabel(description);
 
-            box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
-            box.add(label);
+        box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
+        box.add(label);
 
-            for (int i = 0; i < numChoices; i++) {
-                box.add(radioButtons[i]);
-            }
-
-            JPanel pane = new JPanel();
-            pane.setLayout(new BorderLayout());
-            pane.add(box, BorderLayout.NORTH);
-            pane.add(showButton, BorderLayout.SOUTH);
-            pane.add(new DrawMyImgs());
-            System.out.println("returning pane");
-            return pane;
+        for (int i = 0; i < numChoices; i++) {
+            box.add(radioButtons[i]);
         }
+
+        JPanel pane = new JPanel();
+        pane.setLayout(new BorderLayout());
+        pane.add(box, BorderLayout.NORTH);
+        pane.add(showButton, BorderLayout.SOUTH);
+        pane.add(new DrawMyImgs());
+        System.out.println("returning pane");
+        return pane;
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("VoteDialog");
@@ -183,5 +182,3 @@ public class VotingBooth extends JPanel {
         frame.setVisible(true);
     }
 }
-
-

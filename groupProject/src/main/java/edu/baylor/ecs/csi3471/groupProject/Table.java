@@ -31,7 +31,7 @@ public class Table extends JPanel{
 
 
     //Creating the frame of the table, have to actually build table using something else
-    private static void createAndShowGUI() {
+    protected static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
