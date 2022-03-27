@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 public class Login {
 
-    public static void beginLoginProcess() {
+    public void beginLoginProcess() {
 
         final JFrame loginPage = new JFrame("Login");						// login page frame with name
         loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);			// closes frame upon clicking 'x'
@@ -74,6 +74,7 @@ public class Login {
                 if(fail) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         });
 
@@ -129,52 +130,8 @@ public class Login {
 
         forgotUsernameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent forgotUsername) {
-                JFrame frame = new JFrame("Forgot Username");				// creating instance of JFrame
-                frame.setSize(500, 500);									// 500 width and 500 height
-                frame.setLayout(new GridLayout(3, 2));
-                frame.setVisible(true);										// making the frame visible
-
-                final JLabel label = new JLabel("Please enter Email:");
-                label.setBounds(100, 110, 100, 40);
-
-                JButton submit = new JButton("Submit");						// creating instance of JButton
-                submit.setBounds(100, 70, 100, 40);							// x axis, y axis, width, height
-
-                final JLabel email = new JLabel("");
-                final JTextField usernameField = new JTextField(30);
-
-                submit.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Boolean found = false;
-
-                        // This will have to read from the database some information
-	                    /*
-	                    try {
-
-	                        // THIS WILL BE THE DATABASE
-	                    	Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
-	                        while(scanner.hasNextLine()){
-
-	                        	String line = scanner.nextLine();
-	                            String [] data = line.split(";");
-
-	                            if(data[2].equals(usernameField.getText())){
-	                                email.setText(data[0]);
-	                                found = true;
-	                            }
-	                        }
-	                        if(!found){
-	                            email.setText("Email not found");
-	                        }
-	                    } catch (FileNotFoundException f) {
-	                       // BAD FILE
-	                    }*/
-                    }
-                });
-
-                frame.add(label);
-                frame.add(usernameField);
-                frame.add(submit);							// adding button in JFrame
+                ForgotUsername forgotUser = new ForgotUsername();
+                forgotUser.createAndShowGUI();
 
             }
         });

@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -9,25 +10,41 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+//FIXME MAYBE IMPLEMENT TO ALSO DO FORGOT PASSWORD
 public class ForgotUsername extends JPanel {
     public ForgotUsername(){
+
+        //JFrame frame = new JFrame("Forgot Username");				// creating instance of JFrame
+        this.setSize(500, 500);									// 500 width and 500 height
+        this.setLayout(new GridLayout(3, 2));
+        this.setVisible(true);										// making the frame visible
+
+        final JLabel label = new JLabel("Please enter Email:");
+        label.setBounds(100, 110, 100, 40);
+
+        final JLabel email = new JLabel("");
+        final JTextField usernameField = new JTextField(30);
         final JTextField emailField = new JTextField(30);
         final JLabel username = new JLabel("");
+        username.setBounds(100, 100, 100, 40);
         JButton submit = new JButton("Submit");
+        submit.setBounds(100, 70, 100, 40);
 
         this.add(new JLabel("Email: "));
         this.add(emailField);
-        this.add(username);
+        //this.add(username);
 
+
+        //FIXME HAVING TROUBLE READING FROM THE FILE CURRENTLY
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Boolean found = false;
                 try {
-                    Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
+                    Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
                     while(scanner.hasNextLine()){
                         String line = scanner.nextLine();
-                        String [] data = line.split(";");
+                        String [] data = line.split("/t");
                         if(data[2].equals(emailField.getText())){
                             username.setText(data[0]);
                             found = true;
@@ -43,6 +60,7 @@ public class ForgotUsername extends JPanel {
             }
         });
 
+
         this.add(submit);
         this.add(username);
 
@@ -51,10 +69,10 @@ public class ForgotUsername extends JPanel {
 
 
 
-    private static void createAndShowGUI() {
+    protected void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
 
@@ -67,14 +85,14 @@ public class ForgotUsername extends JPanel {
         frame.pack();
         frame.setVisible(true);
     }
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                createAndShowGUI();
+//            }
+//        });
+//    }
 
 }
 
