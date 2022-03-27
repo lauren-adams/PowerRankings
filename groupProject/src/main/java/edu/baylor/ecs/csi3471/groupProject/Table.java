@@ -58,14 +58,19 @@ public class Table extends JPanel{
         //File selectedFile = openCSV();
 
         try (BufferedReader br = new BufferedReader(
-                new FileReader("data.txt"))) {
+                new FileReader("CharacterFile.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 //System.out.println(line);
                 //model.addRow(line.split(","));
-                Object[] row = line.split(",");
+                Object[] row = line.split("\t");
 
                 model.addRow(row);
+                model.setValueAt(row[0], rowNumber, 0);
+                model.setValueAt(row[1], rowNumber, 1);
+                String s = row[3] + "/" + row[4];
+                model.setValueAt(s, rowNumber, 2);
+                model.setValueAt(row[7], rowNumber, 3);
                 /*
                 if(row[0].equals("Dog")){
                     model.setValueAt("", rowNumber, 4);
