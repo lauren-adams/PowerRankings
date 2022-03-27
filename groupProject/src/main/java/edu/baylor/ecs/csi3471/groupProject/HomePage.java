@@ -35,6 +35,7 @@ public class HomePage {
 	//variable declarations
 		JPanel menuPanel;
 		final JButton editProfile, charSearch, leaderboard;
+
 		
 	//variable initialization
 		menuPanel = new JPanel();
@@ -43,6 +44,13 @@ public class HomePage {
 		editProfile.setFocusPainted(false);
 		
 		charSearch = new JButton("Search Characters");
+		charSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Table t = new Table();
+				t.createAndShowGUI();
+			}
+		});
 		charSearch.setFocusPainted(false);
 		
 		leaderboard = new JButton("View Leaderboards");

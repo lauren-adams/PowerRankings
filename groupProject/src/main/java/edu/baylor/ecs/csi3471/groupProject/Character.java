@@ -52,6 +52,14 @@ public class Character {
         id = id++;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -154,6 +162,13 @@ public class Character {
         return c;
     }
 
+    public String charToCSV(){
+        String ret = "\n";
+        ret += name + "\t" + world + "\t" + desc + "\t";
+        ret += win + "\t" + loss + "\t" + id + "\t" + picture + "\t" + owner;
+        return ret;
+    }
+
 
 }
 
@@ -165,6 +180,9 @@ class PizzaGridBagLayout extends JFrame{
 
     JTextField nameW = new JTextField(20), worldW = new JTextField(10), descW = new JTextField(20);
     JTextField recordW = new JTextField(20);
+    JTextField winsW = new JTextField(20);
+    JTextField lossesW = new JTextField(20);
+    JTextField ownerW = new JTextField(20);
 
     JButton closeButton = new JButton("Close");
 
@@ -177,6 +195,11 @@ class PizzaGridBagLayout extends JFrame{
         addItem(panel1, new JLabel("World:"), 0, 1, 1, 1, GridBagConstraints.EAST);
         addItem(panel1, new JLabel("Description:"), 0, 2, 1, 1, GridBagConstraints.EAST);
         addItem(panel1, new JLabel("Record:"), 0, 3, 1, 1, GridBagConstraints.EAST);
+        addItem(panel1, new JLabel("Wins"), 0, 4, 1, 1, GridBagConstraints.EAST);
+        addItem(panel1, new JLabel("Losses:"), 0, 5, 1, 1, GridBagConstraints.EAST);
+        addItem(panel1, new JLabel("Owner:"), 0, 6, 1, 1, GridBagConstraints.EAST);
+
+
 
 
         addItem(panel1, nameW, 1, 0, 2, 1, GridBagConstraints.WEST);
@@ -195,8 +218,24 @@ class PizzaGridBagLayout extends JFrame{
         rec += c.getLoss();
         recordW.setText(rec);
         recordW.setEditable(false);
-/*
+        addItem(panel1, winsW, 1, 4, 2, 1, GridBagConstraints.WEST);
+        winsW.setText(String.valueOf(c.getWin()));
+        winsW.setEditable(false);
+        addItem(panel1, lossesW, 1, 5, 2, 1, GridBagConstraints.WEST);
+        lossesW.setText(String.valueOf(c.getLoss()));
+        lossesW.setEditable(false);
+        addItem(panel1, ownerW, 1, 6, 2, 1, GridBagConstraints.WEST);
+        ownerW.setText(c.getOwner());
+        ownerW.setEditable(false);
+
+
         Image image = null;
+        try {
+            image = ImageIO.read(new File("noImage.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             URL url = new URL(c.getPicture());
             image = ImageIO.read(url);
@@ -212,7 +251,7 @@ class PizzaGridBagLayout extends JFrame{
 
         Box buttonBox = Box.createHorizontalBox();
         buttonBox.add(lblimage);
-        addItem(panel1, buttonBox, 2, 4, 1, 1, GridBagConstraints.NORTH);*/
+        addItem(panel1, buttonBox, 2, 8, 1, 1, GridBagConstraints.NORTH);
 
         this.add(panel1);
         this.pack();

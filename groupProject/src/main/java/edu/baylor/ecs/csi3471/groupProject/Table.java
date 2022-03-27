@@ -15,7 +15,7 @@ import java.io.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
-public class Table extends JPanel{
+public class Table extends JPanel {
     private JTable table;
     //dont think i need text field
     //dont think i need status text
@@ -38,7 +38,6 @@ public class Table extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-
         //Create and set up the content pane.
         Table newContentPane = new Table();
         newContentPane.setOpaque(true); //content panes must be opaque
@@ -49,7 +48,7 @@ public class Table extends JPanel{
         frame.setVisible(true);
     }
 
-    public Table(){
+    public Table() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         String[] columnNames = {"Name", "World", "Record", "Added By", "View", "Edit"};
@@ -60,7 +59,7 @@ public class Table extends JPanel{
 
         try (BufferedReader br = new BufferedReader(
                 new FileReader("CharacterFile.csv"))) {
-            String line =  br.readLine();
+            String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 //System.out.println(line);
                 //model.addRow(line.split(","));
@@ -73,10 +72,10 @@ public class Table extends JPanel{
                 System.out.println(row[4]);
                 Integer i = Integer.valueOf((String) row[3]);
                 Integer ii = Integer.valueOf((String) row[4]);
-                if (ii == 0){
+                if (ii == 0) {
                     ii = 1;
                 }
-                Double r = Double.valueOf(i /ii);
+                Double r = Double.valueOf(i / ii);
                 String s = row[3] + "/" + row[4];
                 s = String.valueOf(r);
                 model.setValueAt(s, rowNumber, 2);
@@ -104,8 +103,6 @@ public class Table extends JPanel{
         }
 
 
-
-
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
         table.setRowSorter(sorter);
@@ -128,7 +125,7 @@ public class Table extends JPanel{
         Action delete = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTable table = (JTable)e.getSource();
+                JTable table = (JTable) e.getSource();
                 int modelRow = Integer.valueOf(e.getActionCommand());
                 /***FIX MEEE -> get character and call display function***/
                 //((DefaultTableModel)table.getModel()).removeRow(modelRow);
@@ -153,7 +150,7 @@ public class Table extends JPanel{
         Action edit = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTable table = (JTable)e.getSource();
+                JTable table = (JTable) e.getSource();
                 int modelRow = Integer.valueOf(e.getActionCommand());
 
                 JTextField animalField = new JTextField(10);
@@ -165,13 +162,11 @@ public class Table extends JPanel{
                 idField.setText((String) model.getValueAt(modelRow, 1));
                 nameField.setText((String) model.getValueAt(modelRow, 2));
                 ageField.setText((String) model.getValueAt(modelRow, 3));
-                if(animalField.getText().equalsIgnoreCase("dog")){
+                if (animalField.getText().equalsIgnoreCase("dog")) {
                     infoField.setText((String) model.getValueAt(modelRow, 5));
-                }
-                else if(animalField.getText().equalsIgnoreCase("cat")){
+                } else if (animalField.getText().equalsIgnoreCase("cat")) {
                     infoField.setText((String) model.getValueAt(modelRow, 6));
-                }
-                else{
+                } else {
                     infoField.setText((String) model.getValueAt(modelRow, 4));
                 }
                 JPanel myPanel = new JPanel();
@@ -188,7 +183,7 @@ public class Table extends JPanel{
 
                 int result = JOptionPane.showConfirmDialog(null, myPanel,
                         "Enter values", JOptionPane.OK_CANCEL_OPTION);
-                if(result == JOptionPane.OK_OPTION){
+                if (result == JOptionPane.OK_OPTION) {
                     DefaultTableModel model = (DefaultTableModel) table.getModel();
                     model.setValueAt(animalField.getText(), modelRow, 0);
                     model.setValueAt(idField.getText(), modelRow, 1);
@@ -203,10 +198,19 @@ public class Table extends JPanel{
         ButtonColumn buttonColumn2 = new ButtonColumn(table, edit, 5);
         buttonColumn2.setMnemonic(KeyEvent.VK_E);
 
+        JButton submit = new JButton("Save");
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        add(submit);
 
 
     }
-    private JMenuBar initMenu(DefaultTableModel model){
+
+    private JMenuBar initMenu(DefaultTableModel model) {
         JMenuBar menuBar;
         JMenu menu;
         JMenuItem menuItem;
@@ -357,7 +361,7 @@ public class Table extends JPanel{
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultTableModel model = (DefaultTableModel)table.getModel();
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
                 String separator = ","; //add the character as specified ny user
                 JPanel myPanel = new JPanel();
                 final int numButtons = 3;
@@ -378,22 +382,20 @@ public class Table extends JPanel{
                     group.add(radioButtons[i]);
                 }
                 radioButtons[0].setSelected(true);
-                for(int i = 0; i < numButtons; i++){
+                for (int i = 0; i < numButtons; i++) {
                     myPanel.add(radioButtons[i]);
                 }
 
                 int result = JOptionPane.showConfirmDialog(null, myPanel,
                         "Enter values", JOptionPane.OK_CANCEL_OPTION);
-                if(result == JOptionPane.OK_OPTION){
+                if (result == JOptionPane.OK_OPTION) {
                     String command = group.getSelection().getActionCommand();
                     if (command == "comma") {
                         separator = ",";
 
-                    }
-                    else if (command == "semicolon") {
+                    } else if (command == "semicolon") {
                         separator = ";";
-                    }
-                    else{
+                    } else {
                         separator = "\t";
                     }
                     JFileChooser chooser = new JFileChooser();
@@ -405,26 +407,24 @@ public class Table extends JPanel{
                             FileWriter writer = new FileWriter(file);
                             int rowNum = model.getRowCount();
                             //writer.write(Integer.toString(rowNum));
-                            for(int i = 0; i < rowNum; i++){
-                                writer.write((String)model.getValueAt(i, 0));
+                            for (int i = 0; i < rowNum; i++) {
+                                writer.write((String) model.getValueAt(i, 0));
                                 writer.write(separator);
-                                writer.write((String)model.getValueAt(i, 1));
+                                writer.write((String) model.getValueAt(i, 1));
                                 writer.write(separator);
-                                writer.write((String)model.getValueAt(i, 2));
+                                writer.write((String) model.getValueAt(i, 2));
                                 writer.write(separator);
-                                writer.write((String)model.getValueAt(i, 3));
+                                writer.write((String) model.getValueAt(i, 3));
                                 writer.write(separator);
-                                if(((String)model.getValueAt(i, 0)).equalsIgnoreCase("dog")){
-                                    writer.write((String)model.getValueAt(i, 5));
+                                if (((String) model.getValueAt(i, 0)).equalsIgnoreCase("dog")) {
+                                    writer.write((String) model.getValueAt(i, 5));
                                     writer.write(separator);
-                                }
-                                else if(((String)model.getValueAt(i, 0)).equalsIgnoreCase("cat")){
+                                } else if (((String) model.getValueAt(i, 0)).equalsIgnoreCase("cat")) {
 
-                                    writer.write((String)model.getValueAt(i, 6));
+                                    writer.write((String) model.getValueAt(i, 6));
                                     writer.write(separator);
-                                }
-                                else if(((String)model.getValueAt(i, 0)).equalsIgnoreCase("pig")){
-                                    writer.write((String)model.getValueAt(i, 4));
+                                } else if (((String) model.getValueAt(i, 0)).equalsIgnoreCase("pig")) {
+                                    writer.write((String) model.getValueAt(i, 4));
                                     writer.write(separator);
                                 }
                                 writer.write(System.lineSeparator());
@@ -447,7 +447,7 @@ public class Table extends JPanel{
         return menuBar;
     }
 
-    public File openCSV(){
+    public File openCSV() {
         File selectedFile = null;
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -455,18 +455,32 @@ public class Table extends JPanel{
         if (result == JFileChooser.APPROVE_OPTION) {
             selectedFile = fc.getSelectedFile();
 
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "No file selected");
         }
         return selectedFile;
     }
 
+    public void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = x;
+        gc.gridy = y;
+        gc.gridwidth = width;
+        gc.gridheight = height;
+        gc.weightx = 100.0;
+        gc.weighty = 100.0;
+        gc.insets = new Insets(5, 5, 5, 5);
+        gc.anchor = align;
+        gc.fill = GridBagConstraints.NONE;
+        p.add(c, gc);
+    }
 
-    private final class AddLineActionListener implements ActionListener{
+
+    private final class AddLineActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            /*
             JTextField animalField = new JTextField(10);
             JTextField idField = new JTextField(10);
             JTextField nameField = new JTextField(10);
@@ -480,22 +494,84 @@ public class Table extends JPanel{
             myPanel.add(new JLabel("Wins/Losses: "));
             myPanel.add(nameField);
             myPanel.add(new JLabel("Added By: "));
-            myPanel.add(ageField);
+            myPanel.add(ageField);*/
             //**myPanel.add(new JLabel("Info (Optional): "));
             //myPanel.add(infoField);
+
+
+            JTextField nameW = new JTextField(20), worldW = new JTextField(10), descW = new JTextField(20);
+            JTextField recordW = new JTextField(20);
+            JTextField winsW = new JTextField(20);
+            JTextField lossesW = new JTextField(20);
+            JTextField ownerW = new JTextField(20);
+            JTextField picW = new JTextField(20);
+
+            JButton closeButton = new JButton("Add");
+            JPanel panel1 = new JPanel();
+            panel1.setLayout(new GridBagLayout());
+            addItem(panel1, new JLabel("Name:"), 0, 0, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("World:"), 0, 1, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Description:"), 0, 2, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Record:"), 0, 3, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Wins"), 0, 4, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Losses:"), 0, 5, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Owner:"), 0, 6, 1, 1, GridBagConstraints.EAST);
+            addItem(panel1, new JLabel("Picture:"), 0, 7, 1, 1, GridBagConstraints.EAST);
+
+
+            addItem(panel1, nameW, 1, 0, 2, 1, GridBagConstraints.WEST);
+            //nameW.setText(c.getName());
+            //nameW.setEditable(false);
+            addItem(panel1, worldW, 1, 1, 1, 1, GridBagConstraints.WEST);
+            //worldW.setText(c.getWorld());
+            //worldW.setEditable(false);
+            addItem(panel1, descW, 1, 2, 2, 1, GridBagConstraints.WEST);
+            //descW.setText(c.getDesc());
+            //descW.setEditable(false);
+            addItem(panel1, recordW, 1, 3, 2, 1, GridBagConstraints.WEST);
+            //String rec = "";
+            //rec += c.getWin();
+            //rec += "/";
+            // rec += c.getLoss();
+            //recordW.setText(rec);
+            //recordW.setEditable(false);
+            addItem(panel1, winsW, 1, 4, 2, 1, GridBagConstraints.WEST);
+            //winsW.setText(String.valueOf(c.getWin()));
+            //winsW.setEditable(false);
+            addItem(panel1, lossesW, 1, 5, 2, 1, GridBagConstraints.WEST);
+            //lossesW.setText(String.valueOf(c.getLoss()));
+            // lossesW.setEditable(false);
+            addItem(panel1, ownerW, 1, 6, 2, 1, GridBagConstraints.WEST);
+            //ownerW.setText(c.getOwner());
+            // ownerW.setEditable(false);
+            addItem(panel1, picW, 1, 7, 2, 1, GridBagConstraints.WEST);
+
+
             /*** Fix meeee to be able to add characters from csv***/
 
 
-
-            int result = JOptionPane.showConfirmDialog(null, myPanel,
+            int result = JOptionPane.showConfirmDialog(null, panel1,
                     "Enter values", JOptionPane.OK_CANCEL_OPTION);
-            if(result == JOptionPane.OK_OPTION){
+            if (result == JOptionPane.OK_OPTION) {
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.insertRow(0, new Object[]{ animalField.getText(), idField.getText(), nameField.getText(), ageField.getText(), "View", "Edit"});
-
+                Integer i = Integer.valueOf(winsW.getText());
+                Character c = new Character(nameW.getText(), worldW.getText(), descW.getText(), i, Integer.valueOf(lossesW.getText()), picW.getText(), ownerW.getText());
+                String res = c.charToCSV();
+                try {
+                    RandomAccessFile raf = new RandomAccessFile("CharacterFile.csv","rw");
+                    raf.seek(raf.length());
+                    raf.writeBytes(res);
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                model.insertRow(0, new Object[]{c.getName(), c.getWorld(),  String.valueOf(c.getRatio()), c.getOwner(),"View", "Edit"});
             }
+            ;
         }
     }
+
     private final class RemoveLineActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -515,3 +591,5 @@ public class Table extends JPanel{
         }
     }
 }
+
+
