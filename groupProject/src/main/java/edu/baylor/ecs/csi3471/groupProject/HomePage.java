@@ -5,13 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class HomePage {
 	
@@ -29,12 +23,21 @@ public class HomePage {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+	}
 	
 	
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		JButton editProfile, charSearch, leaderboard;
+		JButton editProfile, charSearch, leaderboard, viewCurrentRound;
 		
 	//variable initialization
 		menuPanel = new JPanel();
@@ -47,6 +50,9 @@ public class HomePage {
 		
 		leaderboard = new JButton("View Leaderboards");
 		leaderboard.setFocusPainted(false);
+
+		viewCurrentRound = new JButton("View Current Round");
+		viewCurrentRound.setFocusPainted(false);
 		
 	//leaderboard action listener
 		leaderboard.addActionListener(new ActionListener() {
@@ -84,6 +90,8 @@ public class HomePage {
 						t.createAndShowGUI();
 					}
 				});
+
+
 				
 			//add items to JFrame
 				buttonPanel.add(charLead);
@@ -94,11 +102,19 @@ public class HomePage {
 				selectLead.setVisible(true);
 			}
 		});
-		
+
+		viewCurrentRound.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VotingBooth booth = new VotingBooth();
+				booth.createAndShowGUI();
+			}
+		});
 	//add items to JPanel
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
+		menuPanel.add(viewCurrentRound);
 		
 	//return the menu JPanel
 		menuPanel.setVisible(true);
