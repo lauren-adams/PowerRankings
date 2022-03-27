@@ -166,7 +166,7 @@ public class VotingBooth extends JPanel {
         return pane;
     }
 
-    protected static void createAndShowGUI() {
+    protected void createAndShowGUI() {
         JFrame frame = new JFrame("VoteDialog");
 
 

@@ -34,7 +34,7 @@ public class HomePage {
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		final JButton editProfile, charSearch, leaderboard;
+		final JButton editProfile, charSearch, leaderboard, currentRound;
 
 		
 	//variable initialization
@@ -55,6 +55,8 @@ public class HomePage {
 		
 		leaderboard = new JButton("View Leaderboards");
 		leaderboard.setFocusPainted(false);
+
+
 		
 	//leaderboard action listener
 		leaderboard.addActionListener(new ActionListener() {
@@ -75,6 +77,8 @@ public class HomePage {
 				
 				userLead = new JButton("User Leaderboard");
 				userLead.setFocusPainted(false);
+
+
 				
 			//char leaderboard action listener
 				charLead.addActionListener(new ActionListener() {
@@ -105,11 +109,23 @@ public class HomePage {
 				selectLead.setVisible(true);
 			}
 		});
+		currentRound = new JButton("Current Round (fix placement later)");
+		currentRound.setFocusPainted(false);
+
+		currentRound.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VotingBooth booth = new VotingBooth();
+				booth.createAndShowGUI();
+			}
+		});
 		
 	//add items to JPanel
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
+		menuPanel.add(currentRound);
+
 		
 	//return the menu JPanel
 		menuPanel.setVisible(true);
