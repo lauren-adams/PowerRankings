@@ -35,7 +35,7 @@ public class Table extends JPanel {
     protected static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         //Create and set up the content pane.
@@ -155,28 +155,24 @@ public class Table extends JPanel {
 
                 JTextField animalField = new JTextField(10);
                 JTextField idField = new JTextField(10);
+                animalField.setText((String) model.getValueAt(modelRow, 0));
+                idField.setText((String) model.getValueAt(modelRow, 1));
+                Character c = new Character();
+                Character cc = c.findChar(animalField.getText(), idField.getText());
                 JTextField nameField = new JTextField(10);
                 JTextField ageField = new JTextField(10);
                 JTextField infoField = new JTextField(10);
-                animalField.setText((String) model.getValueAt(modelRow, 0));
-                idField.setText((String) model.getValueAt(modelRow, 1));
-                nameField.setText((String) model.getValueAt(modelRow, 2));
-                ageField.setText((String) model.getValueAt(modelRow, 3));
-                if (animalField.getText().equalsIgnoreCase("dog")) {
-                    infoField.setText((String) model.getValueAt(modelRow, 5));
-                } else if (animalField.getText().equalsIgnoreCase("cat")) {
-                    infoField.setText((String) model.getValueAt(modelRow, 6));
-                } else {
-                    infoField.setText((String) model.getValueAt(modelRow, 4));
-                }
+                nameField.setText(cc.getDesc());
+                ageField.setText(cc.getPicture());
+
                 JPanel myPanel = new JPanel();
                 myPanel.add(new JLabel("Name: "));
                 myPanel.add(animalField);
                 myPanel.add(new JLabel("World: "));
                 myPanel.add(idField);
-                myPanel.add(new JLabel("Record: "));
+                myPanel.add(new JLabel("Decription: "));
                 myPanel.add(nameField);
-                myPanel.add(new JLabel("Added By: "));
+                myPanel.add(new JLabel("Picture url: "));
                 myPanel.add(ageField);
                 /*myPanel.add(new JLabel("Info (Optional): "));
                 myPanel.add(infoField);*/
@@ -187,9 +183,13 @@ public class Table extends JPanel {
                     DefaultTableModel model = (DefaultTableModel) table.getModel();
                     model.setValueAt(animalField.getText(), modelRow, 0);
                     model.setValueAt(idField.getText(), modelRow, 1);
-                    model.setValueAt(nameField.getText(), modelRow, 2);
-                    model.setValueAt(ageField.getText(), modelRow, 3);
-
+                    //model.setValueAt(nameField.getText(), modelRow, 2);
+                    //model.setValueAt(ageField.getText(), modelRow, 3);
+                    cc.setName(animalField.getText());
+                    cc.setWorld(idField.getText());
+                    cc.setDesc(nameField.getText());
+                    cc.setPicture(ageField.getText());
+                    cc.updateCSV(c.getId());
                 }
 
             }
