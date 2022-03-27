@@ -16,7 +16,7 @@ public class VotingBooth extends JPanel {
     User bill = new User();
 
 
-    public VotingBooth(JFrame frame) {
+    public VotingBooth() {
         Character bert = new Character();
         Character gandhi = new Character();
         bert.setName("Bert");
@@ -24,7 +24,7 @@ public class VotingBooth extends JPanel {
         gandhi.setName("Ghandi");
         gandhi.setWorld("Clone High");
         bill.setFunds(1000);
-        this.frame = frame;
+        //this.frame = frame;
         JLabel title;
 
         // Create the components.
@@ -166,13 +166,13 @@ public class VotingBooth extends JPanel {
         return pane;
     }
 
-    public static void main(String[] args) {
+    protected static void createAndShowGUI() {
         JFrame frame = new JFrame("VoteDialog");
 
 
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new GridLayout(2, 1));
-        contentPane.add(new VotingBooth(frame));
+        contentPane.add(new VotingBooth());
 
 
         // Exit when the window is closed.

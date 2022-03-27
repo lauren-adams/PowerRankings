@@ -34,7 +34,7 @@ public class HomePage {
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		JButton editProfile, charSearch, leaderboard;
+		final JButton editProfile, charSearch, leaderboard;
 		
 	//variable initialization
 		menuPanel = new JPanel();
@@ -73,6 +73,8 @@ public class HomePage {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("character leaderboard selected");
+						Table t = new Table();
+						t.createAndShowGUI();
 					}
 				});
 				
@@ -84,6 +86,7 @@ public class HomePage {
 						t.createAndShowGUI();
 					}
 				});
+
 				
 			//add items to JFrame
 				buttonPanel.add(charLead);

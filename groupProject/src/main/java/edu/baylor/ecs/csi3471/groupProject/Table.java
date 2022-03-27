@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Table extends JPanel{
@@ -58,14 +59,28 @@ public class Table extends JPanel{
         //File selectedFile = openCSV();
 
         try (BufferedReader br = new BufferedReader(
-                new FileReader("data.txt"))) {
-            String line;
+                new FileReader("CharacterFile.csv"))) {
+            String line =  br.readLine();
             while ((line = br.readLine()) != null) {
                 //System.out.println(line);
                 //model.addRow(line.split(","));
-                Object[] row = line.split(",");
+                Object[] row = line.split("\t");
 
                 model.addRow(row);
+                model.setValueAt(row[0], rowNumber, 0);
+                model.setValueAt(row[1], rowNumber, 1);
+                System.out.println(row[3]);
+                System.out.println(row[4]);
+                Integer i = Integer.valueOf((String) row[3]);
+                Integer ii = Integer.valueOf((String) row[4]);
+                if (ii == 0){
+                    ii = 1;
+                }
+                Double r = Double.valueOf(i /ii);
+                String s = row[3] + "/" + row[4];
+                s = String.valueOf(r);
+                model.setValueAt(s, rowNumber, 2);
+                model.setValueAt(row[7], rowNumber, 3);
                 /*
                 if(row[0].equals("Dog")){
                     model.setValueAt("", rowNumber, 4);
@@ -118,11 +133,17 @@ public class Table extends JPanel{
                 /***FIX MEEE -> get character and call display function***/
                 //((DefaultTableModel)table.getModel()).removeRow(modelRow);
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
+                String n = (String) model.getValueAt(modelRow, 0);
+                String w = (String) model.getValueAt(modelRow, 1);
+                Character c = new Character();
+                Character ret = c.findChar(n, w);
+                ret.displayChar();
 
+/*
                 int answer = JOptionPane.showConfirmDialog(null, "Do you want to remove " + model.getValueAt(modelRow, 0) + " " + model.getValueAt(modelRow, 1) + "?", "Warning", JOptionPane.YES_NO_OPTION);
                 if (answer == 0) {
                     model.removeRow(modelRow);
-                }
+                }*/
             }
         };
 
