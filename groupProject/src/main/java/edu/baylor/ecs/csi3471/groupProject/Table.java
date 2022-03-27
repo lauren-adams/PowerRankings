@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
-
+/***TABLE EDIT DOES NOT UPDATE THE CSVVV***/
 public class Table extends JPanel {
     private JTable table;
     //dont think i need text field

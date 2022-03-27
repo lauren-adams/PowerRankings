@@ -12,5 +12,7 @@ public class Database {
 			System.out.println("caught");
 			e.printStackTrace();
 		}
+		//*** added so I could compile my code
+		return false;
 	}
 }

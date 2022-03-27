@@ -230,27 +230,19 @@ class PizzaGridBagLayout extends JFrame{
 
 
         Image image = null;
-        try {
-            image = ImageIO.read(new File("noImage.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Box buttonBox = Box.createHorizontalBox();
         try {
             URL url = new URL(c.getPicture());
             image = ImageIO.read(url);
+            JFrame frame = new JFrame();
+            Image newImage = image.getScaledInstance(300, 300, Image.SCALE_DEFAULT);
+
+            JLabel lblimage = new JLabel(new ImageIcon(newImage));
+            buttonBox.add(lblimage);
         }
         catch (IOException e) {
         }
 
-        JFrame frame = new JFrame();
-        Image newImage = image.getScaledInstance(300, 300, Image.SCALE_DEFAULT);
-
-        JLabel lblimage = new JLabel(new ImageIcon(newImage));
-
-
-        Box buttonBox = Box.createHorizontalBox();
-        buttonBox.add(lblimage);
         addItem(panel1, buttonBox, 2, 8, 1, 1, GridBagConstraints.NORTH);
 
         this.add(panel1);
