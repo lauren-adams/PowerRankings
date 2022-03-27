@@ -68,6 +68,23 @@ public class HomePage {
 				userLead = new JButton("User Leaderboard");
 				userLead.setFocusPainted(false);
 				
+			//char leaderboard action listener
+				charLead.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("character leaderboard selected");
+					}
+				});
+				
+			//user leaderboard action listener
+				userLead.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Table t = new Table();
+						t.createAndShowGUI();
+					}
+				});
+				
 			//add items to JFrame
 				buttonPanel.add(charLead);
 				buttonPanel.add(userLead);
