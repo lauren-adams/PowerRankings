@@ -8,11 +8,15 @@ import javax.swing.*;
 
 public class VotingBooth extends JPanel {
     JLabel label;
+
     JFrame frame;
+
     String simpleDialogDesc = "";
+
     User bill = new User();
-    //public VotingBooth(JFrame frame) {
-    public VotingBooth(){
+
+
+    public VotingBooth(JFrame frame) {
         Character bert = new Character();
         Character gandhi = new Character();
         bert.setName("Bert");
@@ -20,7 +24,7 @@ public class VotingBooth extends JPanel {
         gandhi.setName("Ghandi");
         gandhi.setWorld("Clone High");
         bill.setFunds(1000);
-        //this.frame = frame;
+        this.frame = frame;
         JLabel title;
 
         // Create the components.
@@ -78,50 +82,16 @@ public class VotingBooth extends JPanel {
 
         voteButton = new JButton("Vote");
 
-        JButton betButton = new JButton("Wager");
-
-        betButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean broke = false;
-                Character x = new Character();
-                String[] options = new String[] {a.getName(), b.getName()};
-                int response = JOptionPane.showOptionDialog(null, "Who are you wagering for?",
-                        "TYPE", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-                if(response == 0){
-                    x = a;
-                }
-                else if(response == 1){
-                    x = b;
-                }
-                else{
-                    broke = true;
-                }
-                while (!broke) {
-                    String value = JOptionPane.showInputDialog("How much are you Wagering?" + "\n You have " + bill.getFunds() + " coins.", "0");
-                    if (value == null) {
-                        value = "0";
-                    }
-                    int totel = Integer.parseInt(value);
-                    if (totel > bill.getFunds()) {
-                        JOptionPane.showMessageDialog(null, "Insufficent Funds");
-                    } else {
-                        broke = true;
-                        bill.setBet(totel);
-                        bill.setFunds(bill.getFunds() - totel);
-                        JOptionPane.showMessageDialog(null, "Total Wager on " + x.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
-                    }
-                }
-                return;
-            }
-        });
-
         voteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boolean exit = false;
                 while (!exit) {
                     String command = group.getSelection().getActionCommand();
                     boolean broke = false;
+
+
+                // ok dialog
+
                     if (command == choosingA) {
                         JOptionPane.showMessageDialog(frame,
                                 "Thank you for choosing " + a.getName() + "!");
@@ -171,11 +141,11 @@ public class VotingBooth extends JPanel {
 
         });
         System.out.println("calling createPane");
-        return createPane(simpleDialogDesc, radioButtons, voteButton, betButton);
+        return createPane(simpleDialogDesc, radioButtons, voteButton);
     }
 
     private JPanel createPane(String description, JRadioButton[] radioButtons,
-                              JButton showButton, JButton Wager) {
+                              JButton showButton) {
         int numChoices = radioButtons.length;
         JPanel box = new JPanel();
         JLabel label = new JLabel(description);
@@ -191,21 +161,18 @@ public class VotingBooth extends JPanel {
         pane.setLayout(new BorderLayout());
         pane.add(box, BorderLayout.NORTH);
         pane.add(showButton, BorderLayout.SOUTH);
-        pane.add(Wager, BorderLayout.EAST);
         pane.add(new DrawMyImgs());
         System.out.println("returning pane");
         return pane;
     }
 
-    //public static void main(String[] args) {
-    protected void createAndShowGUI() {
+    public static void main(String[] args) {
         JFrame frame = new JFrame("VoteDialog");
 
 
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new GridLayout(2, 1));
-        //contentPane.add(new VotingBooth(frame));
-        contentPane.add(new VotingBooth());
+        contentPane.add(new VotingBooth(frame));
 
 
         // Exit when the window is closed.
