@@ -3,9 +3,11 @@ package edu.baylor.ecs.csi3471.groupProject;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,18 +21,34 @@ public class Character {
     static Integer id = 0;
     String picture = "";
     Double ratio = 0.0;
+    String owner = "";
 
     Character(){
         id = id++;
     }
 
-    Character(String name, String world, String desc, Integer win, Integer loss, String picture){
+    Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
         this.name = name;
         this.world = world;
         this.desc = desc;
         this.win = win;
         this.loss = loss;
         this.picture = picture;
+        this.owner = owner;
+        id = id++;
+    }
+
+    Character(String line){
+        String[] split = line.split("\t");
+        this.name = split[0];
+        this.world = split[1];
+        this.desc = split[2];
+        this.win = Integer.valueOf(split[3]);
+        this.loss = Integer.valueOf(split[4]);
+        this.id = Integer.valueOf(split[5]);
+        this.picture = split[6];
+        this.owner = split[7];
+        ratio = Double.valueOf(win/loss);
         id = id++;
     }
 
@@ -112,6 +130,30 @@ public class Character {
         //This may open a dialog box to see character data
     }
 
+    public Character findChar(String name, String world){
+        File file = new File("CharacterFile.csv");
+
+        try {
+            Scanner scanner = new Scanner(file);
+
+            //now read the file line by line...
+            int lineNum = 0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[]split = line.split("\t");
+                lineNum++;
+                if(split[0].equals(name) && split[1].equals(world)) {
+                    Character c = new Character(line);
+                    return c;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Character c = new Character();
+        return c;
+    }
+
 
 }
 
@@ -153,8 +195,8 @@ class PizzaGridBagLayout extends JFrame{
         rec += c.getLoss();
         recordW.setText(rec);
         recordW.setEditable(false);
-
-        Image image = null;/* w  ww .  ja  v  a 2 s.c o m*/
+/*
+        Image image = null;
         try {
             URL url = new URL(c.getPicture());
             image = ImageIO.read(url);
@@ -170,7 +212,7 @@ class PizzaGridBagLayout extends JFrame{
 
         Box buttonBox = Box.createHorizontalBox();
         buttonBox.add(lblimage);
-        addItem(panel1, buttonBox, 2, 4, 1, 1, GridBagConstraints.NORTH);
+        addItem(panel1, buttonBox, 2, 4, 1, 1, GridBagConstraints.NORTH);*/
 
         this.add(panel1);
         this.pack();

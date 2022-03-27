@@ -123,11 +123,17 @@ public class Table extends JPanel{
                 /***FIX MEEE -> get character and call display function***/
                 //((DefaultTableModel)table.getModel()).removeRow(modelRow);
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
+                String n = (String) model.getValueAt(modelRow, 0);
+                String w = (String) model.getValueAt(modelRow, 1);
+                Character c = new Character();
+                Character ret = c.findChar(n, w);
+                ret.displayChar();
 
+/*
                 int answer = JOptionPane.showConfirmDialog(null, "Do you want to remove " + model.getValueAt(modelRow, 0) + " " + model.getValueAt(modelRow, 1) + "?", "Warning", JOptionPane.YES_NO_OPTION);
                 if (answer == 0) {
                     model.removeRow(modelRow);
-                }
+                }*/
             }
         };
 
