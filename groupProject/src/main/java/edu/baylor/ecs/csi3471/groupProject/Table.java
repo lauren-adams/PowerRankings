@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Table extends JPanel{
@@ -59,7 +60,7 @@ public class Table extends JPanel{
 
         try (BufferedReader br = new BufferedReader(
                 new FileReader("CharacterFile.csv"))) {
-            String line;
+            String line =  br.readLine();
             while ((line = br.readLine()) != null) {
                 //System.out.println(line);
                 //model.addRow(line.split(","));
@@ -68,7 +69,16 @@ public class Table extends JPanel{
                 model.addRow(row);
                 model.setValueAt(row[0], rowNumber, 0);
                 model.setValueAt(row[1], rowNumber, 1);
+                System.out.println(row[3]);
+                System.out.println(row[4]);
+                Integer i = Integer.valueOf((String) row[3]);
+                Integer ii = Integer.valueOf((String) row[4]);
+                if (ii == 0){
+                    ii = 1;
+                }
+                Double r = Double.valueOf(i /ii);
                 String s = row[3] + "/" + row[4];
+                s = String.valueOf(r);
                 model.setValueAt(s, rowNumber, 2);
                 model.setValueAt(row[7], rowNumber, 3);
                 /*
