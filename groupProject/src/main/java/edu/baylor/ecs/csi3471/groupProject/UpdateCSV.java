@@ -2,7 +2,7 @@ package edu.baylor.ecs.csi3471.groupProject;
 
 
 import java.io.*;
-
+/*
 //Used to update the csv holding all of the user info without deleteing all the older data
 //just writes to the file
 public class UpdateCSV {
@@ -52,4 +52,4 @@ public class UpdateCSV {
     public void updateCurrentVote(){
 
     }
-}
+}*/
