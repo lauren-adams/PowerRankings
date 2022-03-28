@@ -153,6 +153,16 @@ public class HomePage {
 
 
 		menuPanel.add(picLabel);
+		if(Main.curUser.isAdmin()){
+			JButton shuffle = new JButton("Shuffle");
+			shuffle.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//FIXME
+				}
+			});
+			menuPanel.add(shuffle);
+		}
 
 
 		
