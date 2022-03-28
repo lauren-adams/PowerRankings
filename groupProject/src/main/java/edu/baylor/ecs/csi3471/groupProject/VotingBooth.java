@@ -17,6 +17,7 @@ public class VotingBooth extends JPanel {
 
 
     public VotingBooth() {
+        //FIXME get the current characters for current round from the file instead
         Character bert = new Character();
         Character gandhi = new Character();
         bert.setName("Bert");
@@ -26,6 +27,7 @@ public class VotingBooth extends JPanel {
         bill.setFunds(1000);
         //this.frame = frame;
         JLabel title;
+
 
         // Create the components.
         JPanel choicePanel = createSimpleDialogBox(bert, gandhi);
@@ -44,6 +46,18 @@ public class VotingBooth extends JPanel {
         add(title, BorderLayout.NORTH);
         add(label, BorderLayout.SOUTH);
         add(choicePanel, BorderLayout.CENTER);
+
+        if(Main.curUser.isAdmin()){
+            JButton endRound = new JButton("End Round");
+            endRound.setPreferredSize(new Dimension(100, 30));
+            endRound.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //FIXME GO TO NEXT ROUND FUNCTIONALITY
+                }
+            });
+            add(endRound, BorderLayout.WEST);
+        }
     }
 
     void setLabel(String newText) {
@@ -177,6 +191,7 @@ public class VotingBooth extends JPanel {
 
         // Exit when the window is closed.
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(700, 600));
 
         frame.pack();
         frame.setVisible(true);

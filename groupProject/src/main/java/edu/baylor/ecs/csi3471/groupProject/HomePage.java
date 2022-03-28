@@ -158,7 +158,7 @@ public class HomePage {
 			shuffle.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//FIXME
+					//FIXME add the generate bracket function here, only for admins
 				}
 			});
 			menuPanel.add(shuffle);
