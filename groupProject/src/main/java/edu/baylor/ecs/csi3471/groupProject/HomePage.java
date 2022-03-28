@@ -34,7 +34,7 @@ public class HomePage {
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		final JButton editProfile, charSearch, leaderboard, currentRound, createChar;
+		final JButton editProfile, charSearch, leaderboard, currentRound;
 
 		
 	//variable initialization
@@ -105,8 +105,8 @@ public class HomePage {
 				userLead.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						UserTable ut = new UserTable();
-						ut.createAndShowUserGUI();
+						Table t = new Table();
+						t.createAndShowGUI();
 					}
 				});
 
@@ -132,23 +132,11 @@ public class HomePage {
 			}
 		});
 		
-		createChar = new JButton("Create Character");
-		createChar.setFocusPainted(false);
-		
-		createChar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CreateCharacter c = new CreateCharacter();
-				c.createAndShowGUI();
-			}
-		});
-		
 	//add items to JPanel
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
 		menuPanel.add(currentRound);
-		menuPanel.add(createChar);
 
 
 		BufferedImage image = null;
@@ -159,23 +147,12 @@ public class HomePage {
 		}
 
 
-		Image scaledImage = image.getScaledInstance(850,500,Image.SCALE_SMOOTH);
+		Image scaledImage = image.getScaledInstance(800,500,Image.SCALE_SMOOTH);
 
 		JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
 
 
 		menuPanel.add(picLabel);
-		if(Main.curUser.isAdmin()){
-			JButton shuffle = new JButton("Shuffle");
-			shuffle.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					//FIXME add the generate bracket function here, only for admins
-				}
-			});
-			menuPanel.add(shuffle);
-		}
-
 
 		
 	//return the menu JPanel

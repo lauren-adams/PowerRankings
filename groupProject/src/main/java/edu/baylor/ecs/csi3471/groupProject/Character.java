@@ -48,7 +48,15 @@ public class Character {
         this.id = Integer.valueOf(split[5]);
         this.picture = split[6];
         this.owner = split[7];
-        ratio = Double.valueOf(win/loss);
+        if(loss != 0)
+        {
+            this.ratio = Double.valueOf(win/loss);
+        }
+        else
+        {
+            this.ratio = Double.valueOf(win);
+        }
+
         id = id++;
     }
 
