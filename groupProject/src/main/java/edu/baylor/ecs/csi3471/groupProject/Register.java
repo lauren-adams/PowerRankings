@@ -28,7 +28,7 @@ public class Register {
 	Integer emailMinSize 	= 3;
 	Integer emailMaxSize 	= 320;
 	Integer IDSize			= 20;
-	String delim = ",";
+	String delim = "/t";
 	final RegisterForm registerForm = new RegisterForm(); 						// display registration form
 	JFrame RegisterPage = new JFrame("Register"); 								// register page frame with name
 
@@ -118,7 +118,7 @@ public class Register {
 																    JOptionPane.YES_NO_OPTION);
 						if(answer == 0) {
 							try {
-								FileWriter out = new FileWriter(new File(".").getCanonicalPath() + "/UserFile.csv", true);
+								FileWriter out = new FileWriter(new File(".").getCanonicalPath() + "/UserFile.tsv", true);
 								out.append(registerForm.getUserNameField().getText());
 								out.append(delim);
 								out.append(registerForm.getPasswordField().getText());
