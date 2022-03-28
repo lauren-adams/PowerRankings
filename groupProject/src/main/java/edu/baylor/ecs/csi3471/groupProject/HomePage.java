@@ -1,24 +1,22 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class HomePage {
 	static String currUsername;
 	protected static void createAndShowGUI(String username) {
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(960, 540);
+		mainFrame.setSize(960, 600);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
@@ -41,6 +39,7 @@ public class HomePage {
 		
 	//variable initialization
 		menuPanel = new JPanel();
+
 		
 		editProfile = new JButton("Edit Profile");
 		editProfile.addActionListener(new ActionListener() {
@@ -121,7 +120,7 @@ public class HomePage {
 				selectLead.setVisible(true);
 			}
 		});
-		currentRound = new JButton("Current Round (fix placement later)");
+		currentRound = new JButton("Current Round");
 		currentRound.setFocusPainted(false);
 
 		currentRound.addActionListener(new ActionListener() {
@@ -136,6 +135,23 @@ public class HomePage {
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
+
+
+
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File("bracket_template.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+		Image scaledImage = image.getScaledInstance(800,500,Image.SCALE_SMOOTH);
+
+		JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
+
+
+		menuPanel.add(picLabel);
 		menuPanel.add(currentRound);
 
 		
