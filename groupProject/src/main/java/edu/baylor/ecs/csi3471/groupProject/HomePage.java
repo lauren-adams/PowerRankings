@@ -147,12 +147,13 @@ public class HomePage {
 		}
 
 
-		Image scaledImage = image.getScaledInstance(800,500,Image.SCALE_SMOOTH);
+		Image scaledImage = image.getScaledInstance(850,500,Image.SCALE_SMOOTH);
 
 		JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
 
 
 		menuPanel.add(picLabel);
+
 
 		
 	//return the menu JPanel

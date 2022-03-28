@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Database {
+	public static int userLine;
 	
 	protected boolean isUsernameTaken(String username){
 		//Scan user file, seeing if a username matches the attempted username
@@ -50,11 +51,14 @@ public class Database {
     	try {
 			Scanner sc = new Scanner(new File("UserFile.tsv"));
 			String data[];
+			int curLine = 0;
 			while(sc.hasNextLine()) {
 				data = sc.nextLine().split("\t");
 				if(username.equals(data[0])) {
+					userLine = curLine;
 					return true;
 				}
+				curLine++;
 			}
 			return false;
 		} catch (FileNotFoundException e) {

@@ -7,9 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -23,6 +21,7 @@ import javax.swing.JTextField;
 
 public class Login {
 	static Database d = new Database();
+
 	
     public void beginLoginProcess() {
 
@@ -66,6 +65,25 @@ public class Login {
                 	validatePassword(loginForm.getPasswordField().getText());*/
                 	if(validateLogin(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText())) {
                 		loginPage.setVisible(false);
+
+                        //create user here
+                        FileInputStream fs= null;
+                        try {
+                            fs = new FileInputStream("UserFile.tsv");
+                            BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+                            for(int i = 0; i < Database.userLine; ++i){
+                                br.readLine();
+                            }
+
+                            String lineIWant = br.readLine();
+                            String [] data = lineIWant.split("\t");
+                            Main.curUser = new User(data);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
                 		HomePage h = new HomePage();
                 		h.createAndShowGUI(loginForm.getUsernameField().getText());
                 	}else {
