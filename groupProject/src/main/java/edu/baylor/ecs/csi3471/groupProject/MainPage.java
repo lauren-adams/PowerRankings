@@ -50,15 +50,15 @@ public class MainPage {
 	    
 	    loginButton.addActionListener(new ActionListener() {			// login action
 			public void actionPerformed(ActionEvent change) {
-				Login login = new Login();
-				login.beginLoginProcess();
+				//Login login = new Login();
+				//login.beginLoginProcess();
 			}
 	    });
 	    
 	    registerButton.addActionListener(new ActionListener() {			// register action
 			public void actionPerformed(ActionEvent change) {
-				Register register = new Register();
-				register.beginRegistration();
+				//Register register = new Register();
+				//register.beginRegistration();
 			}
 	    });
 	    
