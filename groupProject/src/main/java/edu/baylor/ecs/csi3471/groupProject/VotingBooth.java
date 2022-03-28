@@ -13,7 +13,7 @@ public class VotingBooth extends JPanel {
 
     String simpleDialogDesc = "";
 
-    User bill = new User();
+    User bill = Main.curUser;
 
 
     public VotingBooth() {
@@ -24,7 +24,6 @@ public class VotingBooth extends JPanel {
         bert.setWorld("Seasame Street");
         gandhi.setName("Ghandi");
         gandhi.setWorld("Clone High");
-        bill.setFunds(1000);
         //this.frame = frame;
         JLabel title;
 
@@ -121,8 +120,12 @@ public class VotingBooth extends JPanel {
                                 broke = true;
                                 exit = true;
                                 bill.setBet(totel);
-                                bill.setFunds(bill.getFunds() - totel);
-                                JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
+                                //bill.setFunds(bill.getFunds() - totel);
+                                bill.setVoted(true);
+                                bill.setCurrentVote(a.getName());
+                                UpdateCSV update = new UpdateCSV();
+                                update.updateFunds();
+                                JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }
                         }
 
@@ -142,8 +145,13 @@ public class VotingBooth extends JPanel {
                                 broke = true;
                                 exit = true;
                                 bill.setBet(totel);
-                                bill.setFunds(bill.getFunds() - totel);
-                                JOptionPane.showMessageDialog(null, "Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + bill.getFunds() + " coins.");
+                                //bill.setFunds(bill.getFunds() - totel);
+                                bill.setVoted(true);
+                                bill.setCurrentVote(b.getName());
+                                UpdateCSV update = new UpdateCSV();
+                                update.updateFunds();
+                                //FIXME TRACK NUMBER OF VOTES PER CHARACTER
+                                JOptionPane.showMessageDialog(null, "Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }
                         }
                     } else {

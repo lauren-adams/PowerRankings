@@ -1,4 +1,4 @@
 Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote
 jack	jack	jack@gmail.com	Jack	34	0	0	false	true	User1	Superman
-ryan	ryan	ryan@gmail.com	Ryan	20	1000	0	false	true	Cool dude	null
-test	test	test@gmail.com	testNonAdmin	5	0	0	false	false	TESTER	null
+ryan	ryan	ryan@gmail.com	Ryan	20	1000	200	true	true	Cool dude	Bert
+test	test	test@gmail.com	testNonAdmin	5	0	0	false	false	This is a tester user so we can make sure admin privileges are separate	null
