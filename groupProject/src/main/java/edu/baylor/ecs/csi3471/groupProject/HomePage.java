@@ -120,6 +120,7 @@ public class HomePage {
 				selectLead.setVisible(true);
 			}
 		});
+		
 		currentRound = new JButton("Current Round");
 		currentRound.setFocusPainted(false);
 
@@ -135,7 +136,7 @@ public class HomePage {
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
-
+		menuPanel.add(currentRound);
 
 
 		BufferedImage image = null;
@@ -152,7 +153,6 @@ public class HomePage {
 
 
 		menuPanel.add(picLabel);
-		menuPanel.add(currentRound);
 
 		
 	//return the menu JPanel
