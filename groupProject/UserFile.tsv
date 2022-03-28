@@ -1,3 +1,3 @@
 Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote
-jack	jack	jack@gmail.com	Jack	34	0	0	false	true	User1	Superman
-ryan	ryan	ryan@gmail.com	20	1000	0	false	true	Description	null
+jack	jack	jack@gmail.com	Jack	33	0	0	false	true	User1	Superman
+ryan	ryan	ryan@gmail.com	Ryan	20	1000	0	false	true	Description	null

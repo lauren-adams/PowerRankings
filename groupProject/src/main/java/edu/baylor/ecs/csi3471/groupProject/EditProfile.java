@@ -60,6 +60,7 @@ public class EditProfile extends JPanel {
 	                } catch (IOException e1) {
 	                    throw new NoSuchElementException("This user does not exist");
 	                }
+	                editFrame.dispose();
 	            }
 	
 	        });
@@ -92,7 +93,7 @@ public class EditProfile extends JPanel {
 	        editFrame.add(editPanel);
 	        
 	        editFrame.setVisible(true);
-	        editFrame.setSize(400, 300);
+	        editFrame.setSize(325, 300);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
@@ -128,6 +129,7 @@ public class EditProfile extends JPanel {
         ArrayList<User> users = new ArrayList<User>();
         BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
         String line = "";
+        br.readLine();
 
         while ((line = br.readLine()) != null) {
             String[] user = line.split("\t");
@@ -151,11 +153,21 @@ public class EditProfile extends JPanel {
             if (u.getUsername().equals(user.getUsername())) {
                 u = user;
             }
-            data.add(new String[]
-                    {u.getUsername(), u.getPassword(), u.getEmail(), u.getName(), String.valueOf(u.getAge()), String.valueOf(u.getFunds()), String.valueOf(u.getBet()), String.valueOf(u.isVoted()), String.valueOf(u.isAdmin()), u.getDescription(), u.getCurrentVote()});
+            data.add(new String[]{u.getUsername(), u.getPassword(), u.getEmail(), u.getName(), 
+            		String.valueOf(u.getAge()), String.valueOf(u.getFunds()), String.valueOf(u.getBet()), 
+            		String.valueOf(u.isVoted()), String.valueOf(u.isAdmin()), u.getDescription(), 
+            		u.getCurrentVote()});
         }
 
-
+        File tsvOut = new File("UserFile.tsv");
+        PrintWriter pw = new PrintWriter(tsvOut);
+        pw.write("Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote");
+        pw.write("\n");
+        for(String s[]: data) {
+        	pw.write(String.join("\t", s));
+        	pw.write("\n");
+        }
+        pw.close();
         //File csvOutputFile = new File("UserFile.csv");
         //try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             //data.stream().map(this::convertToCSV).forEach(pw::println);
