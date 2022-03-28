@@ -93,7 +93,12 @@ public class TournamentBracketFrame
                 if(i == (iBeg + iEnd)/2)
                 {
                     xCoord += xInc;
-                    yCoord = y;
+
+                    if(i!=13)
+                    {
+                        yCoord = y;
+                    }
+
                 }
                 URL url = new URL(myChars[i].getPicture());
                 Image tempImg = ImageIO.read(url);
@@ -145,14 +150,14 @@ public class TournamentBracketFrame
 
         myBigPane = addImagesToBracket(myChars, myBigPane, 0, 75, 450, 175, 0, 8);
         myBigPane = addImagesToBracket(myChars, myBigPane, 175, 180, 120, 350, 8, 12);
-        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 375, 100, 30, 12, 14);
+        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 390, 120, -80, 12, 14);
 
 //        frame.add(myBigPane);
 //        frame.setVisible(true);
 
         return myBigPane;
     }
-//
+
 //    public static void main(String[] args)
 //    {
 //        TournamentBracketFrame tBracket = new TournamentBracketFrame();
