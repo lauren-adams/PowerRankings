@@ -67,6 +67,9 @@ public class Login {
                 		loginPage.setVisible(false);
                 		HomePage h = new HomePage();
                 		h.createAndShowGUI();
+                		d.setCurrUsername(loginForm.getUsernameField().getText());
+                	}else {
+                        JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 	}
                 } catch (NullPointerException e) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -154,7 +157,8 @@ public class Login {
 
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent r) {
-                Register register = new Register();
+                loginPage.setVisible(false);
+            	Register register = new Register();
                 register.beginRegistration();
             }
         });

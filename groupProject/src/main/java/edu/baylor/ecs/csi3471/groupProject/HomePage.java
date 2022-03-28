@@ -41,6 +41,12 @@ public class HomePage {
 		menuPanel = new JPanel();
 		
 		editProfile = new JButton("Edit Profile");
+		editProfile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//EditProfile e = new EditProfile();
+			}
+		});
 		editProfile.setFocusPainted(false);
 		
 		charSearch = new JButton("Characters");

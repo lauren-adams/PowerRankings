@@ -17,7 +17,9 @@ import javax.swing.JOptionPane;
 public class Register {
 
     void beginRegistration() {
-        JFrame RegisterPage = new JFrame("Register");						// register page frame with name
+        Database d = new Database();
+    	
+    	JFrame RegisterPage = new JFrame("Register");						// register page frame with name
         RegisterPage.setExtendedState(JFrame.MAXIMIZED_BOTH);				// make frame full screen
 
         JMenuBar registerMenuBar = new JMenuBar();    						// title menu bar
