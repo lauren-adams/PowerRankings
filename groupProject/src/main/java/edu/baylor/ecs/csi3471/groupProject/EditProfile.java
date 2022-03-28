@@ -22,54 +22,59 @@ import javax.swing.JTextField;
 
 public class EditProfile extends JPanel {
 
-    public EditProfile(String username) throws Exception {
-        final User user = getUserByUsername(username);
-
-        JLabel name = new JLabel("Name");
-        JLabel age = new JLabel("Age");
-        JLabel description = new JLabel("Description");
-
-        final JTextField nameInput = new JTextField();
-        final JTextField ageInput = new JTextField();
-        final JTextField descInput = new JTextField();
-
-        nameInput.setText(user.getName());
-        ageInput.setText(String.valueOf(user.getAge()));
-        descInput.setText(user.getDescription());
-
-        JButton editButton = new JButton("Save");
-
-        editButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                user.setName(nameInput.getText());
-                user.setAge(Integer.valueOf(ageInput.getText()));
-                user.setDescription(descInput.getText());
-
-                try {
-                    updateUser(user);
-                } catch (IOException e1) {
-                    throw new NoSuchElementException("This user does not exist");
-                }
-            }
-
-        });
-
-        nameInput.setColumns(30);
-        ageInput.setColumns(30);
-        descInput.setColumns(30);
-
-        add(name);
-        add(nameInput);
-
-        add(age);
-        add(ageInput);
-
-        add(description);
-        add(descInput);
-
-        add(editButton);
+    public EditProfile(String username){
+        User user;
+		try {
+			user = getUserByUsername(username);
+			
+	        JLabel name = new JLabel("Name");
+	        JLabel age = new JLabel("Age");
+	        JLabel description = new JLabel("Description");
+	
+	        final JTextField nameInput = new JTextField();
+	        final JTextField ageInput = new JTextField();
+	        final JTextField descInput = new JTextField();
+	
+	        nameInput.setText(user.getName());
+	        ageInput.setText(String.valueOf(user.getAge()));
+	        descInput.setText(user.getDescription());
+	
+	        JButton editButton = new JButton("Save");
+	
+	        editButton.addActionListener(new ActionListener() {
+	
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                user.setName(nameInput.getText());
+	                user.setAge(Integer.valueOf(ageInput.getText()));
+	                user.setDescription(descInput.getText());
+	
+	                try {
+	                    updateUser(user);
+	                } catch (IOException e1) {
+	                    throw new NoSuchElementException("This user does not exist");
+	                }
+	            }
+	
+	        });
+	
+	        nameInput.setColumns(30);
+	        ageInput.setColumns(30);
+	        descInput.setColumns(30);
+	
+	        add(name);
+	        add(nameInput);
+	
+	        add(age);
+	        add(ageInput);
+	
+	        add(description);
+	        add(descInput);
+	
+	        add(editButton);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
     }
 
     public User getUserByUsername(String username) throws Exception {

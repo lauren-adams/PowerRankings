@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Database {
-	String currUserUsername;
 	
 	protected boolean isUsernameTaken(String username){
 		//Scan user file, seeing if a username matches the attempted username
@@ -63,12 +62,4 @@ public class Database {
 			return false;
 		}
     }
-	
-	protected void setCurrUsername(String username) {
-		currUserUsername = username;
-	}
-	
-	protected String getCurrUsername() {
-		return currUserUsername;
-	}
 }

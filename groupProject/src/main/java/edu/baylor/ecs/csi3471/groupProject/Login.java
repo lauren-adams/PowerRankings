@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 public class Login {
 	static Database d = new Database();
+	
     public void beginLoginProcess() {
 
         final JFrame loginPage = new JFrame("Login");						// login page frame with name
@@ -66,8 +67,7 @@ public class Login {
                 	if(validateLogin(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText())) {
                 		loginPage.setVisible(false);
                 		HomePage h = new HomePage();
-                		h.createAndShowGUI();
-                		d.setCurrUsername(loginForm.getUsernameField().getText());
+                		h.createAndShowGUI(loginForm.getUsernameField().getText());
                 	}else {
                         JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 	}

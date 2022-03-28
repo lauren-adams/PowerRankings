@@ -14,8 +14,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class HomePage {
-	
-	protected static void createAndShowGUI() {
+	static String currUsername;
+	protected static void createAndShowGUI(String username) {
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
 		mainFrame.setSize(960, 540);
@@ -28,6 +28,8 @@ public class HomePage {
 		//set mainFrame to true
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		currUsername = username;
 	}
 	
 	
@@ -44,7 +46,11 @@ public class HomePage {
 		editProfile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//EditProfile e = new EditProfile();
+				try {
+					EditProfile ep = new EditProfile(currUsername);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		editProfile.setFocusPainted(false);
