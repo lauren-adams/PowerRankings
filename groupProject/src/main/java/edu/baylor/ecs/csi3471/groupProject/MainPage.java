@@ -1,19 +1,14 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class MainPage {
 	
@@ -68,6 +63,8 @@ public class MainPage {
 	    mainPage.setJMenuBar(titleMenuBar);
 	    mainPage.getContentPane().add(lowerPageLabel, BorderLayout.CENTER);
 	    mainPage.getContentPane().add(menuSelectionLabel, BorderLayout.EAST);
+
+
 	    
 	    mainPage.setVisible(true);
 	}
