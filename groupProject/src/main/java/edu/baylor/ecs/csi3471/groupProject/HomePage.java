@@ -34,7 +34,7 @@ public class HomePage {
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		final JButton editProfile, charSearch, leaderboard, currentRound;
+		final JButton editProfile, charSearch, leaderboard, currentRound, createChar;
 
 		
 	//variable initialization
@@ -132,11 +132,23 @@ public class HomePage {
 			}
 		});
 		
+		createChar = new JButton("Create Character");
+		createChar.setFocusPainted(false);
+		
+		createChar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CreateCharacter c = new CreateCharacter();
+				c.createAndShowGUI();
+			}
+		});
+		
 	//add items to JPanel
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
 		menuPanel.add(currentRound);
+		menuPanel.add(createChar);
 
 
 		BufferedImage image = null;
