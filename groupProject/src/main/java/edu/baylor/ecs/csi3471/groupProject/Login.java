@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
 
 
 public class Login {
-
+	static Database d = new Database();
     public void beginLoginProcess() {
 
         final JFrame loginPage = new JFrame("Login");						// login page frame with name
@@ -56,7 +57,21 @@ public class Login {
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent submit) {
-                boolean fail = false;
+                try {
+                	/*loginForm.getUsernameField().getText();
+                	validateUsername(loginForm.getUsernameField().getText());
+                	
+                	loginForm.getPasswordField().getText();
+                	validatePassword(loginForm.getPasswordField().getText());*/
+                	if(validateLogin(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText())) {
+                		loginPage.setVisible(false);
+                		HomePage h = new HomePage();
+                		h.createAndShowGUI();
+                	}
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            	/*boolean fail = false;
 
                 if (loginForm.getUsernameField().getText().isEmpty()) {
                     fail = true;
@@ -73,7 +88,7 @@ public class Login {
 
                 if(fail) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+                }*/
 
             }
         });
@@ -155,8 +170,20 @@ public class Login {
     }
 
     // TODO FINISH ALL FUNCTIONS BELOW must have access to database to see if the person exists
-    static void validateUsername(String username) {
-        boolean pass = false;
+    static boolean validateUsername(String username) {
+        /*boolean pass = false;
+
+        if(pass == true) {
+
+        }
+        else {
+            //validateUserEmail();
+        }*/
+    	return d.validateUsername(username);
+    }
+
+    static boolean validatePassword(String username, String password) {
+        /*boolean pass = false;
 
         if(pass == true) {
 
@@ -164,24 +191,12 @@ public class Login {
         else {
             validateUserEmail();
         }
+		*/
+    	return d.validatePassword(username, password);
     }
 
-    // TODO
-    static void validatePassword(String userId) {
-        boolean pass = false;
-
-        if(pass == true) {
-
-        }
-        else {
-            validateUserEmail();
-        }
-
-    }
-
-    static // TODO
-    void validateUserEmail() {
-        boolean pass = false;
+    static boolean validateUserEmail(String email) {
+        /*boolean pass = false;
         Integer attempts = 0;
 
         while(attempts < 3 && !pass) {
@@ -189,14 +204,17 @@ public class Login {
             // call user class or database to get unique ID
 
             if(pass == true) {
-
-            }
-
-            else {
+            	
+            }else {
                 JOptionPane.showMessageDialog(null,"Invalid email","ERROR", JOptionPane.ERROR_MESSAGE);
                 attempts++;
             }
-        }
+        }*/
+    	return true;
+    }
+    
+    static boolean validateLogin(String username, String password) {
+    	return validateUsername(username) && validatePassword(username, password);
     }
 
     // TODO

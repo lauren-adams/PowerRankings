@@ -41,7 +41,16 @@ public class Register {
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent submit) {
-                boolean fail = false;
+                try {
+                	registerForm.getUserNameField().getText();
+                	//validateUsername(registerForm.getUserNameField().getText());
+                	
+                	registerForm.getPasswordField().getText();
+                	//validatePassword(loginForm.getPasswordField().getText());
+                } catch(NullPointerException e) {
+                    JOptionPane.showMessageDialog(registerForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            	/*boolean fail = false;
 
                 if (registerForm.getUserNameField().getText().isEmpty()) {
                     fail = true;
@@ -58,7 +67,7 @@ public class Register {
 
                 if(fail) {
                     JOptionPane.showMessageDialog(registerForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+                }*/
             }
         });
 
