@@ -138,13 +138,14 @@ public class TournamentBracketFrame
         Character[] myChars = initTournamentCharacters();
 
         JLayeredPane myBigPane = new JLayeredPane();
-        imgPanel.setBounds(0, 0, 550, 550);
+        //imgPanel.setBounds(0, 0, 550, 550);
+        imgPanel.setBounds(0, 50, 550, 650);
 
         myBigPane.add(imgPanel, JLayeredPane.DEFAULT_LAYER);
 
-        myBigPane = addImagesToBracket(myChars, myBigPane, 0, 10, 450, 140, 0, 8);
-        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 80, 120, 300, 8, 12);
-        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 275, 100, 200, 12, 14);
+        myBigPane = addImagesToBracket(myChars, myBigPane, 0, 75, 450, 175, 0, 8);
+        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 180, 120, 350, 8, 12);
+        myBigPane = addImagesToBracket(myChars, myBigPane, 175, 375, 100, 30, 12, 14);
 
 //        frame.add(myBigPane);
 //        frame.setVisible(true);

@@ -16,13 +16,27 @@ public class HomePage {
 	protected static void createAndShowGUI(String username) {
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(960, 600);
+		mainFrame.setSize(550, 750);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
 		//mainFrame.add(addMenu(), BorderLayout.CENTER);
-		mainFrame.add(addMenu());
+		//GridLayout g = new GridLayout(2, 1);
 		
+		JPanel menuPanel = addMenu();
+		menuPanel.setBounds(0, 0, 550, 50);
+		mainFrame.add(menuPanel);
+		
+		TournamentBracketFrame f = new TournamentBracketFrame();
+		JLayeredPane layered = f.getBracket();
+		
+		layered.setBounds(0, 50, 550, 750);
+		
+		
+		mainFrame.add(layered);
+		
+		
+		//mainFrame.setLayout(g);
 		//set mainFrame to true
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,8 +152,7 @@ public class HomePage {
 		menuPanel.add(leaderboard);
 		menuPanel.add(currentRound);
 
-
-		BufferedImage image = null;
+		/*BufferedImage image = null;
 		try {
 			image = ImageIO.read(new File("bracket_template.png"));
 		} catch (IOException e) {
@@ -152,7 +165,7 @@ public class HomePage {
 		JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
 
 
-		menuPanel.add(picLabel);
+		menuPanel.add(picLabel);*/
 
 		
 	//return the menu JPanel
