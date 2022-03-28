@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,6 +26,10 @@ public class EditProfile extends JPanel {
 
     public EditProfile(String username){
         User user;
+        
+        JFrame editFrame = new JFrame("Edit Profile");
+        JPanel editPanel = new JPanel();
+        
 		try {
 			user = getUserByUsername(username);
 			
@@ -62,7 +68,7 @@ public class EditProfile extends JPanel {
 	        ageInput.setColumns(30);
 	        descInput.setColumns(30);
 	
-	        add(name);
+	        /*add(name);
 	        add(nameInput);
 	
 	        add(age);
@@ -71,18 +77,33 @@ public class EditProfile extends JPanel {
 	        add(description);
 	        add(descInput);
 	
-	        add(editButton);
+	        add(editButton);*/
+	        editPanel.add(name);
+	        editPanel.add(nameInput);
+	
+	        editPanel.add(age);
+	        editPanel.add(ageInput);
+	
+	        editPanel.add(description);
+	        editPanel.add(descInput);
+	
+	        editPanel.add(editButton);
+	        
+	        editFrame.add(editPanel);
+	        
+	        editFrame.setVisible(true);
+	        editFrame.setSize(400, 300);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
     }
 
     public User getUserByUsername(String username) throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader("/groupProject/UserFile.csv"));
+        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
         String line = "";
 
         while ((line = br.readLine()) != null) {
-            String[] user = line.split(",");
+            String[] user = line.split("\t");
             User curr = new User(user);
 
             if (curr.getUsername() == username) {
@@ -90,16 +111,26 @@ public class EditProfile extends JPanel {
             }
         }
 
-        throw new NoSuchElementException("This user does not exist");
+        throw new NoSuchElementException("This user does not exist");*/
+    	Scanner sc = new Scanner(new File("UserFile.tsv"));
+    	String data[];
+    	while(sc.hasNextLine()) {
+    		data = sc.nextLine().split("\t");
+    		if(data[0].equals(username)) {
+    			User curr = new User(data);
+    			return curr;
+    		}
+    	}
+    	throw new NoSuchElementException("This user does not exist");
     }
 
     public static ArrayList<User> getUsers() throws IOException {
         ArrayList<User> users = new ArrayList<User>();
-        BufferedReader br = new BufferedReader(new FileReader("/groupProject/UserFile.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
         String line = "";
 
         while ((line = br.readLine()) != null) {
-            String[] user = line.split(",");
+            String[] user = line.split("\t");
             User curr = new User(user);
 
             users.add(curr);
@@ -125,14 +156,9 @@ public class EditProfile extends JPanel {
         }
 
 
-        File csvOutputFile = new File("/groupProject/UserFile.csv");
-        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-            data.stream().map(this::convertToCSV).forEach(pw::println);
-        }
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(400, 300);
+        File csvOutputFile = new File("UserFile.tsv");
+        //try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+            //data.stream().map(this::convertToTSV).forEach(pw::println);
+        //}
     }
 }

@@ -16,19 +16,22 @@ public class User
     private String description;
     private String currentVote;
 
-    User(String[] data)
-    {
-        this.username = data[0];
-        this.password = data[1];
-        this.email = data[2];
-        this.name = data[3];
-        this.age = Integer.getInteger(data[4]);
-        this.funds = Integer.getInteger(data[5]);
-        this.bet = Integer.getInteger(data[6]);
-        this.voted = Boolean.getBoolean(data[7]);
-        this.admin = Boolean.getBoolean(data[8]);
-        this.description = data[9];
-        this.currentVote = data[10];
+    User(String[] data){
+    	try {
+    		this.username = data[0];
+	        this.password = data[1];
+	        this.email = data[2];
+	        this.name = data[3];
+	        this.age = Integer.parseInt(data[4]);
+	        this.funds = Integer.parseInt(data[5]);
+	        this.bet = Integer.parseInt(data[6]);
+	        this.voted = Boolean.parseBoolean(data[7]);
+	        this.admin = Boolean.parseBoolean(data[8]);
+	        this.description = data[9];
+	        this.currentVote = data[10];
+    	} catch (NullPointerException e) {
+    		e.printStackTrace();
+    	}
     }
 
     User()
