@@ -74,7 +74,7 @@ public class Login {
                 } catch (NullPointerException e) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-            	/*boolean fail = false;
+            	boolean fail = false;
 
                 if (loginForm.getUsernameField().getText().isEmpty()) {
                     fail = true;
@@ -86,12 +86,12 @@ public class Login {
                     fail = true;
                 }
                 else {
-                    validatePassword(loginForm.getPasswordField().getText());
+                    //validatePassword(loginForm.getPasswordField().getText());
                 }
 
                 if(fail) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
-                }*/
+                }
 
             }
         });

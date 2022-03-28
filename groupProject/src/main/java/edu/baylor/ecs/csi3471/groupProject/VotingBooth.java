@@ -176,7 +176,7 @@ public class VotingBooth extends JPanel {
 
 
         // Exit when the window is closed.
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.pack();
         frame.setVisible(true);

@@ -28,14 +28,14 @@ public class ForgotUsername extends JPanel {
         final JLabel username = new JLabel("");
         username.setBounds(100, 100, 100, 40);
         JButton submit = new JButton("Submit");
-        submit.setBounds(100, 70, 100, 40);
+        submit.setBounds(50, 70, 50, 40);
 
         this.add(new JLabel("Email: "));
         this.add(emailField);
         //this.add(username);
 
 
-        //FIXME HAVING TROUBLE READING FROM THE FILE CURRENTLY
+
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +44,7 @@ public class ForgotUsername extends JPanel {
                     Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
                     while(scanner.hasNextLine()){
                         String line = scanner.nextLine();
-                        String [] data = line.split("/t");
+                        String [] data = line.split("\t");
                         if(data[2].equals(emailField.getText())){
                             username.setText(data[0]);
                             found = true;
