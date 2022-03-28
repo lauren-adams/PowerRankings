@@ -105,8 +105,8 @@ public class HomePage {
 				userLead.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						Table t = new Table();
-						t.createAndShowGUI();
+						UserTable ut = new UserTable();
+						ut.createAndShowUserGUI();
 					}
 				});
 
