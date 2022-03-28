@@ -1,81 +1,67 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class CreateCharacter {
 	protected void createAndShowGUI() {
-		/*//declaration of variables
-		GridLayout g = new GridLayout(4, 3);
-		JFrame createFrame;
-		JLabel nameLabel, descLabel, urlLabel;
-		JTextField nameField, descField, urlField;
-		
-		//initialization of variables
-		createFrame = new JFrame("Create Character");
-		
-		nameLabel = new JLabel("Name:");
-		nameField = new JTextField();
-		//nameField.setColumns(30);
-		
-		descLabel = new JLabel("Description:");
-		descField = new JTextField();
-		//descField.setColumns(30);
-		
-		urlLabel = new JLabel("Photo URL:");
-		urlField = new JTextField();
-		//urlField.setColumns(30);
-		
-		//adding elements and listeners
-		createFrame.add(nameLabel);
-		createFrame.add(nameField);
-		
-		createFrame.add(descLabel);
-		createFrame.add(descField);
-		
-		createFrame.add(urlLabel);
-		createFrame.add(urlField);
-		
-		//setting visible
-		createFrame.setLayout(g);
-		createFrame.pack();
-		createFrame.setVisible(true);*/
-		
 		//declaration of variables
-		GridLayout g = new GridLayout(4, 3);
 		JFrame createFrame;
-		JLabel nameLabel, descLabel, urlLabel;
-		JTextField nameField, descField, urlField;
+		JLabel nameLabel, worldLabel, descLabel, urlLabel;
+		JTextField nameField, worldField, descField, urlField;
+		JPanel createPanel;
+		JButton createButton;
 		
 		//initialization of variables
 		createFrame = new JFrame("Create Character");
+		createPanel = new JPanel();
+		createButton = new JButton("Create");
 		
-		nameLabel = new JLabel("Name:");
+		nameLabel = new JLabel("Name:           ");
 		nameField = new JTextField();
-		//nameField.setColumns(30);
+		nameField.setColumns(30);
+		
+		worldLabel = new JLabel("World: ");
+		worldField = new JTextField();
+		worldField.setColumns(30);
 		
 		descLabel = new JLabel("Description:");
 		descField = new JTextField();
-		//descField.setColumns(30);
+		descField.setColumns(30);
 		
-		urlLabel = new JLabel("Photo URL:");
+		urlLabel = new JLabel("Photo URL:  ");
 		urlField = new JTextField();
-		//urlField.setColumns(30);
+		urlField.setColumns(30);
 		
-		//adding elements and listeners
-		createFrame.add(nameLabel);
-		createFrame.add(nameField);
+		//adding listeners
+		createButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
-		//createFrame.add(descLabel);
-		//createFrame.add(descField);
+		//adding elements
+		createPanel.add(nameLabel);
+		createPanel.add(nameField);
 		
-		//createFrame.add(urlLabel);
-		//createFrame.add(urlField);
+		createPanel.add(descLabel);
+		createPanel.add(descField);
+		
+		createPanel.add(urlLabel);
+		createPanel.add(urlField);
+		
+		createPanel.add(createButton);
+		
+		createFrame.add(createPanel);
 		
 		//setting visible
-		//createFrame.setLayout(g);
-		createFrame.pack();
+		createFrame.setSize(400, 150);
 		createFrame.setVisible(true);
 	}
+	
+	//protected void check
 }
