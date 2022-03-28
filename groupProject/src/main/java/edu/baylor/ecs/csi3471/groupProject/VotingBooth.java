@@ -132,6 +132,9 @@ public class VotingBooth extends JPanel {
                                 "Thank you for choosing " + b.getName() + "!");
                         while (!broke) {
                             String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
+                            if (value == null) {
+                                value = "0";
+                            }
                             int totel = Integer.parseInt(value);
                             if (totel > bill.getFunds()) {
                                 JOptionPane.showMessageDialog(null, "Insufficent Funds");
