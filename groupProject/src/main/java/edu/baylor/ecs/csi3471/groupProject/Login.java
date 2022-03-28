@@ -18,10 +18,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
 public class Login {
 	static Database d = new Database();
-
+	final static private LoginForm loginForm = new LoginForm();
+	final static private String delim = "\t";
 	
     public void beginLoginProcess() {
 
@@ -58,11 +58,6 @@ public class Login {
 
             public void actionPerformed(ActionEvent submit) {
                 try {
-                	/*loginForm.getUsernameField().getText();
-                	validateUsername(loginForm.getUsernameField().getText());
-                	
-                	loginForm.getPasswordField().getText();
-                	validatePassword(loginForm.getPasswordField().getText());*/
                 	if(validateLogin(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText())) {
                 		loginPage.setVisible(false);
 
@@ -76,7 +71,7 @@ public class Login {
                             }
 
                             String lineIWant = br.readLine();
-                            String [] data = lineIWant.split("\t");
+                            String [] data = lineIWant.split(delim);
                             Main.curUser = new User(data);
 
                         } catch (IOException e) {
@@ -98,13 +93,13 @@ public class Login {
                     fail = true;
                 }
                 else {
-                    validateUsername(loginForm.getUsernameField().getText());
+                    d.validateUsername(loginForm.getUsernameField().getText());
                 }
                 if(loginForm.getPasswordField().getText().isEmpty()) {
                     fail = true;
                 }
                 else {
-                    //validatePassword(loginForm.getPasswordField().getText());
+                    d.validatePassword(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText());
                 }
 
                 if(fail) {
@@ -138,7 +133,7 @@ public class Login {
 
                         try {
                             // THIS SHOULD BE THE DATABASE
-                            Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
+                            Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
                             while(scanner.hasNextLine()){
                                 String line = scanner.nextLine();
                                 String [] data = line.split(";");
@@ -160,7 +155,6 @@ public class Login {
                 frame.add(label);
                 frame.add(emailField);
                 frame.add(submit);							// adding button in JFrame
-
             }
         });
 
@@ -171,7 +165,6 @@ public class Login {
 
             }
         });
-
 
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent r) {
@@ -191,68 +184,8 @@ public class Login {
         loginPage.setVisible(true);
     }
 
-    // TODO FINISH ALL FUNCTIONS BELOW must have access to database to see if the person exists
-    static boolean validateUsername(String username) {
-        /*boolean pass = false;
-
-        if(pass == true) {
-
-        }
-        else {
-            //validateUserEmail();
-        }*/
-    	return d.validateUsername(username);
-    }
-
-    static boolean validatePassword(String username, String password) {
-        /*boolean pass = false;
-
-        if(pass == true) {
-
-        }
-        else {
-            validateUserEmail();
-        }
-		*/
-    	return d.validatePassword(username, password);
-    }
-
-    static boolean validateUserEmail(String email) {
-        /*boolean pass = false;
-        Integer attempts = 0;
-
-        while(attempts < 3 && !pass) {
-
-            // call user class or database to get unique ID
-
-            if(pass == true) {
-            	
-            }else {
-                JOptionPane.showMessageDialog(null,"Invalid email","ERROR", JOptionPane.ERROR_MESSAGE);
-                attempts++;
-            }
-        }*/
-    	return true;
-    }
-    
     static boolean validateLogin(String username, String password) {
-    	return validateUsername(username) && validatePassword(username, password);
+    	return d.validateUsername(username) && d.validatePassword(username, password);
     }
-
-    // TODO
-    void endLoginProcess() {
-
-    }
-
-
-    void activeUser(String userId) {
-
-        // sets the user to active
-    }
-
-
-    void searchDataBase() {
-
-    }
-
 }
+
