@@ -16,7 +16,7 @@ public class HomePage {
 	protected static void createAndShowGUI(String username) {
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(550, 750);
+		mainFrame.setSize(650, 750);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
@@ -24,7 +24,7 @@ public class HomePage {
 		//GridLayout g = new GridLayout(2, 1);
 		
 		JPanel menuPanel = addMenu();
-		menuPanel.setBounds(0, 0, 550, 50);
+		menuPanel.setBounds(0, 0, 650, 50);
 		mainFrame.add(menuPanel);
 		
 		TournamentBracketFrame f = new TournamentBracketFrame();
@@ -48,7 +48,7 @@ public class HomePage {
 	protected static JPanel addMenu() {
 	//variable declarations
 		JPanel menuPanel;
-		final JButton editProfile, charSearch, leaderboard, currentRound;
+		final JButton editProfile, charSearch, leaderboard, currentRound, createChar;
 
 		
 	//variable initialization
@@ -81,7 +81,8 @@ public class HomePage {
 		leaderboard = new JButton("View Leaderboards");
 		leaderboard.setFocusPainted(false);
 
-
+		createChar = new JButton("Create Character");
+		createChar.setFocusPainted(false);
 		
 	//leaderboard action listener
 		leaderboard.addActionListener(new ActionListener() {
@@ -151,6 +152,7 @@ public class HomePage {
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
 		menuPanel.add(currentRound);
+		menuPanel.add(createChar);
 
 		/*BufferedImage image = null;
 		try {
