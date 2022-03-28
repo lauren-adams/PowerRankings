@@ -16,7 +16,7 @@ public class HomePage {
 	protected static void createAndShowGUI(String username) {
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(960, 540);
+		mainFrame.setSize(960, 600);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
@@ -120,7 +120,7 @@ public class HomePage {
 				selectLead.setVisible(true);
 			}
 		});
-		currentRound = new JButton("Current Round (fix placement later)");
+		currentRound = new JButton("Current Round");
 		currentRound.setFocusPainted(false);
 
 		currentRound.addActionListener(new ActionListener() {
@@ -135,7 +135,7 @@ public class HomePage {
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
-		menuPanel.add(currentRound);
+
 
 
 		BufferedImage image = null;
@@ -152,6 +152,7 @@ public class HomePage {
 
 
 		menuPanel.add(picLabel);
+		menuPanel.add(currentRound);
 
 		
 	//return the menu JPanel
