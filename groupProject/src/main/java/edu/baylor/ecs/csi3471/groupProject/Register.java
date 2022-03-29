@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 import java.util.Random;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.*;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -33,7 +35,6 @@ public class Register {
 	JFrame RegisterPage = new JFrame("Register"); 								// register page frame with name
 
 	void beginRegistration() {
-		
 		RegisterPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 					// make frame full screen
 
 		JMenuBar registerMenuBar = new JMenuBar(); 								// title menu bar
@@ -44,11 +45,10 @@ public class Register {
 		title.setOpaque(true); 													// make opaque
 		title.setFont(new Font("roboto condensed", Font.PLAIN, 50)); 			// font of title
 		title.setBackground(Color.BLACK); 										// make title background black
-
 		registerMenuBar.add(title); 											// add title to title menu bar
 		
 		verifyRegistrationForm(); 												// ensures user fills out form correctly
-
+	
 		RegisterPage.setJMenuBar(registerMenuBar);
 		RegisterPage.getContentPane().add(registerForm);
 		RegisterPage.setVisible(true);
@@ -83,7 +83,7 @@ public class Register {
 				} 
 				else {
 					if(created) {
-						ageAnalysis(submitButton);
+						created = ageAnalysis(submitButton);
 					}
 				}
 				if((registerForm.getEmailField().getText().isEmpty() || registerForm.getEmailField().getText() == null) && created) { 
@@ -144,7 +144,9 @@ public class Register {
 				}
 			}
 		});
-		registerForm.add(submitButton);
+		
+		submitButton.setBackground(Color.BLACK);
+		registerForm.add(submitButton, BorderLayout.SOUTH);
 	}
 
 	// checks user name and nickname: ensures names meet requirements
