@@ -1,21 +1,29 @@
+/*
 package edu.baylor.ecs.csi3471.groupProject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.AttributedCharacterIterator;
 
 
 public class DrawMyImgs extends JPanel {
+    DrawMyImgs(Character a, Character b){
+
+    }
     public void paint(Graphics g) {
         //Image img1 = Toolkit.getDefaultToolkit().getImage("C:\\Users\\18326\\Downloads\\bert.png");
-        Image img1 = urlToImage("https://i.imgflip.com/ave7a.jpg");
+        Image img1 = urlToImage(a.getPicture());
+        System.out.println(a.getPicture());
         g.drawImage(img1, 0, 0, 100, 100, this);
 
 
-        Image img2 = urlToImage("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/800px-Mahatma-Gandhi%2C_studio%2C_1931.jpg");
+        Image img2 = urlToImage(b.getPicture());
+        System.out.println(b.getPicture());
         g.drawImage(img2, 200, 0, 100, 100, this);
 
         //Image img2 = Toolkit.getDefaultToolkit().getImage("")
@@ -39,3 +47,5 @@ public class DrawMyImgs extends JPanel {
     }
 }
 
+
+ */
