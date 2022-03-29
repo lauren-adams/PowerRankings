@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -149,8 +150,17 @@ public class HomePage {
 		currentRound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VotingBooth booth = new VotingBooth();
-				booth.createAndShowGUI();
+				VotingBooth booth = null;
+				try {
+					booth = new VotingBooth();
+				} catch (FileNotFoundException ex) {
+					ex.printStackTrace();
+				}
+				try {
+					booth.createAndShowGUI();
+				} catch (FileNotFoundException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 		
