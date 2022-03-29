@@ -15,9 +15,10 @@ import javax.swing.*;
 public class HomePage {
 	static String currUsername;
 	protected static void createAndShowGUI(String username) {
+		currUsername = username;
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(700, 750);
+		mainFrame.setSize(750, 750);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
@@ -25,7 +26,7 @@ public class HomePage {
 		//GridLayout g = new GridLayout(2, 1);
 		
 		JPanel menuPanel = addMenu();
-		menuPanel.setBounds(0, 0, 700, 50);
+		menuPanel.setBounds(0, 0, 750, 50);
 		mainFrame.add(menuPanel);
 		
 		TournamentBracketFrame f = new TournamentBracketFrame();
@@ -41,8 +42,6 @@ public class HomePage {
 		//set mainFrame to true
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		currUsername = username;
 	}
 	
 	
@@ -158,6 +157,9 @@ public class HomePage {
 		});
 		
 	//add items to JPanel
+		DailyCheckIn d = new DailyCheckIn();
+		menuPanel.add(d.showBalance(currUsername));
+		
 		menuPanel.add(editProfile);
 		menuPanel.add(charSearch);
 		menuPanel.add(leaderboard);
