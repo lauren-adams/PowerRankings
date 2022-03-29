@@ -3,8 +3,13 @@ package edu.baylor.ecs.csi3471.groupProject;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 
 public class VotingBooth extends JPanel {
     JLabel label;
@@ -16,14 +21,17 @@ public class VotingBooth extends JPanel {
     User bill = Main.curUser;
 
 
-    public VotingBooth() {
+    public VotingBooth() throws MalformedURLException {
         //FIXME get the current characters for current round from the file instead
         Character bert = new Character();
         Character gandhi = new Character();
         bert.setName("Bert");
         bert.setWorld("Seasame Street");
+        bert.setPicture("https://alchetron.com/cdn/bert-sesame-street-77a70cdc-09ba-406a-87c7-f3eed5e0952-resize-750.jpeg");
         gandhi.setName("Ghandi");
         gandhi.setWorld("Clone High");
+        gandhi.setPicture("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/800px-Mahatma-Gandhi%2C_studio%2C_1931.jpg");
+
         //this.frame = frame;
         JLabel title;
 
@@ -63,7 +71,7 @@ public class VotingBooth extends JPanel {
         label.setText(newText);
     }
 
-    private JPanel createSimpleDialogBox(final Character a, final Character b) {
+    private JPanel createSimpleDialogBox(final Character a, final Character b) throws MalformedURLException {
         final int numButtons = 3;
         JRadioButton[] radioButtons = new JRadioButton[numButtons];
 
@@ -78,18 +86,37 @@ public class VotingBooth extends JPanel {
         radioButtons[0] = new JRadioButton(
                 a.getName() + " from " + a.getWorld());
         radioButtons[0].setActionCommand(choosingA);
+        URL url  = new URL(a.getPicture());
+        ImageIcon img1 = new ImageIcon(url, "Option");
+        Image image = img1.getImage(); // transform it
+        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        img1 = new ImageIcon(newimg);
+        radioButtons[0].setIcon(img1);
 
         radioButtons[1] = new JRadioButton(
                 b.getName() + " from " + b.getWorld());
         radioButtons[1].setActionCommand(choosingB);
+        URL url2  = new URL(b.getPicture());
+        ImageIcon img2 = new ImageIcon(url2, "Option");
+        Image image2 = img2.getImage(); // transform it
+        Image newimg2 = image2.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        img2 = new ImageIcon(newimg2);
+        radioButtons[1].setIcon(img2);
 
         radioButtons[2] = new JRadioButton(
                 "SKIP");
         radioButtons[2].setActionCommand(Skip);
 
+        JPanel subPanel = new JPanel();
+        subPanel.setOpaque(false);
+
         for (int i = 0; i < numButtons; i++) {
             group.add(radioButtons[i]);
+            subPanel.add(radioButtons[i]);
         }
+
+
+
         // Select the first button by default.
         radioButtons[0].setSelected(true);
 
@@ -168,7 +195,18 @@ public class VotingBooth extends JPanel {
         System.out.println("calling createPane");
         return createPane(simpleDialogDesc, radioButtons, voteButton);
     }
-
+/*
+    public ImageIcon urlToImage(String b){
+        URL url = null;
+        try {
+            url  = new URL(b);
+            ImageIcon img1 = new ImageIcon(url, "Option");
+            return img1;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+*/
     private JPanel createPane(String description, JRadioButton[] radioButtons,
                               JButton showButton) {
         int numChoices = radioButtons.length;
@@ -191,12 +229,12 @@ public class VotingBooth extends JPanel {
         return pane;
     }
 
-    protected void createAndShowGUI() {
+    protected void createAndShowGUI() throws MalformedURLException {
         JFrame frame = new JFrame("VoteDialog");
 
 
         Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new GridLayout(2, 1));
+        contentPane.setLayout(new GridLayout(2, 2));
         contentPane.add(new VotingBooth());
 
 
