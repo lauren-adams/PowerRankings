@@ -8,9 +8,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -57,7 +62,9 @@ public class Login {
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent submit) {
-                try {
+            	boolean fail = false;
+            	try {
+                	
                 	if(validateLogin(loginForm.getUsernameField().getText(), loginForm.getPasswordField().getText())) {
                 		loginPage.setVisible(false);
 
@@ -74,20 +81,19 @@ public class Login {
                             String [] data = lineIWant.split(delim);
                             Main.curUser = new User(data);
 
-                        } catch (IOException e) {
+                        } 
+                        catch (IOException e) {
                             e.printStackTrace();
                         }
 
 
                 		HomePage h = new HomePage();
                 		h.createAndShowGUI(loginForm.getUsernameField().getText());
-                	}else {
-                        JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 	}
-                } catch (NullPointerException e) {
-                    JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            	boolean fail = false;
+                	else {
+                        fail = true;
+                	}
+                } catch (NullPointerException e) { }
 
                 if (loginForm.getUsernameField().getText().isEmpty()) {
                     fail = true;
@@ -105,10 +111,8 @@ public class Login {
                 if(fail) {
                     JOptionPane.showMessageDialog(loginForm,"Invalid username or password","ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
-
 
         forgotPasswordButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent forgotPassword) {
@@ -127,16 +131,15 @@ public class Login {
                 final JTextField emailField = new JTextField(30);
 
                 submit.addActionListener(new ActionListener() {
-                    //@Override
                     public void actionPerformed(ActionEvent e) {
                         Boolean found = false;
 
                         try {
-                            // THIS SHOULD BE THE DATABASE
                             Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
                             while(scanner.hasNextLine()){
                                 String line = scanner.nextLine();
                                 String [] data = line.split(";");
+                                
                                 if(data[2].equals(emailField.getText())){
                                     username.setText(data[0]);
                                     found = true;
@@ -146,9 +149,7 @@ public class Login {
                                 username.setText("User not found");
                             }
 
-                        } catch (FileNotFoundException f) {
-                            // BAD FILE
-                        }
+                        } catch (FileNotFoundException f) { }
                     }
                 });
 
@@ -174,12 +175,15 @@ public class Login {
             }
         });
 
+       
         loginForm.add(submitButton);
         loginForm.add(registerButton);
         loginForm.add(forgotUsernameButton);
         loginForm.add(forgotPasswordButton);
-
+        
+        
         loginPage.getContentPane().add(loginForm, BorderLayout.CENTER);
+        
         loginPage.setJMenuBar(loginMenuBar);
         loginPage.setVisible(true);
     }
@@ -188,4 +192,3 @@ public class Login {
     	return d.validateUsername(username) && d.validatePassword(username, password);
     }
 }
-
