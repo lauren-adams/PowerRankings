@@ -1,15 +1,18 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.JPasswordField;
 
 
 public class LoginForm extends JPanel implements PropertyChangeListener{
@@ -26,10 +29,8 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
 
     // text field for the input
     private JFormattedTextField usernameField;
-    private JFormattedTextField passwordField;
-
-
-
+    private JPasswordField passwordField;
+ 
     /**
      * @return the username
      */
@@ -131,14 +132,14 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
     /**
      * @return the passwordField
      */
-    public JFormattedTextField getPasswordField() {
+    public JPasswordField getPasswordField() {
         return passwordField;
     }
 
     /**
      * @param passwordField the passwordField to set
      */
-    public void setPasswordField(JFormattedTextField passwordField) {
+    public void setPasswordField(JPasswordField passwordField) {
         this.passwordField = passwordField;
     }
 
@@ -151,27 +152,60 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
 
         usernameField 	= new JFormattedTextField();
         usernameField.setValue(new String(username));
-        usernameField.setColumns(70);								// changes the width of textFields
+        usernameField.setColumns(30);								// changes the width of textFields
         usernameField.addPropertyChangeListener("value", this);
 
-        passwordField = new JFormattedTextField();
-        passwordField.setValue(new String(password));
+        passwordField = new JPasswordField();//new JFormattedTextField();
+        passwordField.setText(new String(password));
+        passwordField.setEchoChar('*');
+        passwordField.setColumns(30);	
         passwordField.addPropertyChangeListener("value",this);
 
         usernameLabel.setLabelFor(usernameField);
         passwordLabel.setLabelFor(passwordField);
 
-        JPanel labelPane = new JPanel(new GridLayout(0,1));
-        labelPane.add(usernameLabel);
-        labelPane.add(passwordLabel);
-
-        JPanel fieldPane = new JPanel(new GridLayout(0,1));
-        fieldPane.add(usernameField);
-        fieldPane.add(passwordField);
-
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        add(labelPane, BorderLayout.CENTER);
-        add(fieldPane, BorderLayout.LINE_END);
+        JPanel pane = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        
+		c.gridx = 0;								// row
+		c.gridy = 0;								// column
+        pane.add(usernameLabel, c);
+        
+        c.gridx = 1;								
+		c.gridy = 0;
+		pane.add(usernameField, c);
+		
+		c.gridx = 0;								
+		c.gridy = 1;
+        pane.add(passwordLabel, c);
+        
+        c.gridx = 1;								
+		c.gridy = 1;
+        pane.add(passwordField, c);
+        
+        // creates a show password box
+        c.gridx = 0;								
+		c.gridy = 2;
+        JCheckBox showPassword = new JCheckBox("Show password", false); 
+        
+        showPassword.addItemListener(new ItemListener() {    
+            public void itemStateChanged(ItemEvent e) {    
+            	if(e.getStateChange()== 1) {
+            		passwordField.setEchoChar((char)0);
+            	}
+            	else {
+            		
+            		String contents = passwordField.getText();
+            		passwordField.setEchoChar('*');
+            		passwordField.setText("");
+            		passwordField.setText(contents);
+            	}
+            }    
+         });    
+        
+        pane.add(showPassword);
+       
+        add(pane);
     }
 
     public void propertyChange(PropertyChangeEvent e) {
