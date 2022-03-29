@@ -3,14 +3,20 @@ package edu.baylor.ecs.csi3471.groupProject;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.*;
 
 public class CreateCharacter {
-	protected void createAndShowGUI() {
+	protected void createAndShowGUI(String currUsername) {
 		//declaration of variables
 		JFrame createFrame;
 		JLabel nameLabel, worldLabel, descLabel, urlLabel;
@@ -48,16 +54,18 @@ public class CreateCharacter {
 					//check for any errors
 					if(!isValidCharName(nameField.getText())||!isValidWorld(worldField.getText())||
 							!isValidCharDesc(descField.getText())||!isValidCharURL(urlField.getText())) {
-						
+						//check if name is valid, if it isn't update error message
 						if(!isValidCharName(nameField.getText())) {
 							errorMsg += "character name, ";
 						}
+						//check if world is valid, if it isn't update error message
 						if(!isValidWorld(worldField.getText())) {
 							if(8 < errorMsg.length()) {
 								errorMsg += "and ";
 							}
 							errorMsg += "world name, ";
 						}
+						//check if description is valid, if it isn't update error message
 						if(!isValidCharDesc(descField.getText())) {
 							if(8 < errorMsg.length()) {
 								errorMsg = errorMsg.replaceAll("and ", "");
@@ -65,6 +73,7 @@ public class CreateCharacter {
 							}
 							errorMsg += "character description, ";
 						}
+						//check if URL is valid, if it isn't update error message
 						if(!isValidCharURL(urlField.getText())) {
 							if(8 < errorMsg.length()) {
 								errorMsg = errorMsg.replaceAll("and ", "");
@@ -72,13 +81,22 @@ public class CreateCharacter {
 							}
 							errorMsg += "picture URL";
 						}
+						//remove any trailing commas
 						if(errorMsg.substring(errorMsg.length()-2, errorMsg.length()).equals(", ")) {
 							errorMsg = errorMsg.substring(0, errorMsg.length()-2);
 						}
+						//throw error with correct message
 						JOptionPane.showMessageDialog(createFrame, errorMsg,"ERROR", JOptionPane.ERROR_MESSAGE);
 					//if no errors, write to file
 					}else {
-						createFrame.dispose();
+						if(doesCharExist(nameField.getText(), worldField.getText())) {
+							JOptionPane.showMessageDialog(createFrame, "Character already exists in chosen world",
+									"ERROR", JOptionPane.ERROR_MESSAGE);
+						}else {
+							addCharacter(nameField.getText(), worldField.getText(), descField.getText(),
+									urlField.getText(), currUsername);
+							createFrame.dispose();
+						}
 					}
 				} catch (NullPointerException n) {
 					n.printStackTrace();
@@ -111,7 +129,7 @@ public class CreateCharacter {
 	
 	protected boolean isValidCharName(String name) {
 		//checking if character name length is valid
-		if(49<name.length()) {
+		if(49<name.length()||name.length()==0) {
 			return false;
 		}
 		//checking if character name contains any banned characters
@@ -128,7 +146,7 @@ public class CreateCharacter {
 	
 	protected boolean isValidWorld(String world) {
 		//checking if character world length is valid
-		if(49<world.length()) {
+		if(49<world.length()||world.length()==0) {
 			return false;
 		}
 		//checking if character world contains any banned characters
@@ -145,7 +163,7 @@ public class CreateCharacter {
 	
 	protected boolean isValidCharDesc(String desc) {
 		//checking if character description length is valid
-		if(299<desc.length()) {
+		if(299<desc.length()||desc.length()==0) {
 			return false;
 		}
 		//checking if character description contains any banned characters
@@ -171,6 +189,47 @@ public class CreateCharacter {
 			return true;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	
+	protected boolean doesCharExist(String name, String world) {
+		try {
+			Scanner sc = new Scanner(new File("CharacterFile.csv"));
+			String data[];
+			while(sc.hasNextLine()) {
+				data = sc.nextLine().split("\t");
+				if(data[0].equalsIgnoreCase(name)&&data[1].equalsIgnoreCase(world)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return true;
+		}
+	}
+	
+	protected void addCharacter(String name, String world, String desc, String URL, String currUser) {
+		try {
+			List<String[]> allData = new ArrayList<String[]>();
+			Scanner sc = new Scanner(new File("CharacterFile.csv"));
+			String data[];
+			while(sc.hasNextLine()) {
+				data = sc.nextLine().split("\t");
+				allData.add(data);
+			}
+			
+			PrintWriter pw = new PrintWriter(new File("CharacterFile.csv"));
+	        for(String currLine[]: allData) {
+	        	pw.write(String.join("\t", currLine));
+	        	pw.write("\n");
+	        }
+	        Character tempChar = new Character();
+	        pw.write(name + "\t" + world + "\t" + desc + "\t" + "0" + "\t" + "0" + "\t" + tempChar.getId().toString()
+	        		+ "\t" + URL + "\t" + currUser);
+	        pw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }

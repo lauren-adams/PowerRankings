@@ -82,13 +82,14 @@ public class HomePage {
 		leaderboard = new JButton("View Leaderboards");
 		leaderboard.setFocusPainted(false);
 
+		//Create Character button listener
 		createChar = new JButton("Create Character");
 		createChar.setFocusPainted(false);
 		createChar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CreateCharacter c = new CreateCharacter();
-				c.createAndShowGUI();
+				c.createAndShowGUI(currUsername);
 			}
 		});
 		
