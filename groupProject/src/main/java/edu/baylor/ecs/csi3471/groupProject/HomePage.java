@@ -83,6 +83,13 @@ public class HomePage {
 
 		createChar = new JButton("Create Character");
 		createChar.setFocusPainted(false);
+		createChar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CreateCharacter c = new CreateCharacter();
+				c.createAndShowGUI();
+			}
+		});
 		
 	//leaderboard action listener
 		leaderboard.addActionListener(new ActionListener() {
