@@ -152,16 +152,8 @@ public class HomePage {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VotingBooth booth = null;
-				try {
-					booth = new VotingBooth();
-				} catch (FileNotFoundException ex) {
-					ex.printStackTrace();
-				}
-				try {
-					booth.createAndShowGUI();
-				} catch (FileNotFoundException ex) {
-					ex.printStackTrace();
-				}
+				booth = new VotingBooth();
+				booth.createAndShowGUI();
 			}
 		});
 		
