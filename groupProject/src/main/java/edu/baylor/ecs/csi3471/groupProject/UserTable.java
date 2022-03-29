@@ -25,9 +25,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-    public class UserTable extends JPanel {
+public class UserTable extends JPanel {
         private JTable table;
         //dont think i need text field
         //dont think i need status text
@@ -63,34 +66,44 @@ import java.util.ArrayList;
         public UserTable() {
             super();
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            String[] columnNames = {"Name", "Currency"};
+            String[] columnNames = {"Rank", "Name", "Currency"};
             String[][] data = {{"yes", "no", "idk", "maybe"}};
             int rowNumber = 0;
             final DefaultTableModel model = new DefaultTableModel(null, columnNames);
             //File selectedFile = openCSV();
+
+            Map<String, String> m = new HashMap();
+
+
 
             ArrayList<String> name = new ArrayList();
             ArrayList<String> curr = new ArrayList();
 
 
             try (BufferedReader br = new BufferedReader(
-                    new FileReader("userFile.tsv"))) {
+                    new FileReader("UserFile.tsv"))) {
                 String line = br.readLine();
                 while ((line = br.readLine()) != null) {
                     Object[] row = line.split("\t");
                     name.add((String) row[0]);
                     curr.add((String)row[5]);
+                    m.put((String) row[5], (String) row[1]);
                     //System.out.println(line);
                     //model.addRow(line.split(","));
                 }
                 //curr.stream().sorted();
+                Stream<Map.Entry<String,String>> sorted =
+                        m.entrySet().stream()
+                                .sorted(Map.Entry.comparingByValue());
+                List<String> sortedList = curr.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
                 for(int i = 0; i < name.size(); i++){
                     String [] empty = {"_", "_"};
 
                     model.addRow(empty);
-                    model.setValueAt(name.get(i), i, 0);
-                    model.setValueAt(curr.get(i), i, 1);
+                    model.setValueAt(i + 1, i, 0);
+                    model.setValueAt(sortedList.get(i), i, 1);
+                    model.setValueAt(m.get(sortedList.get(i)), i, 2);
                     /*System.out.println(row[3]);
                     System.out.println(row[4]);
                     Integer i = Integer.valueOf((String) row[3]);
