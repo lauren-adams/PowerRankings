@@ -154,15 +154,19 @@ public class HomePage {
 				VotingBooth booth = null;
 				TournamentBracketFrame frame = new TournamentBracketFrame();
 				Character[] myChars = frame.getBracketCharacters();
-				try {
-					booth = new VotingBooth(myChars);
-				} catch (MalformedURLException ex) {
-					ex.printStackTrace();
-				}
-				try {
-					booth.createAndShowGUI(myChars);
-				} catch (MalformedURLException ex) {
-					ex.printStackTrace();
+				for(int i = 0; i < 7; i+=2) {
+					Character a = myChars[i];
+					Character b = myChars[i+1];
+					try {
+						booth = new VotingBooth(a, b);
+					} catch (MalformedURLException ex) {
+						ex.printStackTrace();
+					}
+					try {
+						booth.createAndShowGUI(a, b);
+					} catch (MalformedURLException ex) {
+						ex.printStackTrace();
+					}
 				}
 			}
 		});
