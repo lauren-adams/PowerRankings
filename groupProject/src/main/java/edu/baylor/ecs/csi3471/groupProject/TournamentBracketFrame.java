@@ -82,6 +82,14 @@ public class TournamentBracketFrame
         return characters;
     }
 
+
+    public Character[] getBracketCharacters()
+    {
+        Character[] myChars = initTournamentCharacters();
+        return myChars;
+    }
+
+
     public JLayeredPane addImagesToBracket(Character[] myChars, JLayeredPane myBigPane, int x, int y, int xInc, int yInc, int iBeg, int iEnd)
     {
         int xCoord = x, yCoord = y;
