@@ -1,5 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,19 +11,12 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.*;
+import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
-public class Register {
+public class Register extends JPanel {
 	Integer passwordMinSize = 8;
 	Integer passwordMaxSize = 20;
 	Integer nameMinSize 	= 5;
@@ -37,6 +33,7 @@ public class Register {
 	void beginRegistration() {
 		RegisterPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 					// make frame full screen
 
+		RegisterPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JMenuBar registerMenuBar = new JMenuBar(); 								// title menu bar
 		registerMenuBar.setOpaque(true); 										// makes title opaque
 		registerMenuBar.setPreferredSize(new Dimension(200, 200)); 				// second parameter controls height
@@ -46,9 +43,9 @@ public class Register {
 		title.setFont(new Font("roboto condensed", Font.PLAIN, 50)); 			// font of title
 		title.setBackground(Color.BLACK); 										// make title background black
 		registerMenuBar.add(title); 											// add title to title menu bar
-		
+
 		verifyRegistrationForm(); 												// ensures user fills out form correctly
-	
+
 		RegisterPage.setJMenuBar(registerMenuBar);
 		RegisterPage.getContentPane().add(registerForm);
 		RegisterPage.setVisible(true);
@@ -80,14 +77,14 @@ public class Register {
 				}
 				if ((registerForm.getAgeField().getText().isEmpty() || registerForm.getAgeField().getText() == null) && created) {
 					fail = true;
-				} 
+				}
 				else {
 					if(created) {
 						created = ageAnalysis(submitButton);
 					}
 				}
-				if((registerForm.getEmailField().getText().isEmpty() || registerForm.getEmailField().getText() == null) && created) { 
-					fail = true; 
+				if((registerForm.getEmailField().getText().isEmpty() || registerForm.getEmailField().getText() == null) && created) {
+					fail = true;
 				 }
 				 else {
 					 if(created) {
@@ -103,48 +100,95 @@ public class Register {
 								"ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				
+
 				if (fail) {
 					JOptionPane.showMessageDialog(registerForm,
 							"Mandatory fields: username, password, email, and age not inserted\n", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				else {
 					if(created) {
-						int answer = JOptionPane.showConfirmDialog(null, 
-																   "Do you wish to confirm entered information?", 
-																   "Warning", 
+						int answer = JOptionPane.showConfirmDialog(null,
+																   "Do you wish to confirm entered information?",
+																   "Warning",
 																    JOptionPane.YES_NO_OPTION);
 						if(answer == 0) {
 							try {
-								FileWriter out = new FileWriter(new File(".").getCanonicalPath() + "/UserFile.tsv", true);
-								out.append(registerForm.getUserNameField().getText());
-								out.append(delim);
-								out.append(registerForm.getPasswordField().getText());
-								out.append(delim);
-								out.append(registerForm.getEmailField().getText());
-								out.append(delim);
-								out.append(registerForm.getNickNameField().getText());
-								out.append(delim);
-								out.append(registerForm.getAgeField().getText());
-								out.append(getUniqueId());
-								out.append('\n');
-								out.close();
+								//FileWriter out = new FileWriter("UserFile.tsv", true);
+
+								//FIXME NO CHECK TO MAKE SURE USER ACTUALLY INPUT ITEMS
+								//File tsvOut = new File("UserFile.tsv");
+
+								User newUser = new User();
+								newUser.setUsername(registerForm.getUserNameField().getText());
+								newUser.setPassword(registerForm.getPasswordField().getText());
+								newUser.setEmail(registerForm.getEmailField().getText());
+								newUser.setName(registerForm.getNickNameField().getText());
+								newUser.setAge(Integer.parseInt(registerForm.getAgeField().getText()));
+								newUser.setBet(0);
+								newUser.setCurrentVote("null");
+								newUser.setFunds(500);
+								newUser.setDescription("none");
+								newUser.setAdmin(false);
+								newUser.setVoted(false);
+
+								List<String[]> allData = new ArrayList<String[]>();
+								BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
+								String data[];
+								String line = "";
+								while((line = br.readLine()) != null) {
+									data = line.split("\t");
+									allData.add(data);
+								}
+								File tsvOut = new File("UserFile.tsv");
+								PrintWriter pw = new PrintWriter(tsvOut);
+								for(String currLine[]: allData) {
+									pw.write(String.join("\t", currLine));
+									pw.write("\n");
+								}
+
+								pw.write(newUser.getUsername() + "\t" + newUser.getPassword() + "\t" + newUser.getEmail() + "\t" + newUser.getName() + "\t" + newUser.getAge() + "\t" + newUser.getFunds()
+										+ "\t" + newUser.getBet() + "\t" + newUser.isVoted() + "\t" + newUser.isAdmin() + "\t" + newUser.getDescription() + "\t" + newUser.getCurrentVote());
+								pw.write("\n");
+								pw.close();
+
+
+//								String [] data = new String[]{newUser.getUsername(), newUser.getPassword(), newUser.getEmail(), newUser.getName(),
+//										String.valueOf(newUser.getAge()), String.valueOf(newUser.getFunds()), String.valueOf(newUser.getBet()),
+//										String.valueOf(newUser.isVoted()), String.valueOf(newUser.isAdmin()), newUser.getDescription(),
+//										newUser.getCurrentVote()};
+
+								//out.append((String.join("\t", data)));
+								//out.append("\n");
+
+//								out.append(registerForm.getUserNameField().getText());
+//								out.append(delim);
+//								out.append(registerForm.getPasswordField().getText());
+//								out.append(delim);
+//								out.append(registerForm.getEmailField().getText());
+//								out.append(delim);
+//								out.append(registerForm.getNickNameField().getText());
+//								out.append(delim);
+//								out.append(registerForm.getAgeField().getText());
+//								out.append(getUniqueId());
+//								out.append('\n');
+//								out.close();
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
-						
-						Window win = SwingUtilities.getWindowAncestor(registerForm);
-						if (win != null) {
-							win.setVisible(false);
-						}
+						RegisterPage.dispose();
+
+//						Window win = SwingUtilities.getWindowAncestor(registerForm);
+//						if (win != null) {
+//							win.setVisible(false);
+//						}
 					}
 				}
 			}
 		});
-		
+
 		submitButton.setBackground(Color.BLACK);
 		registerForm.add(submitButton, BorderLayout.SOUTH);
 	}
@@ -154,7 +198,7 @@ public class Register {
 		boolean created = verifyInputSizeIsValid(nameMinSize, nameMaxSize, name);
 		if (created) {
 			created = verifyInputIsDigitOrLetter(name);
-		} 
+		}
 		return created;
 	}
 
@@ -183,7 +227,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// ensures email is a letter, digit, '.', '@', or '_' and is within valid range
 	boolean verifyEmail(String email) {
 		boolean valid = verifyInputSizeIsValid(emailMinSize, emailMaxSize, email);
@@ -192,7 +236,7 @@ public class Register {
 		}
 		if(valid) {
 			for (int i = 0; i < email.length(); i++) {
-				if (!java.lang.Character.isLetterOrDigit(email.charAt(i)) && (!(email.charAt(i) == '.')) && 
+				if (!java.lang.Character.isLetterOrDigit(email.charAt(i)) && (!(email.charAt(i) == '.')) &&
 						(!(email.charAt(i) == '@') && (!(email.charAt(i) == '_')))) {
 					valid = false;
 				}
@@ -206,13 +250,13 @@ public class Register {
 		String id = "";
 		Random r = new Random();
 		String validChars = "0123456789!@#$%&*abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTVWXYZ";
-		
+
 		for(int i = 0; i < IDSize; i++) {
 			id += validChars.charAt(r.nextInt(validChars.length()));
 		}
 		return id;
 	}
-	
+
 	// checks input size and returns true if the input is within a valid range
 	boolean verifyInputSizeIsValid(Integer minSize, Integer maxSize, String input) {
 		boolean valid = false;
@@ -221,7 +265,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// ensures age is at least 2 characters and at most 3 characters
 	boolean verifyAgeLength(String age) {
 		boolean valid = true;
@@ -230,7 +274,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// ensures each character in the age is a digit
 	boolean verifyAgeIsNumeric(String age) {
 		boolean valid = true;
@@ -241,7 +285,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// ensures age is not less than 18
 	boolean verifyOlderThanEighteen(String age) {
 		boolean valid = true;
@@ -252,7 +296,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// ensures age is not greater than 200
 	boolean verifyYoungerThanTwoHundred(String age) {
 		boolean valid = true;
@@ -261,7 +305,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// checks each characters of a given text field (user name, password, or nick name)
 	boolean verifyInputIsDigitOrLetter(String input) {
 		boolean valid = true;
@@ -272,7 +316,7 @@ public class Register {
 		}
 		return valid;
 	}
-	
+
 	// calls the name verification function: if invalid displays error message
 	boolean usernameAnalysis() {
 		boolean created =  verifyName(registerForm.getUserNameField().getText());
@@ -283,7 +327,7 @@ public class Register {
 		}
 		return created;
 	}
-	
+
 	// calls the password verification function: if invalid displays error message
 	boolean passwordAnalysis() {
 		boolean created = verifyPassword(registerForm.getPasswordField().getText());
@@ -294,7 +338,7 @@ public class Register {
 		}
 		return created;
 	}
-	
+
 	// calls the age verification function: if invalid displays error message and closes registration form
 	boolean ageAnalysis(JButton sub) {
 		boolean created = verifyAge(registerForm.getAgeField().getText());
@@ -302,16 +346,16 @@ public class Register {
 			JOptionPane.showMessageDialog(registerForm,
 					"Too young to register or entered bad age, goodbye!\n", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
-			
-			Window win = SwingUtilities.getWindowAncestor(sub);
 
-			if (win != null) {
-				win.setVisible(false);
-			}
+//			Window win = SwingUtilities.getWindowAncestor(sub);
+//
+//			if (win != null) {
+//				win.setVisible(false);
+//			}
 		}
 		return created;
 	}
-	
+
 	// calls the email verification function: if invalid displays error message
 	boolean emailAnalysis() {
 		boolean created = verifyEmail(registerForm.getEmailField().getText());

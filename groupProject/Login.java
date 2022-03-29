@@ -70,8 +70,27 @@ public class Login {
 					validatePassword(loginForm.getPasswordField().getText());
 				}
 				if(pass) {
-					JOptionPane.showMessageDialog(loginForm,"Creditials are correct!","WELCOME", JOptionPane.ERROR_MESSAGE);
+					//JOptionPane.showMessageDialog(loginForm,"Creditials are correct!","WELCOME", JOptionPane.ERROR_MESSAGE);
 					// user is now logged in activate who is online
+					FileInputStream fs= null;
+					try {
+						fs = new FileInputStream("UserFile.tsv");
+						BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+						for(int i = 0; i < Database.userLine; ++i){
+							br.readLine();
+						}
+
+						String lineIWant = br.readLine();
+						String [] data = lineIWant.split(delim);
+						Main.curUser = new User(data);
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+
+					HomePage h = new HomePage();
+					h.createAndShowGUI(loginForm.getUsernameField().getText());
 				}
 				
 				if(fail) {
