@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -48,15 +49,17 @@ public class Character {
         this.id = Integer.valueOf(split[5]);
         this.picture = split[6];
         this.owner = split[7];
-        if(loss != 0)
-        {
-            this.ratio = Double.valueOf(win/loss);
-        }
-        else
-        {
-            this.ratio = Double.valueOf(win);
-        }
 
+        if (loss != 0) {
+            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+        } else {
+            if(win == 0){
+                ratio = 0.0;
+            } else {
+                ratio = 1.0;
+            }
+        }
+        ratio = Math.round(ratio * 100.0) / 100.0;
         id = id++;
     }
 
@@ -82,7 +85,16 @@ public class Character {
 
     public void setLoss(Integer loss) {
         this.loss = loss;
-        ratio = Double.valueOf(win/loss);
+        if (loss != 0) {
+            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+        } else {
+            if(win == 0){
+                ratio = 0.0;
+            } else {
+                ratio = 1.0;
+            }
+        }
+        ratio = Math.round(ratio * 100.0) / 100.0;
     }
 
     public Integer getWin() {
@@ -91,9 +103,16 @@ public class Character {
 
     public void setWin(Integer win) {
         this.win = win;
-        if(loss != 0) {
-            ratio = Double.valueOf(win / loss);
+        if (loss != 0) {
+            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+        } else {
+            if(win == 0){
+                ratio = 0.0;
+            } else {
+                ratio = 1.0;
+            }
         }
+        ratio = Math.round(ratio * 100.0) / 100.0;
     }
 
     public String getDesc() {
@@ -227,6 +246,28 @@ public class Character {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    ArrayList<Character> makeList(){
+        String filePath = "CharacterFile.csv";
+        ArrayList<Character> cList = new ArrayList();
+        //Instantiating the Scanner class to read the file
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File(filePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line = "";
+        //instantiating the StringBuffer class
+        StringBuffer buffer = new StringBuffer();
+        //Reading lines of the file and appending them to StringBuffer
+        while (sc.hasNextLine()) {
+            line = sc.nextLine();
+            Character c = new Character(line);
+            cList.add(c);
+        }
+        return cList;
     }
 
 

@@ -72,12 +72,12 @@ public class UserTable extends JPanel {
             final DefaultTableModel model = new DefaultTableModel(null, columnNames);
             //File selectedFile = openCSV();
 
-            Map<String, String> m = new HashMap();
+            Map<Integer, String> m = new HashMap();
 
 
 
             ArrayList<String> name = new ArrayList();
-            ArrayList<String> curr = new ArrayList();
+            ArrayList<Integer> curr = new ArrayList();
 
 
             try (BufferedReader br = new BufferedReader(
@@ -86,16 +86,16 @@ public class UserTable extends JPanel {
                 while ((line = br.readLine()) != null) {
                     Object[] row = line.split("\t");
                     name.add((String) row[0]);
-                    curr.add((String)row[5]);
-                    m.put((String) row[5], (String) row[1]);
+                    curr.add(Integer.valueOf((String) row[5]));
+                    m.put(Integer.valueOf((String) row[5]), (String) row[1]);
                     //System.out.println(line);
                     //model.addRow(line.split(","));
                 }
                 //curr.stream().sorted();
-                Stream<Map.Entry<String,String>> sorted =
+                /*Stream<Map.Entry<String,String>> sorted =
                         m.entrySet().stream()
-                                .sorted(Map.Entry.comparingByValue());
-                List<String> sortedList = curr.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+                                .sorted(Map.Entry.comparingByValue());*/
+                List<Integer> sortedList = curr.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
                 for(int i = 0; i < name.size(); i++){
                     String [] empty = {"_", "_"};
@@ -219,6 +219,7 @@ public class UserTable extends JPanel {
 
                 JButton closeButton = new JButton("Add");
                 JPanel panel1 = new JPanel();
+                panel1.setBackground(Color.PINK);
                 panel1.setLayout(new GridBagLayout());
                 addItem(panel1, new JLabel("Name:"), 0, 0, 1, 1, GridBagConstraints.EAST);
                 addItem(panel1, new JLabel("World:"), 0, 1, 1, 1, GridBagConstraints.EAST);

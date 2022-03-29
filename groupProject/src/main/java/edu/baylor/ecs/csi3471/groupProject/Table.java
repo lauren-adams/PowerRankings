@@ -70,12 +70,19 @@ public class Table extends JPanel {
                 model.setValueAt(row[1], rowNumber, 1);
                 System.out.println(row[3]);
                 System.out.println(row[4]);
-                Integer i = Integer.valueOf((String) row[3]);
-                Integer ii = Integer.valueOf((String) row[4]);
-                if (ii == 0) {
-                    ii = 1;
+                Double i = Integer.valueOf((String) row[3]) * 1.0;
+                Double ii = Integer.valueOf((String) row[4]) * 1.0;
+                Double r = 0.0;
+                if (ii != 0) {
+                    r = Double.valueOf(i / (i + ii));
+                } else {
+                    if(i == 0){
+                        r = 0.0;
+                    } else {
+                        r = 1.0;
+                    }
                 }
-                Double r = Double.valueOf(i / ii);
+                r = Math.round(r * 100.0) / 100.0;
                 String s = row[3] + "/" + row[4];
                 s = String.valueOf(r);
                 model.setValueAt(s, rowNumber, 2);
@@ -166,6 +173,7 @@ public class Table extends JPanel {
                 ageField.setText(cc.getPicture());
 
                 JPanel myPanel = new JPanel();
+                myPanel.setBackground(Color.PINK);
                 myPanel.add(new JLabel("Name: "));
                 myPanel.add(animalField);
                 myPanel.add(new JLabel("World: "));
@@ -508,6 +516,7 @@ public class Table extends JPanel {
 
             JButton closeButton = new JButton("Add");
             JPanel panel1 = new JPanel();
+            panel1.setBackground(Color.PINK);
             panel1.setLayout(new GridBagLayout());
             addItem(panel1, new JLabel("Name:"), 0, 0, 1, 1, GridBagConstraints.EAST);
             addItem(panel1, new JLabel("World:"), 0, 1, 1, 1, GridBagConstraints.EAST);
