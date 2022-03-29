@@ -152,6 +152,8 @@ public class HomePage {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VotingBooth booth = null;
+				TournamentBracketFrame frame = new TournamentBracketFrame();
+				Character[] myChars = frame.getBracketCharacters();
 				try {
 					booth = new VotingBooth();
 				} catch (MalformedURLException ex) {

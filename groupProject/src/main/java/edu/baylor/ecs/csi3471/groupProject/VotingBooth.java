@@ -61,6 +61,38 @@ public class VotingBooth extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     //FIXME GO TO NEXT ROUND FUNCTIONALITY
+                    Integer a = 0;
+                    if(bert.getRatio() > gandhi.getRatio()){
+                        a = bert.getWin();
+                        bert.setWin(a++);
+                        a = gandhi.getLoss();
+                        gandhi.setLoss(a++);
+                        JOptionPane.showMessageDialog(null, bert.getName() + " won the match!");
+                        if(bill.isVoted()){
+                            if(bill.getBet() != 0) {
+                                if (bill.getCurrentVote() == bert.getName()) {
+                                    bill.setFunds(bill.getFunds() + (bill.getBet() * 2));
+                                    JOptionPane.showMessageDialog(null, "Congrats! You won " + bill.getBet() + "!\n Your current funds are: " + bill.getFunds());
+
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        a = gandhi.getWin();
+                        gandhi.setWin(a++);
+                        a = bert.getLoss();
+                        bert.setLoss(a++);
+                        JOptionPane.showMessageDialog(null, gandhi.getName() + " won the match!");
+                        if(bill.isVoted()){
+                            if(bill.getBet() != 0) {
+                                if (bill.getCurrentVote() == bert.getName()) {
+                                    bill.setFunds(bill.getFunds() + (bill.getBet() * 2));
+                                    JOptionPane.showMessageDialog(null, "Congrats! You won " + bill.getBet() + "!\n Your current funds are: " + bill.getFunds());
+                                }
+                            }
+                        }
+                    }
                 }
             });
             add(endRound, BorderLayout.WEST);
