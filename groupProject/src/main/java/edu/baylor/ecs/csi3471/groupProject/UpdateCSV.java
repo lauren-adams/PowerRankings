@@ -25,7 +25,7 @@ public class UpdateCSV {
         }
         //editFrame.dispose();
     }
-    private void updateUser(User user) throws IOException {
+    public void updateUser(User user) throws IOException {
         List<String[]> data = new ArrayList<>();
         ArrayList<User> savedUsers = getUsers();
 
@@ -54,7 +54,7 @@ public class UpdateCSV {
         //}
 
     }
-    public static ArrayList<User> getUsers() throws IOException {
+    public ArrayList<User> getUsers() throws IOException {
         ArrayList<User> users = new ArrayList<User>();
         BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
         String line = "";

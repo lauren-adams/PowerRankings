@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 public class Login {
 	 final static private LoginForm loginForm = new LoginForm();
-	 final static private String delim = ",";
+	 final static private String delim = "\t";
 	
 	public static void beginLoginProcess() {
 		
@@ -100,7 +100,7 @@ public class Login {
 	                public void actionPerformed(ActionEvent e) {
 	                    Boolean found = false;
 	                    try {
-	                        Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
+	                        Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
 	                        while(scanner.hasNextLine()){
 	                            String line 	= scanner.nextLine();
 	                            String [] data 	= line.split(delim);
@@ -155,7 +155,7 @@ public class Login {
 	                    	Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
 	                        while(scanner.hasNextLine()){
 	                        	String line = scanner.nextLine();
-	                            String [] data = line.split(";");
+	                            String [] data = line.split("\t");
 	 
 	                            if(data[2].equals(emailField.getText())){
 	                                email.setText(data[0]);
@@ -197,7 +197,7 @@ public class Login {
 	private static boolean validateUsername(String username) {
 		boolean found = false;
 		try {
-        	Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
+        	Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
             while(scanner.hasNextLine()){
             	String line = scanner.nextLine();
                 String [] data = line.split(delim);
@@ -214,7 +214,7 @@ public class Login {
 	private static boolean validatePassword(String password) {
 		boolean found = false;
 		try {
-        	Scanner scanner = new Scanner(new FileReader("UserFile.csv"));
+        	Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
             while(scanner.hasNextLine()){
             	String line = scanner.nextLine();
                 String [] data = line.split(delim);
