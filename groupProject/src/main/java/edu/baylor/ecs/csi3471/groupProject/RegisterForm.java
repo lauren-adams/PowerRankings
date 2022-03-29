@@ -1,15 +1,26 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class RegisterForm extends JPanel implements PropertyChangeListener {
 
+	Integer rowSize = 40;
 	// Default form data
 	private String userName = "";
 	private String nickName = "";
@@ -319,8 +330,7 @@ public class RegisterForm extends JPanel implements PropertyChangeListener {
 	}
 
 	public RegisterForm() {
-		super(new GridLayout(5, 2));
-
+		super(new BorderLayout());
 		// generates all labels
 		userNameLabel = new JLabel(userNameString);
 		nickNameLabel = new JLabel(nickNameString);
@@ -330,23 +340,27 @@ public class RegisterForm extends JPanel implements PropertyChangeListener {
 
 		userNameField = new JFormattedTextField();
 		userNameField.setValue(new String(userName));
-		userNameField.setColumns(30);
+		userNameField.setColumns(rowSize);
 		userNameField.addPropertyChangeListener("value", (PropertyChangeListener) this);
 		
 		passwordField = new JFormattedTextField();
 		passwordField.setValue(new String(password));
+		passwordField.setColumns(rowSize);
 		passwordField.addPropertyChangeListener("value", (PropertyChangeListener) this);
 
 		nickNameField = new JFormattedTextField();
 		nickNameField.setValue(new String(nickName));
+		nickNameField.setColumns(rowSize);
 		nickNameField.addPropertyChangeListener("value", (PropertyChangeListener) this);
 
 		emailField = new JFormattedTextField();
 		emailField.setValue(new String(email));
+		emailField.setColumns(rowSize);
 		emailField.addPropertyChangeListener("value", (PropertyChangeListener) this);
 
 		ageField = new JFormattedTextField();
 		ageField.setValue(new String(age));
+		ageField.setColumns(rowSize);
 		ageField.addPropertyChangeListener("value", (PropertyChangeListener) this);
 
 		userNameLabel.setLabelFor(userNameField);
@@ -355,23 +369,62 @@ public class RegisterForm extends JPanel implements PropertyChangeListener {
 		nickNameLabel.setLabelFor(nickNameField);
 		passwordLabel.setLabelFor(passwordField);
 
-		// generate the label panel
-		JPanel labelPane = new JPanel(new GridLayout(0, 1));
-		labelPane.add(userNameLabel);
-		labelPane.add(passwordLabel);
-		labelPane.add(nickNameLabel);
-		labelPane.add(emailLabel);
-		labelPane.add(ageLabel);
 		
-		JPanel fieldPane = new JPanel(new GridLayout(0, 1));
-		fieldPane.add(userNameField);
-		fieldPane.add(passwordField);
-		fieldPane.add(nickNameField);
-		fieldPane.add(emailField);
-		fieldPane.add(ageField);
+		JPanel pane = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		
-		add(labelPane);
-		add(fieldPane);
+		JMenuBar menuBar = new JMenuBar();
+		
+		//Build the first menu.
+		JMenu menu = new JMenu("Help");
+		menu.setMnemonic(KeyEvent.VK_A);
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "The only menu in this program that has menu items");
+		menuBar.add(menu);
+
+		//a group of JMenuItems
+		JMenuItem menuItem = new JMenuItem("A text-only menu item",
+		                         KeyEvent.VK_T);
+		menu.add(menuItem);
+		
+		c.ipady = 12;								// vertically sizes label and text fields
+		c.insets = new Insets(40,0,0,0);  			// creates vertical gap between rows 
+		
+		c.gridx = 0;								// row
+		c.gridy = 0;								// column
+		pane.add(userNameLabel, c);
+		c.gridx = 1;
+		c.gridy = 0;
+		pane.add(userNameField, c);
+		
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		pane.add(passwordLabel, c);
+		c.gridx = 1;
+		c.gridy = 1;
+		pane.add(passwordField, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		pane.add(nickNameLabel, c);
+		c.gridx = 1;
+		c.gridy = 2;
+		pane.add(nickNameField, c);
+		
+		c.gridx = 0;
+		c.gridy = 3;
+		pane.add(emailLabel, c);
+		c.gridx = 1;
+		c.gridy = 3;
+		pane.add(emailField, c);
+		c.gridx = 0;
+		c.gridy = 4;
+		pane.add(ageLabel, c);
+		c.gridx = 1;
+		c.gridy = 4;
+		pane.add(ageField, c);
+		add(pane);
 	}
 
 	public void propertyChange(PropertyChangeEvent e) {
