@@ -21,7 +21,7 @@ public class VotingBooth extends JPanel {
     User bill = Main.curUser;
 
 
-    public VotingBooth() throws MalformedURLException {
+    public VotingBooth(Character[] myCharacters) throws MalformedURLException {
         //FIXME get the current characters for current round from the file instead
         Character bert = new Character();
         Character gandhi = new Character();
@@ -31,7 +31,6 @@ public class VotingBooth extends JPanel {
         gandhi.setName("Ghandi");
         gandhi.setWorld("Clone High");
         gandhi.setPicture("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/800px-Mahatma-Gandhi%2C_studio%2C_1931.jpg");
-
         //this.frame = frame;
         JLabel title;
 
@@ -261,13 +260,13 @@ public class VotingBooth extends JPanel {
         return pane;
     }
 
-    protected void createAndShowGUI() throws MalformedURLException {
+    protected void createAndShowGUI(Character[] myCharacters) throws MalformedURLException {
         JFrame frame = new JFrame("VoteDialog");
 
 
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new GridLayout(2, 2));
-        contentPane.add(new VotingBooth());
+        contentPane.add(new VotingBooth(myCharacters));
 
 
         // Exit when the window is closed.

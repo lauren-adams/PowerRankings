@@ -155,12 +155,12 @@ public class HomePage {
 				TournamentBracketFrame frame = new TournamentBracketFrame();
 				Character[] myChars = frame.getBracketCharacters();
 				try {
-					booth = new VotingBooth();
+					booth = new VotingBooth(myChars);
 				} catch (MalformedURLException ex) {
 					ex.printStackTrace();
 				}
 				try {
-					booth.createAndShowGUI();
+					booth.createAndShowGUI(myChars);
 				} catch (MalformedURLException ex) {
 					ex.printStackTrace();
 				}
