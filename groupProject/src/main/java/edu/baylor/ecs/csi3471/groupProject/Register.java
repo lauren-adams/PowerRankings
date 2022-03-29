@@ -151,6 +151,7 @@ public class Register extends JPanel {
 								pw.write(newUser.getUsername() + "\t" + newUser.getPassword() + "\t" + newUser.getEmail() + "\t" + newUser.getName() + "\t" + newUser.getAge() + "\t" + newUser.getFunds()
 										+ "\t" + newUser.getBet() + "\t" + newUser.isVoted() + "\t" + newUser.isAdmin() + "\t" + newUser.getDescription() + "\t" + newUser.getCurrentVote());
 								pw.write("\n");
+								pw.flush();
 								pw.close();
 
 
