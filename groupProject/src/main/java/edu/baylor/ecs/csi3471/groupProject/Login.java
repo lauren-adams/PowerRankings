@@ -33,30 +33,43 @@ public class Login {
         final JFrame loginPage = new JFrame("Login");						// login page frame with name
         loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);			// closes frame upon clicking 'x'
         loginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);					// make frame full screen
-
+    
         JMenuBar loginMenuBar = new JMenuBar();    							// title menu bar
         loginMenuBar.setFont(new Font("sans-serif", Font.PLAIN, 12));
         loginMenuBar.setOpaque(true);										// make opaque
         loginMenuBar.setPreferredSize(new Dimension(200, 200));				// second parameter controls height
 
         JMenuItem title = new JMenuItem("LOGIN");							// title name
-        title.setOpaque(true);												// make opaque
-        title.setFont(new Font("roboto condensed", Font.PLAIN, 50));		// font of title
-        title.setBackground(Color.BLACK);									// make title background black
-        loginMenuBar.add(title);											// add title to title menu bar
+        title.setOpaque(true);									
+        title.setFont(new Font("roboto condensed", Font.PLAIN, 50));		// title font
+        title.setBackground(Color.decode("#051821"));						// title background color
+        title.setForeground(Color.WHITE);									// title font color
+      
+        loginMenuBar.add(title);											
 
         final LoginForm loginForm = new LoginForm();
         loginForm.setPreferredSize(new Dimension(2000, 180));
         loginForm.setLayout(new GridLayout(5, 1));							// sets the number of rows, columns
 
         JButton submitButton = new JButton("Submit");						// buttons in the login page
-        submitButton.setBackground(Color.black);
+        submitButton.setBackground(Color.decode("#1A4645"));
+        submitButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
+        submitButton.setForeground(Color.WHITE);
+       
         JButton registerButton = new JButton("Register");
-        registerButton.setBackground(Color.black);
+        registerButton.setBackground(Color.decode("#266867"));
+        registerButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
+        registerButton.setForeground(Color.WHITE);
+        
         JButton forgotPasswordButton = new JButton("Forgot Password");
-        forgotPasswordButton.setBackground(Color.black);
+        forgotPasswordButton.setBackground(Color.decode("#F58800"));
+        forgotPasswordButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
+        forgotPasswordButton.setForeground(Color.WHITE);
+        
         JButton forgotUsernameButton = new JButton("Forgot Username");
-        forgotUsernameButton.setBackground(Color.black);
+        forgotUsernameButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
+        forgotUsernameButton.setBackground(Color.decode("#F8BC24"));
+        forgotUsernameButton.setForeground(Color.WHITE);
 
         // confirms the users input
         submitButton.addActionListener(new ActionListener() {
@@ -180,10 +193,7 @@ public class Login {
         loginForm.add(registerButton);
         loginForm.add(forgotUsernameButton);
         loginForm.add(forgotPasswordButton);
-        
-        
         loginPage.getContentPane().add(loginForm, BorderLayout.CENTER);
-        
         loginPage.setJMenuBar(loginMenuBar);
         loginPage.setVisible(true);
     }
