@@ -1,9 +1,6 @@
 Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote
-<<<<<<< HEAD
 jack	jack	jack@gmail.com	Jack	34	50	0	true	true	User1	Batman
-=======
 jack	jack	jack@gmail.com	Jack	34	0	0	true	true	User1	Bert
->>>>>>> cc75a29117635410a160b6f8372f883049e6a572
 ryan	ryan	ryan@gmail.com	Ryan	20	1000	500	true	true	Cool dude	Ghandi
 test	test	test@gmail.com	testNonAdmin	5	0	0	false	false	This is a tester user so we can make sure admin privileges are separate	null
 testRegister	test1234	test2@gmail.com	testRegister	20	500	0	false	false	none	null
