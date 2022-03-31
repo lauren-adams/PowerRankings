@@ -42,6 +42,7 @@ public class Login {
         title.setOpaque(true);									
         title.setFont(new Font("roboto condensed", Font.PLAIN, 50));		// title font
         title.setBackground(Color.decode("#051821"));						// title background color
+	title.setBorderPainted(false);	
         title.setForeground(Color.WHITE);									// title font color
       
         loginMenuBar.add(title);											
