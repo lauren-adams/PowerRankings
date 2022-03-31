@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
@@ -24,8 +25,8 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
     private JLabel passwordLabel;
 
     // Label names
-    private static String usernameString 	= "Username: ";
-    private static String passwordString 	= "Password: ";
+    private static String usernameString 	= "(case sensitive) Username: ";
+    private static String passwordString 	= "(case sensitive) Password: ";
 
     // text field for the input
     private JFormattedTextField usernameField;
@@ -38,7 +39,7 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
         return username;
     }
 
-    /**
+    /*
      * @param username the username to set
      */
     public void setUsername(String username) {
@@ -144,18 +145,19 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
     }
 
     public LoginForm() {
-
         super(new BorderLayout());
 
         usernameLabel 	= new JLabel(usernameString);
+        usernameLabel.setForeground(Color.WHITE);
         passwordLabel 	= new JLabel(passwordString);
+        passwordLabel.setForeground(Color.WHITE);
 
         usernameField 	= new JFormattedTextField();
         usernameField.setValue(new String(username));
         usernameField.setColumns(30);								// changes the width of textFields
         usernameField.addPropertyChangeListener("value", this);
 
-        passwordField = new JPasswordField();//new JFormattedTextField();
+        passwordField = new JPasswordField();
         passwordField.setText(new String(password));
         passwordField.setEchoChar('*');
         passwordField.setColumns(30);	
@@ -186,7 +188,9 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
         // creates a show password box
         c.gridx = 0;								
 		c.gridy = 2;
-        JCheckBox showPassword = new JCheckBox("Show password", false); 
+        
+		JCheckBox showPassword = new JCheckBox("Show password", false); 	// check box with label and initial set value (false == not checked)
+        showPassword.setForeground(Color.WHITE);							// set check-box label to white
         
         showPassword.addItemListener(new ItemListener() {    
             public void itemStateChanged(ItemEvent e) {    
@@ -194,7 +198,6 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
             		passwordField.setEchoChar((char)0);
             	}
             	else {
-            		
             		String contents = passwordField.getText();
             		passwordField.setEchoChar('*');
             		passwordField.setText("");
@@ -203,15 +206,15 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
             }    
          });    
         
+        showPassword.setBackground(Color.decode("#07566"));
         pane.add(showPassword);
-       
+        pane.setBackground(Color.decode("#07566"));
+        
         add(pane);
     }
 
     public void propertyChange(PropertyChangeEvent e) {
-
         Object source = e.getSource();
-
         if (source == usernameField) {
             username = usernameField.getText();
         }
