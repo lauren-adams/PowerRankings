@@ -66,7 +66,7 @@ public class UserTable extends JPanel {
         public UserTable() {
             super();
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            String[] columnNames = {"Rank", "Name", "Currency"};
+            String[] columnNames = {"Rank", "Currency", "Name"};
             String[][] data = {{"yes", "no", "idk", "maybe"}};
             int rowNumber = 0;
             final DefaultTableModel model = new DefaultTableModel(null, columnNames);

@@ -29,20 +29,20 @@ public class Login {
 	final static private String delim = "\t";
 	
     public void beginLoginProcess() {
-
-        final JFrame loginPage = new JFrame("Login");						// login page frame with name
+        final JFrame loginPage = new JFrame("Fantasy Fight Club Login");	// login page frame with name
         loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);			// closes frame upon clicking 'x'
-        loginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);					// make frame full screen
+        loginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);					// make full screen
     
-        JMenuBar loginMenuBar = new JMenuBar();    							// title menu bar
-        loginMenuBar.setFont(new Font("sans-serif", Font.PLAIN, 12));
+        JMenuBar loginMenuBar = new JMenuBar();    							// title (menu bar because better formatting)
+        loginMenuBar.setFont(new Font("sans-serif", Font.PLAIN, 12));		// title font
         loginMenuBar.setOpaque(true);										// make opaque
-        loginMenuBar.setPreferredSize(new Dimension(200, 200));				// second parameter controls height
+        loginMenuBar.setPreferredSize(new Dimension(200, 200));				// second parameter controls height of frame ignore first parameter
 
         JMenuItem title = new JMenuItem("LOGIN");							// title name
         title.setOpaque(true);									
         title.setFont(new Font("roboto condensed", Font.PLAIN, 50));		// title font
         title.setBackground(Color.decode("#051821"));						// title background color
+	title.setBorderPainted(false);	
         title.setForeground(Color.WHITE);									// title font color
       
         loginMenuBar.add(title);											
@@ -53,23 +53,31 @@ public class Login {
 
         JButton submitButton = new JButton("Submit");						// buttons in the login page
         submitButton.setBackground(Color.decode("#1A4645"));
+        submitButton.setOpaque(true);
+        submitButton.setBorderPainted(false);
         submitButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         submitButton.setForeground(Color.WHITE);
        
         JButton registerButton = new JButton("Register");
         registerButton.setBackground(Color.decode("#266867"));
+        registerButton.setOpaque(true);
+        registerButton.setBorderPainted(false);
         registerButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         registerButton.setForeground(Color.WHITE);
         
         JButton forgotPasswordButton = new JButton("Forgot Password");
         forgotPasswordButton.setBackground(Color.decode("#F58800"));
+        forgotPasswordButton.setOpaque(true);
+        forgotPasswordButton.setBorderPainted(false);
         forgotPasswordButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         forgotPasswordButton.setForeground(Color.WHITE);
         
         JButton forgotUsernameButton = new JButton("Forgot Username");
         forgotUsernameButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         forgotUsernameButton.setBackground(Color.decode("#F8BC24"));
+        forgotUsernameButton.setBorderPainted(false);
         forgotUsernameButton.setForeground(Color.WHITE);
+        forgotUsernameButton.setOpaque(true);
 
         // confirms the users input
         submitButton.addActionListener(new ActionListener() {
@@ -129,8 +137,46 @@ public class Login {
 
         forgotPasswordButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent forgotPassword) {
-                ForgotPassword forgotPass = new ForgotPassword();
-                forgotPass.createAndShowGUI2();
+                JFrame frame = new JFrame("Forgot Password");				// creating instance of JFrame
+                frame.setSize(500, 500);									// 500 width and 500 height
+                frame.setLayout(new GridLayout(3, 2));
+                frame.setVisible(true);										// making the frame visible
+
+                final JLabel label = new JLabel("Please enter username: ");
+                label.setBounds(100, 110, 100, 40);
+
+                JButton submit = new JButton("Submit");						// creating instance of JButton
+                submit.setBounds(100, 70, 100, 40);							// x axis, y axis, width, height
+
+                final JLabel username = new JLabel("");
+                final JTextField emailField = new JTextField(30);
+
+                submit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Boolean found = false;
+
+                        try {
+                            Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
+                            
+                            while(scanner.hasNextLine()){
+                                String line 	= scanner.nextLine();
+                                String [] data 	= line.split(";");
+                                
+                                if(data[2].equals(emailField.getText())){
+                                    username.setText(data[0]);
+                                    found = true;
+                                }
+                            }
+                            if(!found){
+                                username.setText("User not found");
+                            }
+                        } catch (FileNotFoundException f) { }
+                    }
+                });
+
+                frame.add(label);
+                frame.add(emailField);
+                frame.add(submit);							// adding button in JFrame
             }
         });
 
@@ -144,7 +190,7 @@ public class Login {
 
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent r) {
-                //loginPage.setVisible(false);
+                loginPage.setVisible(false);
             	Register register = new Register();
                 register.beginRegistration();
             }

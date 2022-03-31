@@ -123,7 +123,7 @@ public class CreateCharacter {
 		createFrame.add(createPanel);
 		
 		//setting visible
-		createFrame.setSize(400, 175);
+		createFrame.setSize(400, 300);
 		createFrame.setVisible(true);
 	}
 	
