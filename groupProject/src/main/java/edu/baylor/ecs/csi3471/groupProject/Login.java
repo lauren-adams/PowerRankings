@@ -52,16 +52,19 @@ public class Login {
 
         JButton submitButton = new JButton("Submit");						// buttons in the login page
         submitButton.setBackground(Color.decode("#1A4645"));
+        submitButton.setOpaque(true);
         submitButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         submitButton.setForeground(Color.WHITE);
        
         JButton registerButton = new JButton("Register");
         registerButton.setBackground(Color.decode("#266867"));
+        registerButton.setOpaque(true);
         registerButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         registerButton.setForeground(Color.WHITE);
         
         JButton forgotPasswordButton = new JButton("Forgot Password");
         forgotPasswordButton.setBackground(Color.decode("#F58800"));
+        forgotPasswordButton.setOpaque(true);
         forgotPasswordButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         forgotPasswordButton.setForeground(Color.WHITE);
         
@@ -69,6 +72,7 @@ public class Login {
         forgotUsernameButton.setFont(new Font("sans-serif", Font.PLAIN, 20));
         forgotUsernameButton.setBackground(Color.decode("#F8BC24"));
         forgotUsernameButton.setForeground(Color.WHITE);
+        forgotUsernameButton.setOpaque(true);
 
         // confirms the users input
         submitButton.addActionListener(new ActionListener() {
