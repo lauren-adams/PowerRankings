@@ -3,15 +3,12 @@ package edu.baylor.ecs.csi3471.groupProject;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 
-public class VotingBooth extends JPanel {
+public class VotingBoothDAO extends JPanel {
     JLabel label;
 
     JFrame frame;
@@ -21,7 +18,7 @@ public class VotingBooth extends JPanel {
     User bill = Main.curUser;
 
 
-    public VotingBooth(Character a, Character b) throws MalformedURLException {
+    public VotingBoothDAO(Character a, Character b) throws MalformedURLException {
         //FIXME get the current characters for current round from the file instead
         Character bert = a;
         Character gandhi = b;

@@ -11,7 +11,7 @@ public class VotingBoothGUI {
 
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new GridLayout(2, 2));
-        contentPane.add(new VotingBooth(a, b));
+        contentPane.add(new VotingBoothDAO(a, b));
 
 
         // Exit when the window is closed.
