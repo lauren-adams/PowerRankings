@@ -172,27 +172,6 @@ public class Character {
         return ret;
     }
 
-    ArrayList<Character> makeList(){
-        String filePath = "CharacterFile.csv";
-        ArrayList<Character> cList = new ArrayList();
-        //Instantiating the Scanner class to read the file
-        Scanner sc = null;
-        try {
-            sc = new Scanner(new File(filePath));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String line = "";
-        //instantiating the StringBuffer class
-        StringBuffer buffer = new StringBuffer();
-        //Reading lines of the file and appending them to StringBuffer
-        while (sc.hasNextLine()) {
-            line = sc.nextLine();
-            Character c = new Character(line);
-            cList.add(c);
-        }
-        return cList;
-    }
 
 
 }

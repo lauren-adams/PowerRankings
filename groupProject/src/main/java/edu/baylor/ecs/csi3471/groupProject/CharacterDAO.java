@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CharacterDAO extends Character{
@@ -82,5 +83,27 @@ public class CharacterDAO extends Character{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    ArrayList<Character> makeList(){
+        String filePath = "CharacterFile.csv";
+        ArrayList<Character> cList = new ArrayList();
+        //Instantiating the Scanner class to read the file
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File(filePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line = sc.nextLine();
+        //instantiating the StringBuffer class
+        StringBuffer buffer = new StringBuffer();
+        //Reading lines of the file and appending them to StringBuffer
+        while (sc.hasNextLine()) {
+            line = sc.nextLine();
+            Character c = new Character(line);
+            cList.add(c);
+        }
+        return cList;
     }
 }

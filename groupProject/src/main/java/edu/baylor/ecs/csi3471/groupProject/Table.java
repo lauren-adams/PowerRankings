@@ -56,7 +56,35 @@ public class Table extends JPanel {
         int rowNumber = 0;
         final DefaultTableModel model = new DefaultTableModel(null, columnNames);
         //File selectedFile = openCSV();
+        CharacterDAO cdao = new CharacterDAO();
+        ArrayList<Character> cList = cdao.makeList();
+        for(int i = 0; i < cList.size(); i++){
+            Object[] row = new Object[4];
+            model.addRow(row);
+            model.setValueAt(cList.get(i).getName(), i, 0);
+            model.setValueAt(cList.get(i).getWorld(), i, 1);
+            Double ii = cList.get(i).getWin() * 1.0;
+            Double iii = cList.get(i).getLoss() * 1.0;
+            Double r = 0.0;
+            if (iii != 0) {
+                r = Double.valueOf(ii / (ii + iii));
+            } else {
+                if(ii == 0){
+                    r = 0.0;
+                } else {
+                    r = 1.0;
+                }
+            }
+            r = Math.round(r * 100.0) / 100.0;
+            String s = String.valueOf(r);
+            model.setValueAt(s, i, 2);
+            model.setValueAt(cList.get(i).getOwner(), i, 3);
+            model.setValueAt("View", i, 4);
+            model.setValueAt("Edit", i, 5);
 
+            //rowNumber++;
+        }
+        /*
         try (BufferedReader br = new BufferedReader(
                 new FileReader("CharacterFile.csv"))) {
             String line = br.readLine();
@@ -95,7 +123,7 @@ public class Table extends JPanel {
                 else if(row[0].equals("Cat")){
                     model.setValueAt("", rowNumber, 4);
                     model.setValueAt(row[4], rowNumber, 6);
-                }*/
+                }*//*
                 model.setValueAt("View", rowNumber, 4);
                 model.setValueAt("Edit", rowNumber, 5);
 
@@ -109,7 +137,7 @@ public class Table extends JPanel {
             exception.printStackTrace();
         }
 
-
+*/
         sorter = new TableRowSorter<DefaultTableModel>(model);
         table = new JTable(model);
         table.setRowSorter(sorter);
