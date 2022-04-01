@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import javax.swing.JLabel;
 
-public class DailyCheckIn extends UpdateCSV{
+public class DailyCheckIn extends UserDAO{
 	protected JLabel showBalance(String username) {
 		JLabel balanceLabel;
 		String bal = "Balance: ";
