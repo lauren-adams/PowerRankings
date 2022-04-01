@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 //Used to update the csv holding all of the user info without deleteing all the older data
 //just writes to the file
@@ -71,5 +72,21 @@ public class UpdateCSV {
         }
 
         return users;
+    }
+
+    protected int findCurrentBal(String username) {
+        try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                    return Integer.parseInt(data[5]);
+                }
+            }
+            return 0;
+        } catch (FileNotFoundException e) {
+            return 0;
+        }
     }
 }
