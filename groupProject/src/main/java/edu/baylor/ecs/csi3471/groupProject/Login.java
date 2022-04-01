@@ -190,9 +190,10 @@ public class Login {
 
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent r) {
-                loginPage.setVisible(false);
+                //loginPage.setVisible(false);
             	Register register = new Register();
                 register.beginRegistration();
+
             }
         });
 
