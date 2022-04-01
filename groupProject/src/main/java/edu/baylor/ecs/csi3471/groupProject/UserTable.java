@@ -163,19 +163,6 @@ public class UserTable extends JPanel {
         }
 
 
-        public File openCSV() {
-            File selectedFile = null;
-            JFileChooser fc = new JFileChooser();
-            fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-            int result = fc.showOpenDialog(edu.baylor.ecs.csi3471.groupProject.UserTable.this);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                selectedFile = fc.getSelectedFile();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No file selected");
-            }
-            return selectedFile;
-        }
 
         public void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
             GridBagConstraints gc = new GridBagConstraints();
