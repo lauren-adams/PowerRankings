@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 //Used to update the csv holding all of the user info without deleteing all the older data
 //just writes to the file
-public class UpdateCSV {
+public class UserDAO {
 
     //currently writing it, will finish tomorrow :)))))
     //so just ignore for now, well get done soon enough
