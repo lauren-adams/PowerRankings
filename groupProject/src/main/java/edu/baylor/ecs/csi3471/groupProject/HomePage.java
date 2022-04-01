@@ -1,16 +1,9 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class HomePage {
@@ -30,7 +23,7 @@ public class HomePage {
 		menuPanel.setBounds(0, 0, 750, 50);
 		mainFrame.add(menuPanel);
 		
-		TournamentBracketFrame f = new TournamentBracketFrame();
+		TournamentBracketPanel f = new TournamentBracketPanel();
 		JLayeredPane layered = f.getBracket();
 		
 		layered.setBounds(0, 50, 550, 750);
@@ -152,7 +145,7 @@ public class HomePage {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VotingBoothGUI windvote = new VotingBoothGUI();
-				TournamentBracketFrame frame = new TournamentBracketFrame();
+				TournamentBracketPanel frame = new TournamentBracketPanel();
 				Character[] myChars = frame.getBracketCharacters();
 				Character a = myChars[1];
 				Character b = myChars[5];
