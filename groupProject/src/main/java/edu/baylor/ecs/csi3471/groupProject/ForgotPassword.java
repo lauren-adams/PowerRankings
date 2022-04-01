@@ -36,24 +36,8 @@ public class ForgotPassword extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Boolean found = false;
-                try {
-                    Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
-                    while(scanner.hasNextLine()){
-                        String line = scanner.nextLine();
-                        String [] data = line.split("\t");
-                        if(data[0].equals(userField.getText())){
-                            password.setText(data[1]);
-                            found = true;
-                        }
-                    }
-                    if(!found){
-                        password.setText("User not found");
-                    }
-
-                } catch (FileNotFoundException f) {
-                    //idk anymore
-                }
+            	ForgotDAO f = new ForgotDAO();
+            	password.setText(f.findPassword(userField.getText()));
             }
         });
 
@@ -63,8 +47,6 @@ public class ForgotPassword extends JPanel {
 
 
     }
-
-
 
     protected void createAndShowGUI2() {
         //Create and set up the window.

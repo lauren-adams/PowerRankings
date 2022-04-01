@@ -39,24 +39,8 @@ public class ForgotUsername extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Boolean found = false;
-                try {
-                    Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
-                    while(scanner.hasNextLine()){
-                        String line = scanner.nextLine();
-                        String [] data = line.split("\t");
-                        if(data[2].equals(emailField.getText())){
-                            username.setText(data[0]);
-                            found = true;
-                        }
-                    }
-                    if(!found){
-                        username.setText("User not found");
-                    }
-
-                } catch (FileNotFoundException f) {
-                    //idk anymore
-                }
+            	ForgotDAO f = new ForgotDAO();
+            	username.setText(f.findUsername(emailField.getText()));
             }
         });
 
