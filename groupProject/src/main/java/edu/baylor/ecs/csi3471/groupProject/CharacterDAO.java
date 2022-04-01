@@ -1,10 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CharacterDAO extends Character{
@@ -105,5 +103,28 @@ public class CharacterDAO extends Character{
             cList.add(c);
         }
         return cList;
+    }
+    protected void addCharacter(String name, String world, String desc, String URL, String currUser) {
+        try {
+            List<String[]> allData = new ArrayList<String[]>();
+            Scanner sc = new Scanner(new File("CharacterFile.csv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                allData.add(data);
+            }
+
+            PrintWriter pw = new PrintWriter(new File("CharacterFile.csv"));
+            for(String currLine[]: allData) {
+                pw.write(String.join("\t", currLine));
+                pw.write("\n");
+            }
+            Character tempChar = new Character();
+            pw.write(name + "\t" + world + "\t" + desc + "\t" + "0" + "\t" + "0" + "\t" + tempChar.getId().toString()
+                    + "\t" + URL + "\t" + currUser);
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

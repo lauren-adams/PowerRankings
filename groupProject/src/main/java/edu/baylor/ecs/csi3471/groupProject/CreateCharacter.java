@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.*;
 
-public class CreateCharacter {
+public class CreateCharacter extends CharacterDAO {
 	protected void createAndShowGUI(String currUsername) {
 		//declaration of variables
 		JFrame createFrame;
@@ -93,6 +93,7 @@ public class CreateCharacter {
 							JOptionPane.showMessageDialog(createFrame, "Character already exists in chosen world",
 									"ERROR", JOptionPane.ERROR_MESSAGE);
 						}else {
+
 							addCharacter(nameField.getText(), worldField.getText(), descField.getText(),
 									urlField.getText(), currUsername);
 							createFrame.dispose();
@@ -209,27 +210,5 @@ public class CreateCharacter {
 		}
 	}
 	
-	protected void addCharacter(String name, String world, String desc, String URL, String currUser) {
-		try {
-			List<String[]> allData = new ArrayList<String[]>();
-			Scanner sc = new Scanner(new File("CharacterFile.csv"));
-			String data[];
-			while(sc.hasNextLine()) {
-				data = sc.nextLine().split("\t");
-				allData.add(data);
-			}
-			
-			PrintWriter pw = new PrintWriter(new File("CharacterFile.csv"));
-	        for(String currLine[]: allData) {
-	        	pw.write(String.join("\t", currLine));
-	        	pw.write("\n");
-	        }
-	        Character tempChar = new Character();
-	        pw.write(name + "\t" + world + "\t" + desc + "\t" + "0" + "\t" + "0" + "\t" + tempChar.getId().toString()
-	        		+ "\t" + URL + "\t" + currUser);
-	        pw.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+
 }
