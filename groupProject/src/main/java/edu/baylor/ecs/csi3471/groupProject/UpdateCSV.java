@@ -12,7 +12,10 @@ public class UpdateCSV {
 
     //currently writing it, will finish tomorrow :)))))
     //so just ignore for now, well get done soon enough
+
+    //FIXME DONT NEED TO HAVE FUNDS, JUST UPDATE USER
     public void updateFunds(){
+        //fixme, no more main.curUser, have to find the character each time
         User user = Main.curUser;
         //user.setName(nameInput.getText());
         //user.setAge(Integer.valueOf(ageInput.getText()));
