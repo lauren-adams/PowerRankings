@@ -1,18 +1,13 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.*;
-import java.util.Scanner;
 
 import javax.swing.*;
 
