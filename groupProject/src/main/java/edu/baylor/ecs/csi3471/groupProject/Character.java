@@ -161,7 +161,7 @@ public class Character {
     }
 
     void displayChar(){
-        new CharacterGridBagLayout(this);
+        new CharacterLayout(this);
         //This may open a dialog box to see character data
     }
 
@@ -274,7 +274,7 @@ public class Character {
 }
 
 
-class CharacterGridBagLayout extends JFrame{
+class CharacterLayout extends JFrame{
     /*public static void main(String[] args) {
         new PizzaGridBagLayout();
     }*/
@@ -287,7 +287,7 @@ class CharacterGridBagLayout extends JFrame{
 
     JButton closeButton = new JButton("Close");
 
-    public CharacterGridBagLayout(Character c) {
+    public CharacterLayout(Character c) {
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel1 = new JPanel();
