@@ -114,7 +114,6 @@ public class Register extends JPanel {
 																   "Warning",
 																    JOptionPane.YES_NO_OPTION);
 						if(answer == 0) {
-							try {
 								//FileWriter out = new FileWriter("UserFile.tsv", true);
 
 								//FIXME NO CHECK TO MAKE SURE USER ACTUALLY INPUT ITEMS
@@ -133,27 +132,14 @@ public class Register extends JPanel {
 								newUser.setAdmin(false);
 								newUser.setVoted(false);
 
-								List<String[]> allData = new ArrayList<String[]>();
-								BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
-								String data[];
-								String line = "";
-								while((line = br.readLine()) != null) {
-									data = line.split("\t");
-									allData.add(data);
-								}
-								File tsvOut = new File("UserFile.tsv");
-								PrintWriter pw = new PrintWriter(tsvOut);
-								for(String currLine[]: allData) {
-									pw.write(String.join("\t", currLine));
-									pw.write("\n");
-								}
 
-								pw.write(newUser.getUsername() + "\t" + newUser.getPassword() + "\t" + newUser.getEmail() + "\t" + newUser.getName() + "\t" + newUser.getAge() + "\t" + newUser.getFunds()
-										+ "\t" + newUser.getBet() + "\t" + newUser.isVoted() + "\t" + newUser.isAdmin() + "\t" + newUser.getDescription() + "\t" + newUser.getCurrentVote());
-								pw.write("\n");
-								pw.flush();
-								pw.close();
+								RegisterDAO base = new RegisterDAO();
+								base.writeToFile(newUser);
+								///FUNCTION BEGIN
 
+
+
+								///FUNCTION END
 
 //								String [] data = new String[]{newUser.getUsername(), newUser.getPassword(), newUser.getEmail(), newUser.getName(),
 //										String.valueOf(newUser.getAge()), String.valueOf(newUser.getFunds()), String.valueOf(newUser.getBet()),
@@ -175,9 +161,7 @@ public class Register extends JPanel {
 //								out.append(getUniqueId());
 //								out.append('\n');
 //								out.close();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+
 						}
 						RegisterPage.dispose();
 
