@@ -31,7 +31,8 @@ public class EditProfile extends JPanel {
         JPanel editPanel = new JPanel();
         
 		try {
-			user = getUserByUsername(username);
+			//user = getUserByUsername(username);
+			user = Main.curUser;
 			
 	        JLabel name = new JLabel("Name");
 	        JLabel age = new JLabel("Age");
@@ -54,9 +55,12 @@ public class EditProfile extends JPanel {
 	                user.setName(nameInput.getText());
 	                user.setAge(Integer.valueOf(ageInput.getText()));
 	                user.setDescription(descInput.getText());
+
+					//Database Access
+					UpdateCSV update = new UpdateCSV();
 	
 	                try {
-	                    updateUser(user);
+	                    update.updateUser(user);
 	                } catch (IOException e1) {
 	                    throw new NoSuchElementException("This user does not exist");
 	                }
@@ -99,79 +103,79 @@ public class EditProfile extends JPanel {
 		}
     }
 
-    public User getUserByUsername(String username) throws Exception {
-        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
-        String line = "";
+//    public User getUserByUsername(String username) throws Exception {
+//        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
+//        String line = "";
+//
+//        while ((line = br.readLine()) != null) {
+//            String[] user = line.split("\t");
+//            User curr = new User(user);
+//
+//            if (curr.getUsername() == username) {
+//                return curr;
+//            }
+//        }
+//
+//        throw new NoSuchElementException("This user does not exist");*/
+//    	Scanner sc = new Scanner(new File("UserFile.tsv"));
+//    	String data[];
+//    	while(sc.hasNextLine()) {
+//    		data = sc.nextLine().split("\t");
+//    		if(data[0].equals(username)) {
+//    			User curr = new User(data);
+//    			return curr;
+//    		}
+//    	}
+//    	throw new NoSuchElementException("This user does not exist");
+//    }
 
-        while ((line = br.readLine()) != null) {
-            String[] user = line.split("\t");
-            User curr = new User(user);
-
-            if (curr.getUsername() == username) {
-                return curr;
-            }
-        }
-
-        throw new NoSuchElementException("This user does not exist");*/
-    	Scanner sc = new Scanner(new File("UserFile.tsv"));
-    	String data[];
-    	while(sc.hasNextLine()) {
-    		data = sc.nextLine().split("\t");
-    		if(data[0].equals(username)) {
-    			User curr = new User(data);
-    			return curr;
-    		}
-    	}
-    	throw new NoSuchElementException("This user does not exist");
-    }
-
-    public static ArrayList<User> getUsers() throws IOException {
-        ArrayList<User> users = new ArrayList<User>();
-        BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
-        String line = "";
-        br.readLine();
-
-        while ((line = br.readLine()) != null) {
-            String[] user = line.split("\t");
-            User curr = new User(user);
-
-            users.add(curr);
-        }
-
-        return users;
-    }
-
-    public String convertToCSV(String[] data) {
-        return Stream.of(data).collect(Collectors.joining(","));
-    }
-
-    private void updateUser(User user) throws IOException {
-        List<String[]> data = new ArrayList<>();
-        ArrayList<User> savedUsers = getUsers();
-
-        for (User u : savedUsers) {
-            if (u.getUsername().equals(user.getUsername())) {
-                u = user;
-            }
-            data.add(new String[]{u.getUsername(), u.getPassword(), u.getEmail(), u.getName(), 
-            		String.valueOf(u.getAge()), String.valueOf(u.getFunds()), String.valueOf(u.getBet()), 
-            		String.valueOf(u.isVoted()), String.valueOf(u.isAdmin()), u.getDescription(), 
-            		u.getCurrentVote()});
-        }
-
-        File tsvOut = new File("UserFile.tsv");
-        PrintWriter pw = new PrintWriter(tsvOut);
-        pw.write("Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote");
-        pw.write("\n");
-        for(String s[]: data) {
-        	pw.write(String.join("\t", s));
-        	pw.write("\n");
-        }
-        pw.close();
-        //File csvOutputFile = new File("UserFile.csv");
-        //try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-            //data.stream().map(this::convertToCSV).forEach(pw::println);
-        //}
-        
-    }
+//    public static ArrayList<User> getUsers() throws IOException {
+//        ArrayList<User> users = new ArrayList<User>();
+//        BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
+//        String line = "";
+//        br.readLine();
+//
+//        while ((line = br.readLine()) != null) {
+//            String[] user = line.split("\t");
+//            User curr = new User(user);
+//
+//            users.add(curr);
+//        }
+//
+//        return users;
+//    }
+//
+//    public String convertToCSV(String[] data) {
+//        return Stream.of(data).collect(Collectors.joining(","));
+//    }
+//
+//    private void updateUser(User user) throws IOException {
+//        List<String[]> data = new ArrayList<>();
+//        ArrayList<User> savedUsers = getUsers();
+//
+//        for (User u : savedUsers) {
+//            if (u.getUsername().equals(user.getUsername())) {
+//                u = user;
+//            }
+//            data.add(new String[]{u.getUsername(), u.getPassword(), u.getEmail(), u.getName(),
+//            		String.valueOf(u.getAge()), String.valueOf(u.getFunds()), String.valueOf(u.getBet()),
+//            		String.valueOf(u.isVoted()), String.valueOf(u.isAdmin()), u.getDescription(),
+//            		u.getCurrentVote()});
+//        }
+//
+//        File tsvOut = new File("UserFile.tsv");
+//        PrintWriter pw = new PrintWriter(tsvOut);
+//        pw.write("Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote");
+//        pw.write("\n");
+//        for(String s[]: data) {
+//        	pw.write(String.join("\t", s));
+//        	pw.write("\n");
+//        }
+//        pw.close();
+//        //File csvOutputFile = new File("UserFile.csv");
+//        //try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+//            //data.stream().map(this::convertToCSV).forEach(pw::println);
+//        //}
+//
+//    }
 }

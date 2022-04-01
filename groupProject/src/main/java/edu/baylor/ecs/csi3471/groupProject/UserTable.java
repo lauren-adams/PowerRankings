@@ -36,14 +36,14 @@ public class UserTable extends JPanel {
         //dont think i need status text
         private TableRowSorter<DefaultTableModel> sorter;
 
-        public static void main(String[] args) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    createAndShowUserGUI();
-                }
-            });
-        }
+//        public static void main(String[] args) {
+//            SwingUtilities.invokeLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    createAndShowUserGUI();
+//                }
+//            });
+//        }
 
 
         //Creating the frame of the table, have to actually build table using something else

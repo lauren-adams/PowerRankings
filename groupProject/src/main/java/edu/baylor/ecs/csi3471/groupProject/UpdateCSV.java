@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 //Used to update the csv holding all of the user info without deleteing all the older data
 //just writes to the file
@@ -28,6 +29,8 @@ public class UpdateCSV {
         }
         //editFrame.dispose();
     }
+
+    //update one specific user from
     public void updateUser(User user) throws IOException {
         List<String[]> data = new ArrayList<>();
         ArrayList<User> savedUsers = getUsers();
@@ -57,6 +60,7 @@ public class UpdateCSV {
         //}
 
     }
+    //Get full list of users from file
     public ArrayList<User> getUsers() throws IOException {
         ArrayList<User> users = new ArrayList<User>();
         BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
@@ -71,5 +75,32 @@ public class UpdateCSV {
         }
 
         return users;
+    }
+
+    //Find User from file
+    public User getUserByUsername(String username) throws Exception {
+        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
+        String line = "";
+
+        while ((line = br.readLine()) != null) {
+            String[] user = line.split("\t");
+            User curr = new User(user);
+
+            if (curr.getUsername() == username) {
+                return curr;
+            }
+        }
+
+        throw new NoSuchElementException("This user does not exist");*/
+    	Scanner sc = new Scanner(new File("UserFile.tsv"));
+    	String data[];
+    	while(sc.hasNextLine()) {
+    		data = sc.nextLine().split("\t");
+    		if(data[0].equals(username)) {
+    			User curr = new User(data);
+    			return curr;
+    		}
+    	}
+    	throw new NoSuchElementException("This user does not exist");
     }
 }
