@@ -1,4 +1,6 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Persistence;
+
+import edu.baylor.ecs.csi3471.groupProject.Business.User;
 
 import java.io.*;
 import java.util.ArrayList;

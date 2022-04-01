@@ -1,4 +1,4 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ public class User
     private String description;
     private String currentVote;
 
-    User(String[] data){
+    public User(String[] data){
     	try {
     		this.username = data[0];
 	        this.password = data[1];
@@ -34,7 +34,7 @@ public class User
     	}
     }
 
-    User()
+    public User()
     {
         username = "";
         password = "";

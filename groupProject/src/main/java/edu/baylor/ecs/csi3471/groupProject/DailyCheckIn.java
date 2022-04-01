@@ -1,12 +1,11 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import edu.baylor.ecs.csi3471.groupProject.Business.User;
+import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 
 import javax.swing.JLabel;
 
-public class DailyCheckIn extends UserDAO{
+public class DailyCheckIn extends UserDAO {
 	protected JLabel showBalance(String username) {
 		JLabel balanceLabel;
 		String bal = "Balance: ";

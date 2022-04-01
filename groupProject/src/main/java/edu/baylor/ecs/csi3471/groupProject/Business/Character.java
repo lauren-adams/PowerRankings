@@ -1,17 +1,8 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
+import edu.baylor.ecs.csi3471.groupProject.CharacterLayout;
+
 import java.util.Objects;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class Character {
     String name = "";
@@ -24,11 +15,11 @@ public class Character {
     Double ratio = 0.0;
     String owner = "";
 
-    Character(){
+    public Character(){
         id = id++;
     }
 
-    Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
+    public Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
         this.name = name;
         this.world = world;
         this.desc = desc;
@@ -39,7 +30,7 @@ public class Character {
         id = id++;
     }
 
-    Character(String line){
+    public Character(String line){
         String[] split = line.split("\t");
         this.name = split[0];
         this.world = split[1];
@@ -160,7 +151,7 @@ public class Character {
         return Objects.hash(name, world);
     }
 
-    void displayChar(){
+    public void displayChar(){
         new CharacterLayout(this);
         //This may open a dialog box to see character data
     }

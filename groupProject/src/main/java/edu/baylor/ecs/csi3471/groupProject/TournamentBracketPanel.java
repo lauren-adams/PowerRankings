@@ -1,6 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

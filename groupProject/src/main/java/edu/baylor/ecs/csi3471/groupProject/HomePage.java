@@ -1,5 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;

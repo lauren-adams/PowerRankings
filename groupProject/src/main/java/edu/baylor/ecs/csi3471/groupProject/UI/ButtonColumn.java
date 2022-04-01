@@ -1,4 +1,4 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import javax.swing.*;
 import javax.swing.border.Border;

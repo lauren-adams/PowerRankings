@@ -1,4 +1,9 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Persistence;
+
+import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.User;
+import edu.baylor.ecs.csi3471.groupProject.Main;
+import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,14 +1,11 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
+import edu.baylor.ecs.csi3471.groupProject.Persistence.ForgotDAO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
 
 //FIXME MAYBE IMPLEMENT TO ALSO DO FORGOT PASSWORD
 public class ForgotUsername extends JPanel {

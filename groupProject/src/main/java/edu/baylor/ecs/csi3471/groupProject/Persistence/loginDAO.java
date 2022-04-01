@@ -1,10 +1,10 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class loginDAO {
+public class loginDAO {
 	public static int userLine;
 	
 	protected boolean isUsernameTaken(String username){
@@ -26,7 +26,7 @@ class loginDAO {
 		}
 	}
 	
-	static boolean validatePassword(String username, String password) {
+	public static boolean validatePassword(String username, String password) {
     	//Scan user file, seeing if a username and password match passed
     	//parameters
     	Scanner sc;
@@ -46,7 +46,7 @@ class loginDAO {
 		}
     }
 	
-	static boolean validateUsername(String username) {
+	public static boolean validateUsername(String username) {
     	//scan user file, seeing if a username matches passed string
     	try {
 			Scanner sc = new Scanner(new File("UserFile.tsv"));

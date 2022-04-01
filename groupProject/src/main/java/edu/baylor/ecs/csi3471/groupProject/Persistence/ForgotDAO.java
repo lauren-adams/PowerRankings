@@ -1,11 +1,11 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
 public class ForgotDAO {
-	String findPassword(String userField){
+	public String findPassword(String userField){
         try {
             Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
             while(scanner.hasNextLine()){
@@ -21,7 +21,7 @@ public class ForgotDAO {
         }
 	}
 	
-	String findUsername(String email) {
+	public String findUsername(String email) {
          try {
              Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
              while(scanner.hasNextLine()){

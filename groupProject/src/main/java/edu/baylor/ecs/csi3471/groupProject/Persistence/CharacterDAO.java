@@ -1,11 +1,13 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Persistence;
+
+import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CharacterDAO extends Character{
+public class CharacterDAO extends Character {
 	public Character findChar(String name, String world){
         File file = new File("CharacterFile.csv");
 
@@ -83,7 +85,7 @@ public class CharacterDAO extends Character{
         }
     }
 
-    ArrayList<Character> makeList(){
+    public ArrayList<Character> makeList(){
         String filePath = "CharacterFile.csv";
         ArrayList<Character> cList = new ArrayList();
         //Instantiating the Scanner class to read the file

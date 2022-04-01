@@ -1,12 +1,14 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
-class CharacterLayout extends JFrame {
+public class CharacterLayout extends JFrame {
     /*public static void main(String[] args) {
         new PizzaGridBagLayout();
     }*/

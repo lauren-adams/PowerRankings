@@ -1,5 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.User;
+import edu.baylor.ecs.csi3471.groupProject.Persistence.RegisterDAO;
+
 import java.util.Random;
 import java.awt.BorderLayout;
 import java.awt.Color;
