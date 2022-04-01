@@ -103,4 +103,20 @@ public class UpdateCSV {
     	}
     	throw new NoSuchElementException("This user does not exist");
     }
+
+    protected int findCurrentBal(String username) {
+        try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                    return Integer.parseInt(data[5]);
+                }
+            }
+            return 0;
+        } catch (FileNotFoundException e) {
+            return 0;
+        }
+    }
 }
