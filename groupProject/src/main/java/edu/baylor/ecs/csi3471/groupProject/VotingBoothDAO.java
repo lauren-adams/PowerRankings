@@ -169,7 +169,7 @@ public class VotingBoothDAO extends JPanel {
                                 bill.setVoted(true);
                                 bill.setCurrentVote(a.getName());
                                 UserDAO update = new UserDAO();
-                                update.updateFunds();
+                                update.updateUser();
                                 JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }
                         }
@@ -194,7 +194,7 @@ public class VotingBoothDAO extends JPanel {
                                 bill.setVoted(true);
                                 bill.setCurrentVote(b.getName());
                                 UserDAO update = new UserDAO();
-                                update.updateFunds();
+                                update.updateUser();
                                 //FIXME TRACK NUMBER OF VOTES PER CHARACTER
                                 JOptionPane.showMessageDialog(null, "Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }

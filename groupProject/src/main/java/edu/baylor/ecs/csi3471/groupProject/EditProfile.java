@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class EditProfile extends UserDAO {
+public class EditProfile extends JPanel {
 
     public EditProfile(String username){
         User user;
@@ -57,13 +57,10 @@ public class EditProfile extends UserDAO {
 	                user.setDescription(descInput.getText());
 
 					//Database Access
-	
-	                try {
-	                	updateUser(user);
-	                } catch (IOException e1) {
-	                    throw new NoSuchElementException("This user does not exist");
-	                }
-	                editFrame.dispose();
+					UserDAO update = new UserDAO();
+
+					update.updateUser();
+					editFrame.dispose();
 	            }
 	
 	        });
