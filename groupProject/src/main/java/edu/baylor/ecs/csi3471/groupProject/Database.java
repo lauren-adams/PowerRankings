@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Database {
+public class loginDAO {
 	public static int userLine;
 	
 	protected boolean isUsernameTaken(String username){
