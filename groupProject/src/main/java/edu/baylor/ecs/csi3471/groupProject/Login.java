@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Login {
-	static Database d = new Database();
+	static loginDAO d = new loginDAO();
 	final static private LoginForm loginForm = new LoginForm();
 	final static private String delim = "\t";
 	
@@ -94,7 +94,7 @@ public class Login {
                         try {
                             fs = new FileInputStream("UserFile.tsv");
                             BufferedReader br = new BufferedReader(new InputStreamReader(fs));
-                            for(int i = 0; i < Database.userLine; ++i){
+                            for(int i = 0; i < loginDAO.userLine; ++i){
                                 br.readLine();
                             }
 

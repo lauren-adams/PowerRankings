@@ -151,22 +151,16 @@ public class HomePage {
 		currentRound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VotingBooth booth = null;
+				VotingBoothGUI windvote = new VotingBoothGUI();
 				TournamentBracketFrame frame = new TournamentBracketFrame();
 				Character[] myChars = frame.getBracketCharacters();
-				//for(int i = 0; i < 7; i+=2) {
-					Character a = myChars[1];
-					Character b = myChars[5];
-					try {
-						booth = new VotingBooth(a, b);
-					} catch (MalformedURLException ex) {
-						ex.printStackTrace();
-					}
-					try {
-						booth.createAndShowGUI(a, b);
-					} catch (MalformedURLException ex) {
-						ex.printStackTrace();
-					}
+				Character a = myChars[1];
+				Character b = myChars[5];
+				try {
+					windvote.createAndShowGUI(a, b);
+				} catch (MalformedURLException ex) {
+					ex.printStackTrace();
+				}
 				//}
 			}
 		});
