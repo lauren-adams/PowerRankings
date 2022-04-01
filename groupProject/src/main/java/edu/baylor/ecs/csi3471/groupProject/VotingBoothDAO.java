@@ -3,15 +3,12 @@ package edu.baylor.ecs.csi3471.groupProject;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 
-public class VotingBooth extends JPanel {
+public class VotingBoothDAO extends JPanel {
     JLabel label;
 
     JFrame frame;
@@ -21,7 +18,7 @@ public class VotingBooth extends JPanel {
     User bill = Main.curUser;
 
 
-    public VotingBooth(Character a, Character b) throws MalformedURLException {
+    public VotingBoothDAO(Character a, Character b) throws MalformedURLException {
         //FIXME get the current characters for current round from the file instead
         Character bert = a;
         Character gandhi = b;
@@ -90,10 +87,6 @@ public class VotingBooth extends JPanel {
             });
             add(endRound, BorderLayout.WEST);
         }
-    }
-
-    void setLabel(String newText) {
-        label.setText(newText);
     }
 
     private JPanel createSimpleDialogBox(final Character a, final Character b) throws MalformedURLException {
@@ -220,18 +213,8 @@ public class VotingBooth extends JPanel {
         System.out.println("calling createPane");
         return createPane(simpleDialogDesc, radioButtons, voteButton);
     }
-/*
-    public ImageIcon urlToImage(String b){
-        URL url = null;
-        try {
-            url  = new URL(b);
-            ImageIcon img1 = new ImageIcon(url, "Option");
-            return img1;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-*/
+
+
     private JPanel createPane(String description, JRadioButton[] radioButtons,
                               JButton showButton) {
         int numChoices = radioButtons.length;
@@ -252,22 +235,5 @@ public class VotingBooth extends JPanel {
         //pane.add(new DrawMyImgs());
         System.out.println("returning pane");
         return pane;
-    }
-
-    protected void createAndShowGUI(Character a, Character b) throws MalformedURLException {
-        JFrame frame = new JFrame("VoteDialog");
-
-
-        Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new GridLayout(2, 2));
-        contentPane.add(new VotingBooth(a, b));
-
-
-        // Exit when the window is closed.
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(700, 600));
-
-        frame.pack();
-        frame.setVisible(true);
     }
 }
