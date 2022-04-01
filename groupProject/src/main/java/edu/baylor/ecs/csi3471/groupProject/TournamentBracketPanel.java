@@ -4,13 +4,10 @@ package edu.baylor.ecs.csi3471.groupProject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 
 
 class ImagePanel extends JPanel {
@@ -54,7 +51,7 @@ class ImagePanel extends JPanel {
 }
 
 
-public class TournamentBracketFrame
+public class TournamentBracketPanel
 {
 
     public Character[] initTournamentCharacters()
