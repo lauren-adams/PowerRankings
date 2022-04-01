@@ -29,6 +29,8 @@ public class UpdateCSV {
         }
         //editFrame.dispose();
     }
+
+    //update one specific user from
     public void updateUser(User user) throws IOException {
         List<String[]> data = new ArrayList<>();
         ArrayList<User> savedUsers = getUsers();
@@ -58,6 +60,7 @@ public class UpdateCSV {
         //}
 
     }
+    //Get full list of users from file
     public ArrayList<User> getUsers() throws IOException {
         ArrayList<User> users = new ArrayList<User>();
         BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
@@ -74,19 +77,30 @@ public class UpdateCSV {
         return users;
     }
 
-    protected int findCurrentBal(String username) {
-        try {
-            Scanner sc = new Scanner(new File("UserFile.tsv"));
-            String data[];
-            while(sc.hasNextLine()) {
-                data = sc.nextLine().split("\t");
-                if(data[0].equals(username)) {
-                    return Integer.parseInt(data[5]);
-                }
+    //Find User from file
+    public User getUserByUsername(String username) throws Exception {
+        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
+        String line = "";
+
+        while ((line = br.readLine()) != null) {
+            String[] user = line.split("\t");
+            User curr = new User(user);
+
+            if (curr.getUsername() == username) {
+                return curr;
             }
-            return 0;
-        } catch (FileNotFoundException e) {
-            return 0;
         }
+
+        throw new NoSuchElementException("This user does not exist");*/
+    	Scanner sc = new Scanner(new File("UserFile.tsv"));
+    	String data[];
+    	while(sc.hasNextLine()) {
+    		data = sc.nextLine().split("\t");
+    		if(data[0].equals(username)) {
+    			User curr = new User(data);
+    			return curr;
+    		}
+    	}
+    	throw new NoSuchElementException("This user does not exist");
     }
 }
