@@ -74,12 +74,18 @@ public class UserTable extends JPanel {
 
             Map<Integer, String> m = new HashMap();
 
-
+            UserDAO udao = new UserDAO();
+            ArrayList<User> uList = null;
+            try {
+                uList = udao.getUsers();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             ArrayList<String> name = new ArrayList();
             ArrayList<Integer> curr = new ArrayList();
 
-
+/*
             try (BufferedReader br = new BufferedReader(
                     new FileReader("UserFile.tsv"))) {
                 String line = br.readLine();
@@ -90,11 +96,17 @@ public class UserTable extends JPanel {
                     m.put(Integer.valueOf((String) row[5]), (String) row[1]);
                     //System.out.println(line);
                     //model.addRow(line.split(","));
-                }
+                }*/
                 //curr.stream().sorted();
                 /*Stream<Map.Entry<String,String>> sorted =
                         m.entrySet().stream()
                                 .sorted(Map.Entry.comparingByValue());*/
+            for (int i = 0; i < uList.size(); i++) {
+                name.add(uList.get(i).getName());
+                curr.add(uList.get(i).getFunds());
+                m.put(uList.get(i).getFunds() ,uList.get(i).getName());
+            }
+
                 List<Integer> sortedList = curr.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
                 for(int i = 0; i < name.size(); i++){
@@ -118,13 +130,6 @@ public class UserTable extends JPanel {
                     model.setValueAt(row[7], rowNumber, 3);*/
                     //rowNumber++;
                 }
-            } catch (FileNotFoundException exception) {
-                JOptionPane.showMessageDialog(null, "Issue with loading file: " + exception.getMessage());
-                exception.printStackTrace();
-            } catch (IOException exception) {
-                JOptionPane.showMessageDialog(null, "Issue with loading file: " + exception.getMessage());
-                exception.printStackTrace();
-            }
 
 
             sorter = new TableRowSorter<DefaultTableModel>(model);
