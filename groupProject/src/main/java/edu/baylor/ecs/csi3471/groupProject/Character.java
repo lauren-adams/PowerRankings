@@ -274,7 +274,7 @@ public class Character {
 }
 
 
-class CHaracterGridBagLayout extends JFrame{
+class CharacterGridBagLayout extends JFrame{
     /*public static void main(String[] args) {
         new PizzaGridBagLayout();
     }*/
