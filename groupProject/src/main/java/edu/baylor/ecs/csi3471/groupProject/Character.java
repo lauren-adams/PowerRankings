@@ -287,7 +287,7 @@ class CharacterGridBagLayout extends JFrame{
 
     JButton closeButton = new JButton("Close");
 
-    public CharacterLayout(Character c) {
+    public CharacterGridBagLayout(Character c) {
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel1 = new JPanel();
