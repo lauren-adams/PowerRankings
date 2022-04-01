@@ -137,46 +137,8 @@ public class Login {
 
         forgotPasswordButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent forgotPassword) {
-                JFrame frame = new JFrame("Forgot Password");				// creating instance of JFrame
-                frame.setSize(500, 500);									// 500 width and 500 height
-                frame.setLayout(new GridLayout(3, 2));
-                frame.setVisible(true);										// making the frame visible
-
-                final JLabel label = new JLabel("Please enter username: ");
-                label.setBounds(100, 110, 100, 40);
-
-                JButton submit = new JButton("Submit");						// creating instance of JButton
-                submit.setBounds(100, 70, 100, 40);							// x axis, y axis, width, height
-
-                final JLabel username = new JLabel("");
-                final JTextField emailField = new JTextField(30);
-
-                submit.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Boolean found = false;
-
-                        try {
-                            Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
-                            
-                            while(scanner.hasNextLine()){
-                                String line 	= scanner.nextLine();
-                                String [] data 	= line.split(";");
-                                
-                                if(data[2].equals(emailField.getText())){
-                                    username.setText(data[0]);
-                                    found = true;
-                                }
-                            }
-                            if(!found){
-                                username.setText("User not found");
-                            }
-                        } catch (FileNotFoundException f) { }
-                    }
-                });
-
-                frame.add(label);
-                frame.add(emailField);
-                frame.add(submit);							// adding button in JFrame
+                ForgotPassword forgotPass = new ForgotPassword();
+                forgotPass.createAndShowGUI2();
             }
         });
 
