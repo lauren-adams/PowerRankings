@@ -139,7 +139,7 @@ public class Table extends JPanel {
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 String n = (String) model.getValueAt(modelRow, 0);
                 String w = (String) model.getValueAt(modelRow, 1);
-                Character c = new Character();
+                CharacterDAO c = new CharacterDAO();
                 Character ret = c.findChar(n, w);
                 ret.displayChar();
 
@@ -164,7 +164,7 @@ public class Table extends JPanel {
                 JTextField idField = new JTextField(10);
                 animalField.setText((String) model.getValueAt(modelRow, 0));
                 idField.setText((String) model.getValueAt(modelRow, 1));
-                Character c = new Character();
+                CharacterDAO c = new CharacterDAO();
                 Character cc = c.findChar(animalField.getText(), idField.getText());
                 JTextField nameField = new JTextField(10);
                 JTextField ageField = new JTextField(10);
@@ -197,7 +197,7 @@ public class Table extends JPanel {
                     cc.setWorld(idField.getText());
                     cc.setDesc(nameField.getText());
                     cc.setPicture(ageField.getText());
-                    cc.updateCSV(c.getId());
+                    c.updateCSV(c.getId());
                 }
 
             }
