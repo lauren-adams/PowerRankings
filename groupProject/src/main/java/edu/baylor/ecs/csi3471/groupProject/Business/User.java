@@ -15,6 +15,8 @@ public class User
     private boolean admin;
     private String description;
     private String currentVote;
+    private int currentStreak;
+    private String lastLogin;
 
     public User(String[] data){
     	try {
@@ -29,6 +31,8 @@ public class User
 	        this.admin = Boolean.parseBoolean(data[8]);
 	        this.description = data[9];
 	        this.currentVote = data[10];
+	        this.currentStreak = Integer.parseInt(data[11]);
+	        this.lastLogin = data[12];
     	} catch (NullPointerException e) {
     		e.printStackTrace();
     	}
@@ -47,6 +51,8 @@ public class User
         admin = false;
         description = "";
         currentVote = "";
+        currentStreak = -1;
+        lastLogin = "";
     }
 
 
@@ -136,6 +142,22 @@ public class User
 
     public void setCurrentVote(String currentVote) {
         this.currentVote = currentVote;
+    }
+    
+    public void setCurrentStreak(int currentStreak) {
+    	this.currentStreak = currentStreak;
+    }
+    
+    public int getCurrentStreak() {
+    	return this.currentStreak;
+    }
+    
+    public void setLastLogin(String lastLogin) {
+    	this.lastLogin = lastLogin;
+    }
+    
+    public String getLastLogin() {
+    	return this.lastLogin;
     }
 
 

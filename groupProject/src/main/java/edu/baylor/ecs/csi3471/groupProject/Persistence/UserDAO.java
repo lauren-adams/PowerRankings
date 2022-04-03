@@ -41,12 +41,12 @@ public class UserDAO {
             data.add(new String[]{u.getUsername(), u.getPassword(), u.getEmail(), u.getName(),
                     String.valueOf(u.getAge()), String.valueOf(u.getFunds()), String.valueOf(u.getBet()),
                     String.valueOf(u.isVoted()), String.valueOf(u.isAdmin()), u.getDescription(),
-                    u.getCurrentVote()});
+                    u.getCurrentVote(), String.valueOf(u.getCurrentStreak()), u.getLastLogin()});
         }
 
         File tsvOut = new File("UserFile.tsv");
         PrintWriter pw = new PrintWriter(tsvOut);
-        pw.write("Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote");
+        pw.write("Username	Password	Email	Name	Age	Currency	Bet	Voted	Admin	Description	CurrentVote	CurrentStreak	LastLogin");
         pw.write("\n");
         for(String s[]: data) {
             pw.write(String.join("\t", s));
@@ -118,6 +118,99 @@ public class UserDAO {
             return 0;
         }
     }
+    
+    protected void setCurrentBal(String username, int newBalance) {
+    	try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                	data[5] = Integer.toString(newBalance);
+                	User newUser = new User(data);
+                	try {
+						updateUser(newUser);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            }
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+        }
+    }
 
-
+    protected int findCurrentStreak(String username) {
+    	try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                    return Integer.parseInt(data[11]);
+                }
+            }
+            return 0;
+        } catch (FileNotFoundException e) {
+            return 0;
+        }
+    }
+    
+    protected void setCurrentStreak(String username, int newStreak) {
+    	try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                	data[11] = Integer.toString(newStreak);
+                	User newUser = new User(data);
+                	try {
+						updateUser(newUser);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            }
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+        }
+    }
+    
+    protected String findLastLogin(String username) {
+    	try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                    return data[12];
+                }
+            }
+            return "null";
+        } catch (FileNotFoundException e) {
+            return "null";
+        }
+    }
+    
+    protected void setLastLogin(String username, String newLastLogin) {
+    	try {
+            Scanner sc = new Scanner(new File("UserFile.tsv"));
+            String data[];
+            while(sc.hasNextLine()) {
+                data = sc.nextLine().split("\t");
+                if(data[0].equals(username)) {
+                	data[12] = newLastLogin;
+                	User newUser = new User(data);
+                	try {
+						updateUser(newUser);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            }
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+        }
+    }
 }

@@ -30,7 +30,8 @@ public class RegisterDAO {
 
 
             pw.write(newUser.getUsername() + "\t" + newUser.getPassword() + "\t" + newUser.getEmail() + "\t" + newUser.getName() + "\t" + newUser.getAge() + "\t" + newUser.getFunds()
-                    + "\t" + newUser.getBet() + "\t" + newUser.isVoted() + "\t" + newUser.isAdmin() + "\t" + newUser.getDescription() + "\t" + newUser.getCurrentVote());
+                    + "\t" + newUser.getBet() + "\t" + newUser.isVoted() + "\t" + newUser.isAdmin() + "\t" + newUser.getDescription() + "\t" + newUser.getCurrentVote()
+                    + "\t" + newUser.getCurrentStreak() + "\t" + newUser.getLastLogin());
             pw.write("\n");
             pw.flush();
             pw.close();
