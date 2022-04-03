@@ -22,7 +22,7 @@ public class EditProfile extends JPanel {
         
 		try {
 			//user = getUserByUsername(username);
-			user = Main.curUser;
+			user = Runner.curUser;
 			
 	        JLabel name = new JLabel("Name");
 	        JLabel age = new JLabel("Age");

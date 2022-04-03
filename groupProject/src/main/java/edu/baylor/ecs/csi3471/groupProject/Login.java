@@ -95,7 +95,7 @@ public class Login {
 
                             String lineIWant = br.readLine();
                             String [] data = lineIWant.split(delim);
-                            Main.curUser = new User(data);
+                            Runner.curUser = new User(data);
 
                         } 
                         catch (IOException e) {

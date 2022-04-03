@@ -2,7 +2,7 @@ package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
-import edu.baylor.ecs.csi3471.groupProject.Main;
+import edu.baylor.ecs.csi3471.groupProject.Runner;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class UserDAO {
 
     public void updateUser(){
         //fixme, no more main.curUser, have to find the character each time
-        User user = Main.curUser;
+        User user = Runner.curUser;
         //user.setName(nameInput.getText());
         //user.setAge(Integer.valueOf(ageInput.getText()));
         //user.setDescription(descInput.getText());

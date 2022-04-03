@@ -2,8 +2,7 @@ package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
-import edu.baylor.ecs.csi3471.groupProject.Main;
-import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
+import edu.baylor.ecs.csi3471.groupProject.Runner;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +19,7 @@ public class VotingBoothDAO extends JPanel {
 
     String simpleDialogDesc = "";
 
-    User bill = Main.curUser;
+    User bill = Runner.curUser;
 
 
     public VotingBoothDAO(Character a, Character b) throws MalformedURLException {
@@ -49,7 +48,7 @@ public class VotingBoothDAO extends JPanel {
         add(label, BorderLayout.SOUTH);
         add(choicePanel, BorderLayout.CENTER);
 
-        if(Main.curUser.isAdmin()){
+        if(Runner.curUser.isAdmin()){
             JButton endRound = new JButton("End Round");
             endRound.setPreferredSize(new Dimension(100, 30));
             endRound.addActionListener(new ActionListener() {
