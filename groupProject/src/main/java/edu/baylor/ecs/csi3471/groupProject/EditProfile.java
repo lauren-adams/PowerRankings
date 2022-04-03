@@ -83,7 +83,7 @@ public class EditProfile extends JPanel {
 	        editFrame.add(editPanel);
 	        
 	        editFrame.setVisible(true);
-	        editFrame.setSize(400, 300);
+	        editFrame.setSize(325, 300);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
