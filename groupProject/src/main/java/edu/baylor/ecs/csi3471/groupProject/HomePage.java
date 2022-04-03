@@ -14,7 +14,7 @@ public class HomePage {
 		currUsername = username;
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
-		mainFrame.setSize(750, 750);
+		mainFrame.setSize(800, 800);
 		
 		//add the menu to mainFrame
 		//mainFrame.setLayout(new BorderLayout());
@@ -22,13 +22,13 @@ public class HomePage {
 		//GridLayout g = new GridLayout(2, 1);
 		
 		JPanel menuPanel = addMenu();
-		menuPanel.setBounds(0, 0, 750, 50);
+		menuPanel.setBounds(0, 0, 800, 100);
 		mainFrame.add(menuPanel);
 		
 		TournamentBracketPanel f = new TournamentBracketPanel();
 		JLayeredPane layered = f.getBracket();
 		
-		layered.setBounds(0, 50, 550, 750);
+		layered.setBounds(0, 100, 550, 650);
 		
 		
 		mainFrame.add(layered);
