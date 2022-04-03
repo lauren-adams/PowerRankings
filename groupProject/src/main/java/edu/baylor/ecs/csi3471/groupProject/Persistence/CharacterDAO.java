@@ -129,4 +129,21 @@ public class CharacterDAO extends Character {
             e.printStackTrace();
         }
     }
+    
+    protected boolean doesCharExist(String name, String world) {
+		try {
+			Scanner sc = new Scanner(new File("CharacterFile.csv"));
+			String data[];
+			while(sc.hasNextLine()) {
+				data = sc.nextLine().split("\t");
+				if(data[0].equalsIgnoreCase(name)&&data[1].equalsIgnoreCase(world)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return true;
+		}
+	}
 }

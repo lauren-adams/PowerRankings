@@ -13,14 +13,6 @@ import javax.swing.JLabel;
 
 public class DailyCheckIn extends UserDAO {
 	protected JLabel showBalance(String username) {
-		/*JLabel balanceLabel;
-		String bal = "Balance: ";
-		bal += Integer.toString(findCurrentBal(username));
-		bal += " coins";
-
-		balanceLabel = new JLabel(bal);
-
-		return balanceLabel;*/
 		//declare label, current balance, and string for label
 		JLabel balanceLabel;
 		int currBalance = findCurrentBal(username);
@@ -31,7 +23,7 @@ public class DailyCheckIn extends UserDAO {
 		String lastLog = findLastLogin(username);
 		//if today is the last login, simply return the label string of current balance
 		if(df.format(date).equals(lastLog)) {
-			labelString += Integer.toString(findCurrentBal(username)) + " coins";
+			labelString += Integer.toString(currBalance) + " coins";
 		//if today is not the last login
 		}else {
 			//check if yesterday was the last login
@@ -46,12 +38,12 @@ public class DailyCheckIn extends UserDAO {
 					reward *= 2;
 				}
 				setCurrentStreak(username, currStreak + 1);
-				labelString += Integer.toString(findCurrentBal(username) + reward) + " coins";
-				setCurrentBal(username, findCurrentBal(username) + reward);
+				labelString += Integer.toString(currBalance + reward) + " coins";
+				setCurrentBal(username, currBalance + reward);
 			//if it isn't, set current streak to 0
 			}else {
 				setCurrentStreak(username, 0);
-				labelString += Integer.toString(findCurrentBal(username)) + " coins";
+				labelString += Integer.toString(currBalance) + " coins";
 			}
 		}
 
