@@ -30,7 +30,7 @@ public class LoginForm extends JPanel implements PropertyChangeListener{
 
     // text field for the input
     private JFormattedTextField usernameField;
-    private JPasswordField passwordField;
+    public static JPasswordField passwordField;
  
     /**
      * @return the username

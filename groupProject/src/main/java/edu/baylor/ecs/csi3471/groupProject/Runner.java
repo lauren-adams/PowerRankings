@@ -7,8 +7,6 @@ public class Runner {
 	public static void main(String[] args) {
 //		HomePage h = new HomePage();
 //		h.createAndShowGUI();
-
-		Login login = new Login();
-		login.beginLoginProcess();
+		LoginPage lp = new LoginPage();
 	}
 }
