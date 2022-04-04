@@ -1,8 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject.Business;
 
-import edu.baylor.ecs.csi3471.groupProject.CharacterLayout;
-
 import java.util.Objects;
+
+import edu.baylor.ecs.csi3471.groupProject.UI.CharacterLayout;
 
 public class Character {
     String name = "";

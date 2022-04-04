@@ -1,4 +1,4 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
@@ -42,7 +42,7 @@ public class UserTable extends JPanel {
 
 
             //Create and set up the content pane.
-            edu.baylor.ecs.csi3471.groupProject.UserTable newContentPane = new edu.baylor.ecs.csi3471.groupProject.UserTable();
+            UserTable newContentPane = new UserTable();
             newContentPane.setOpaque(true); //content panes must be opaque
             frame.setContentPane(newContentPane);
 

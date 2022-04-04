@@ -1,5 +1,5 @@
 
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

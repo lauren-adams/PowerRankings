@@ -1,8 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject.Business;
 
-import edu.baylor.ecs.csi3471.groupProject.RegisterForm;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.RegisterDAO;
+import edu.baylor.ecs.csi3471.groupProject.UI.RegisterForm;
 
 import java.util.Random;
 import java.awt.BorderLayout;
