@@ -1,8 +1,8 @@
 package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
-import edu.baylor.ecs.csi3471.groupProject.Runner;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
