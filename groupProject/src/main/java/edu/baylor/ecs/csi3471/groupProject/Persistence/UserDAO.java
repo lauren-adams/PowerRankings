@@ -13,21 +13,6 @@ import java.util.Scanner;
 //just writes to the file
 public class UserDAO {
 
-    public void updateUser(){
-        //fixme, no more main.curUser, have to find the character each time
-        User user = Runner.curUser;
-        //user.setName(nameInput.getText());
-        //user.setAge(Integer.valueOf(ageInput.getText()));
-        //user.setDescription(descInput.getText());
-
-        try {
-            updateUser(user);
-        } catch (IOException e1) {
-            throw new NoSuchElementException("This user does not exist");
-        }
-        //editFrame.dispose();
-    }
-
     //update one specific user from
     public void updateUser(User user) throws IOException {
         List<String[]> data = new ArrayList<>();
@@ -52,10 +37,6 @@ public class UserDAO {
             pw.write("\n");
         }
         pw.close();
-        //File csvOutputFile = new File("UserFile.csv");
-        //try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-        //data.stream().map(this::convertToCSV).forEach(pw::println);
-        //}
 
     }
     //Get full list of users from file
@@ -77,19 +58,6 @@ public class UserDAO {
 
     //Find User from file
     public User getUserByUsername(String username) throws Exception {
-        /*BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
-        String line = "";
-
-        while ((line = br.readLine()) != null) {
-            String[] user = line.split("\t");
-            User curr = new User(user);
-
-            if (curr.getUsername() == username) {
-                return curr;
-            }
-        }
-
-        throw new NoSuchElementException("This user does not exist");*/
     	Scanner sc = new Scanner(new File("UserFile.tsv"));
     	String data[];
     	while(sc.hasNextLine()) {

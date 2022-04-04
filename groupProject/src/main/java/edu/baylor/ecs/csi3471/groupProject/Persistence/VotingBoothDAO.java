@@ -7,6 +7,7 @@ import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -173,7 +174,12 @@ public class VotingBoothDAO extends JPanel {
                                 bill.setVoted(true);
                                 bill.setCurrentVote(a.getName());
                                 UserDAO update = new UserDAO();
-                                update.updateUser();
+                                try {
+									update.updateUser(Runner.curUser);
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
                                 JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }
                         }
@@ -198,7 +204,12 @@ public class VotingBoothDAO extends JPanel {
                                 bill.setVoted(true);
                                 bill.setCurrentVote(b.getName());
                                 UserDAO update = new UserDAO();
-                                update.updateUser();
+                                try {
+									update.updateUser(Runner.curUser);
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
                                 //FIXME TRACK NUMBER OF VOTES PER CHARACTER
                                 JOptionPane.showMessageDialog(null, "Total Wager on " + b.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
                             }

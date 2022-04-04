@@ -6,6 +6,7 @@ import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -50,7 +51,12 @@ public class EditProfile extends JPanel {
 					//Database Access
 					UserDAO update = new UserDAO();
 
-					update.updateUser();
+					try {
+						update.updateUser(user);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					editFrame.dispose();
 	            }
 	

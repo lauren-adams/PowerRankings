@@ -1,6 +1,5 @@
-package edu.baylor.ecs.csi3471.groupProject.UI;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
-import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import javax.swing.JLabel;
 
 
 public class DailyCheckIn extends UserDAO {
-	protected JLabel showBalance(String username) {
+	public JLabel showBalance(String username) {
 		//declare label, current balance, and string for label
 		JLabel balanceLabel;
 		int currBalance = findCurrentBal(username);

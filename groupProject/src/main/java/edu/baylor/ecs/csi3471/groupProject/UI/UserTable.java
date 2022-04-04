@@ -24,15 +24,6 @@ public class UserTable extends JPanel {
         //dont think i need status text
         private TableRowSorter<DefaultTableModel> sorter;
 
-//        public static void main(String[] args) {
-//            SwingUtilities.invokeLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    createAndShowUserGUI();
-//                }
-//            });
-//        }
-
 
         //Creating the frame of the table, have to actually build table using something else
         protected static void createAndShowUserGUI() {
@@ -171,23 +162,6 @@ public class UserTable extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            /*
-            JTextField animalField = new JTextField(10);
-            JTextField idField = new JTextField(10);
-            JTextField nameField = new JTextField(10);
-            JTextField ageField = new JTextField(10);
-            JTextField infoField = new JTextField(10);
-            JPanel myPanel = new JPanel();
-            myPanel.add(new JLabel("Name: "));
-            myPanel.add(animalField);
-            myPanel.add(new JLabel("World: "));
-            myPanel.add(idField);
-            myPanel.add(new JLabel("Wins/Losses: "));
-            myPanel.add(nameField);
-            myPanel.add(new JLabel("Added By: "));
-            myPanel.add(ageField);*/
-                //**myPanel.add(new JLabel("Info (Optional): "));
-                //myPanel.add(infoField);
 
 
                 JTextField nameW = new JTextField(20), worldW = new JTextField(10), descW = new JTextField(20);
