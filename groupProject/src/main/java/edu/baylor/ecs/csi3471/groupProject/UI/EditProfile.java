@@ -1,4 +1,4 @@
-package edu.baylor.ecs.csi3471.groupProject.Business;
+package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;

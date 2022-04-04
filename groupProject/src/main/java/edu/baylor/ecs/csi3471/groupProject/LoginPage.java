@@ -14,8 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import edu.baylor.ecs.csi3471.groupProject.Business.ForgotPassword;
-import edu.baylor.ecs.csi3471.groupProject.Business.ForgotUsername;
 import edu.baylor.ecs.csi3471.groupProject.Business.Login;
 
 public class LoginPage {

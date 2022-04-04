@@ -1,4 +1,4 @@
-package edu.baylor.ecs.csi3471.groupProject.Business;
+package edu.baylor.ecs.csi3471.groupProject;
 
 import edu.baylor.ecs.csi3471.groupProject.Persistence.ForgotDAO;
 
@@ -7,27 +7,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ForgotPassword extends JPanel {
-    public ForgotPassword(){
+//FIXME MAYBE IMPLEMENT TO ALSO DO FORGOT PASSWORD
+public class ForgotUsername extends JPanel {
+    public ForgotUsername(){
 
         //JFrame frame = new JFrame("Forgot Username");				// creating instance of JFrame
         this.setSize(500, 500);									// 500 width and 500 height
         this.setLayout(new GridLayout(3, 2));
         this.setVisible(true);										// making the frame visible
 
-        final JLabel label = new JLabel("Please enter Username:");
+        final JLabel label = new JLabel("Please enter Email:");
         label.setBounds(100, 110, 100, 40);
 
-        final JLabel user = new JLabel("");
+        final JLabel email = new JLabel("");
         final JTextField usernameField = new JTextField(30);
-        final JTextField userField = new JTextField(30);
-        final JLabel password = new JLabel("");
-        user.setBounds(100, 100, 100, 40);
+        final JTextField emailField = new JTextField(30);
+        final JLabel username = new JLabel("");
+        username.setBounds(100, 100, 100, 40);
         JButton submit = new JButton("Submit");
         submit.setBounds(50, 70, 50, 40);
 
-        this.add(new JLabel("Username: "));
-        this.add(userField);
+        this.add(new JLabel("Email: "));
+        this.add(emailField);
         //this.add(username);
 
 
@@ -36,18 +37,20 @@ public class ForgotPassword extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
             	ForgotDAO f = new ForgotDAO();
-            	password.setText(f.findPassword(userField.getText()));
+            	username.setText(f.findUsername(emailField.getText()));
             }
         });
 
 
         this.add(submit);
-        this.add(password);
+        this.add(username);
 
 
     }
 
-    public void createAndShowGUI2() {
+
+
+    public void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -55,7 +58,7 @@ public class ForgotPassword extends JPanel {
 
 
         //Create and set up the content pane.
-        ForgotPassword newContentPane = new ForgotPassword();
+        ForgotUsername newContentPane = new ForgotUsername();
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
 
@@ -63,4 +66,6 @@ public class ForgotPassword extends JPanel {
         frame.pack();
         frame.setVisible(true);
     }
+
 }
+
