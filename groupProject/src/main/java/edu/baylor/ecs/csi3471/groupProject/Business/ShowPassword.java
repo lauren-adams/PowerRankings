@@ -1,4 +1,6 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
+
+import edu.baylor.ecs.csi3471.groupProject.LoginForm;
 
 public class ShowPassword{
 	

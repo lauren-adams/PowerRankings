@@ -1,5 +1,6 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
+import edu.baylor.ecs.csi3471.groupProject.RegisterForm;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.RegisterDAO;
 
@@ -28,7 +29,7 @@ public class Register extends JPanel {
 	final RegisterForm registerForm = new RegisterForm(); 						// display registration form
 	JFrame RegisterPage = new JFrame("Register"); 								// register page frame with name
 
-	void beginRegistration() {
+	public void beginRegistration() {
 		RegisterPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 					// make frame full screen
 
 		RegisterPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

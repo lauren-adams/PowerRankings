@@ -1,8 +1,9 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
 import edu.baylor.ecs.csi3471.groupProject.Persistence.loginDAO;
+import edu.baylor.ecs.csi3471.groupProject.HomePage;
+import edu.baylor.ecs.csi3471.groupProject.LoginPage;
 import edu.baylor.ecs.csi3471.groupProject.Runner;
-import edu.baylor.ecs.csi3471.groupProject.Business.User;
 
 import java.io.*;
 import javax.swing.JOptionPane;

@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Register;
+
 public class RegisterPage {
 	public static RegisterForm registerForm = new RegisterForm(); 				// display registration form
 	public static JFrame registerPage = new JFrame("Register"); 				// register page frame with name

@@ -1,5 +1,6 @@
-package edu.baylor.ecs.csi3471.groupProject;
+package edu.baylor.ecs.csi3471.groupProject.Business;
 
+import edu.baylor.ecs.csi3471.groupProject.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 

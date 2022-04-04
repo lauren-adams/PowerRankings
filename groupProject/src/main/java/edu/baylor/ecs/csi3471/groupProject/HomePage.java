@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class HomePage {
 	static String currUsername;
-	protected static void createAndShowGUI(String username) {
+	public static void createAndShowGUI(String username) {
 		currUsername = username;
 		//create mainFrame
 		JFrame mainFrame = new JFrame("Power Rankings");
