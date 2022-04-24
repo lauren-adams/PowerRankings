@@ -6,10 +6,13 @@ import edu.baylor.ecs.csi3471.groupProject.Persistence.VotingBoothDAO;
 import javax.swing.*;
 import java.awt.*;
 import java.net.MalformedURLException;
+import java.util.logging.Logger;
 
 public class VotingBoothGUI {
+    private static Logger applicationlog = Logger.getLogger(Timer.class.getName());
     protected void createAndShowGUI(Character a, Character b) throws MalformedURLException {
         JFrame frame = new JFrame("VoteDialog");
+        applicationlog.info("create GUI invoked");
 
 
         Container contentPane = frame.getContentPane();
