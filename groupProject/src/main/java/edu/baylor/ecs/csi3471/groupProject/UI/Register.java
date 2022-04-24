@@ -2,178 +2,100 @@ package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.RegisterDAO;
-
-import java.util.Random;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.*;
-
 import javax.swing.*;
 
-public class Register extends JPanel {
+public class Register {
 	Integer passwordMinSize = 8;
 	Integer passwordMaxSize = 20;
-	Integer nameMinSize 	= 5;
-	Integer nameMaxSize 	= 20;
-	Integer minAge 			= 18;
-	Integer maxAge 			= 200;
-	Integer emailMinSize 	= 3;
-	Integer emailMaxSize 	= 320;
-	Integer IDSize			= 20;
+	Integer nameMinSize = 5;
+	Integer nameMaxSize = 20;
+	Integer minAge = 18;
+	Integer maxAge = 200;
+	Integer emailMinSize = 3;
+	Integer emailMaxSize = 320;
+	Integer IDSize = 20;
 	String delim = "/t";
-	final RegisterForm registerForm = new RegisterForm(); 						// display registration form
-	JFrame RegisterPage = new JFrame("Register"); 								// register page frame with name
+	private String username = RegisterPage.registerForm.getUserNameField().getText();
+	private String password = RegisterPage.registerForm.getPasswordField().getText();
+	private String age = RegisterPage.registerForm.getAgeField().getText();
+	private String email = RegisterPage.registerForm.getEmailField().getText();
+	private String nickname = RegisterPage.registerForm.getNickNameField().getText();
 
 	public void beginRegistration() {
-		RegisterPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 					// make frame full screen
+		boolean fail = false;
+		boolean created = false;
 
-		RegisterPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		JMenuBar registerMenuBar = new JMenuBar(); 								// title menu bar
-		registerMenuBar.setOpaque(true); 										// makes title opaque
-		registerMenuBar.setPreferredSize(new Dimension(200, 200)); 				// second parameter controls height
+		if (username.isEmpty() || username == null) {
+			fail = true;
+		} else {
+			created = usernameAnalysis();
+		}
 
-		JMenuItem title = new JMenuItem("REGISTRATION"); 						// title name
-		title.setOpaque(true); 													// make opaque
-		title.setFont(new Font("roboto condensed", Font.PLAIN, 50)); 			// font of title
-		title.setBackground(Color.BLACK); 										// make title background black
-		registerMenuBar.add(title); 											// add title to title menu bar
+		if (password.isEmpty() || password == null) {
+			fail = true;
+		} else {
+			if (created) {
+				created = passwordAnalysis();
+			}
+		}
 
-		verifyRegistrationForm(); 												// ensures user fills out form correctly
+		if (age.isEmpty() || age == null) {
+			fail = true;
+		} else {
+			if (created) {
+				created = ageAnalysis();
+			}
+		}
 
-		RegisterPage.setJMenuBar(registerMenuBar);
-		RegisterPage.getContentPane().add(registerForm);
-		RegisterPage.setVisible(true);
-	}
+		if (email.isEmpty() || email == null) {
+			fail = true;
+		} else {
+			if (created) {
+				created = emailAnalysis();
+			}
+		}
 
-	// checks each text field in the form and ensures it meets the requirements
-	void verifyRegistrationForm() {
+		if (!nickname.isEmpty() && created) {
+			created = verifyName(nickname);
+			if (!created) {
+				JOptionPane.showMessageDialog(RegisterPage.registerForm,
+						"Invalid  nick name: must be numbers and alphabetical characters with length >= 5 and length <= 20",
+						"ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 
-		final JButton submitButton = new JButton("Submit");					// when clicked the form will be checked
+		if (fail) {
+			JOptionPane.showMessageDialog(RegisterPage.registerForm,
+					"Mandatory fields: username, password, email, and age not inserted\n", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
 
-		submitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent submit) {
-				boolean fail 	= false;
-				boolean created = false;
+		else {
+			if (created) {
+				int answer = JOptionPane.showConfirmDialog(null, "Do you wish to confirm entered information?",
+						"Warning", JOptionPane.YES_NO_OPTION);
+				
+				if (answer == 0) {
+					User newUser = new User();
+					newUser.setUsername(username);
+					newUser.setPassword(password);
+					newUser.setEmail(email);
+					newUser.setName(nickname);
+					newUser.setAge(Integer.parseInt(age));
+					newUser.setBet(0);
+					newUser.setCurrentVote("null");
+					newUser.setFunds(500);
+					newUser.setDescription("none");
+					newUser.setAdmin(false);
+					newUser.setVoted(false);
 
-				if (registerForm.getUserNameField().getText().isEmpty() || registerForm.getUserNameField().getText() == null) {
-					fail = true;
-				}
-				else {
-					created = usernameAnalysis();
-				}
-				if ((registerForm.getPasswordField().getText().isEmpty() || registerForm.getPasswordField().getText() == null) && created) {
-					fail = true;
-				}
-				else {
-					if(created) {
-						created = passwordAnalysis();
-					}
-				}
-				if ((registerForm.getAgeField().getText().isEmpty() || registerForm.getAgeField().getText() == null) && created) {
-					fail = true;
-				}
-				else {
-					if(created) {
-						created = ageAnalysis(submitButton);
-					}
-				}
-				if((registerForm.getEmailField().getText().isEmpty() || registerForm.getEmailField().getText() == null) && created) {
-					fail = true;
-				 }
-				 else {
-					 if(created) {
-						 created = emailAnalysis();
-					 }
-				 }
-				// if nickname field is not empty (this is optional so it can be empty)
-				if (!registerForm.getNickNameField().getText().isEmpty() && created) {
-					created = verifyName(registerForm.getUserNameField().getText());
-					if (!created) {
-						JOptionPane.showMessageDialog(registerForm,
-								"Invalid  nick name: must be numbers and alphabetical characters with length >= 5 and length <= 20",
-								"ERROR", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-
-				if (fail) {
-					JOptionPane.showMessageDialog(registerForm,
-							"Mandatory fields: username, password, email, and age not inserted\n", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				else {
-					if(created) {
-						int answer = JOptionPane.showConfirmDialog(null,
-																   "Do you wish to confirm entered information?",
-																   "Warning",
-																    JOptionPane.YES_NO_OPTION);
-						if(answer == 0) {
-								//FileWriter out = new FileWriter("UserFile.tsv", true);
-
-								//FIXME NO CHECK TO MAKE SURE USER ACTUALLY INPUT ITEMS
-								//File tsvOut = new File("UserFile.tsv");
-
-								User newUser = new User();
-								newUser.setUsername(registerForm.getUserNameField().getText());
-								newUser.setPassword(registerForm.getPasswordField().getText());
-								newUser.setEmail(registerForm.getEmailField().getText());
-								newUser.setName(registerForm.getNickNameField().getText());
-								newUser.setAge(Integer.parseInt(registerForm.getAgeField().getText()));
-								newUser.setBet(0);
-								newUser.setCurrentVote("null");
-								newUser.setFunds(500);
-								newUser.setDescription("none");
-								newUser.setAdmin(false);
-								newUser.setVoted(false);
-
-
-								RegisterDAO base = new RegisterDAO();
-								base.writeToFile(newUser);
-								///FUNCTION BEGIN
-
-
-
-								///FUNCTION END
-
-//								String [] data = new String[]{newUser.getUsername(), newUser.getPassword(), newUser.getEmail(), newUser.getName(),
-//										String.valueOf(newUser.getAge()), String.valueOf(newUser.getFunds()), String.valueOf(newUser.getBet()),
-//										String.valueOf(newUser.isVoted()), String.valueOf(newUser.isAdmin()), newUser.getDescription(),
-//										newUser.getCurrentVote()};
-
-								//out.append((String.join("\t", data)));
-								//out.append("\n");
-
-//								out.append(registerForm.getUserNameField().getText());
-//								out.append(delim);
-//								out.append(registerForm.getPasswordField().getText());
-//								out.append(delim);
-//								out.append(registerForm.getEmailField().getText());
-//								out.append(delim);
-//								out.append(registerForm.getNickNameField().getText());
-//								out.append(delim);
-//								out.append(registerForm.getAgeField().getText());
-//								out.append(getUniqueId());
-//								out.append('\n');
-//								out.close();
-
-						}
-						RegisterPage.dispose();
-
-//						Window win = SwingUtilities.getWindowAncestor(registerForm);
-//						if (win != null) {
-//							win.setVisible(false);
-//						}
-					}
+					RegisterDAO base = new RegisterDAO();
+					base.writeToFile(newUser);
+					
+					RegisterPage.registerPage.setVisible(false);
 				}
 			}
-		});
-
-		submitButton.setBackground(Color.BLACK);
-		registerForm.add(submitButton, BorderLayout.SOUTH);
+		}
 	}
 
 	// checks user name and nickname: ensures names meet requirements
@@ -188,7 +110,7 @@ public class Register extends JPanel {
 	// Checks password: ensures it meets requirements
 	boolean verifyPassword(String password) {
 		boolean created = verifyInputSizeIsValid(passwordMinSize, passwordMaxSize, password);
-		if(created) {
+		if (created) {
 			created = verifyInputIsDigitOrLetter(password);
 		}
 		return created;
@@ -197,13 +119,13 @@ public class Register extends JPanel {
 	// ensures: 18 >= age <= 200
 	boolean verifyAge(String age) {
 		boolean valid = verifyAgeLength(age);
-		if(valid) {
+		if (valid) {
 			valid = verifyAgeIsNumeric(age);
-			if(valid) {
-				if(age.length() == 2) {
+			if (valid) {
+				if (age.length() == 2) {
 					valid = verifyOlderThanEighteen(age);
 				}
-				if(age.length() == 3) {
+				if (age.length() == 3) {
 					valid = verifyYoungerThanTwoHundred(age);
 				}
 			}
@@ -214,13 +136,13 @@ public class Register extends JPanel {
 	// ensures email is a letter, digit, '.', '@', or '_' and is within valid range
 	boolean verifyEmail(String email) {
 		boolean valid = verifyInputSizeIsValid(emailMinSize, emailMaxSize, email);
-		if(!email.contains("@") || !email.contains(".")) {
+		if (!email.contains("@") || !email.contains(".")) {
 			valid = false;
 		}
-		if(valid) {
+		if (valid) {
 			for (int i = 0; i < email.length(); i++) {
-				if (!java.lang.Character.isLetterOrDigit(email.charAt(i)) && (!(email.charAt(i) == '.')) &&
-						(!(email.charAt(i) == '@') && (!(email.charAt(i) == '_')))) {
+				if (!java.lang.Character.isLetterOrDigit(email.charAt(i)) && (!(email.charAt(i) == '.'))
+						&& (!(email.charAt(i) == '@') && (!(email.charAt(i) == '_')))) {
 					valid = false;
 				}
 			}
@@ -228,22 +150,10 @@ public class Register extends JPanel {
 		return valid;
 	}
 
-	// generates uniqueId associated with the user
-	String getUniqueId() {
-		String id = "";
-		Random r = new Random();
-		String validChars = "0123456789!@#$%&*abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTVWXYZ";
-
-		for(int i = 0; i < IDSize; i++) {
-			id += validChars.charAt(r.nextInt(validChars.length()));
-		}
-		return id;
-	}
-
 	// checks input size and returns true if the input is within a valid range
 	boolean verifyInputSizeIsValid(Integer minSize, Integer maxSize, String input) {
 		boolean valid = false;
-		if(input.length() >= minSize && input.length() <= maxSize) {
+		if (input.length() >= minSize && input.length() <= maxSize) {
 			valid = true;
 		}
 		return valid;
@@ -252,7 +162,7 @@ public class Register extends JPanel {
 	// ensures age is at least 2 characters and at most 3 characters
 	boolean verifyAgeLength(String age) {
 		boolean valid = true;
-		if(age.length() < 2 || age.length() > 3) {
+		if (age.length() < 2 || age.length() > 3) {
 			return false;
 		}
 		return valid;
@@ -261,7 +171,7 @@ public class Register extends JPanel {
 	// ensures each character in the age is a digit
 	boolean verifyAgeIsNumeric(String age) {
 		boolean valid = true;
-		for(int i = 0; i < age.length(); i++) {
+		for (int i = 0; i < age.length(); i++) {
 			if (!java.lang.Character.isDigit(age.charAt(i))) {
 				valid = false;
 			}
@@ -272,8 +182,8 @@ public class Register extends JPanel {
 	// ensures age is not less than 18
 	boolean verifyOlderThanEighteen(String age) {
 		boolean valid = true;
-		if(age.charAt(0) == '1') {
-			if(age.charAt(1) < '8') {
+		if (age.charAt(0) == '1') {
+			if (age.charAt(1) < '8') {
 				valid = false;
 			}
 		}
@@ -283,13 +193,14 @@ public class Register extends JPanel {
 	// ensures age is not greater than 200
 	boolean verifyYoungerThanTwoHundred(String age) {
 		boolean valid = true;
-		if(age.charAt(0) > '2') {
+		if (age.charAt(0) > '2') {
 			valid = false;
 		}
 		return valid;
 	}
 
-	// checks each characters of a given text field (user name, password, or nick name)
+	// checks each characters of a given text field (user name, password, or nick
+	// name)
 	boolean verifyInputIsDigitOrLetter(String input) {
 		boolean valid = true;
 		for (int i = 0; i < input.length(); i++) {
@@ -302,49 +213,42 @@ public class Register extends JPanel {
 
 	// calls the name verification function: if invalid displays error message
 	boolean usernameAnalysis() {
-		boolean created =  verifyName(registerForm.getUserNameField().getText());
+		boolean created = verifyName(username);
 		if (!created) {
-			JOptionPane.showMessageDialog(registerForm,
-				"Invalid username: must be numbers and alphabetical characters with length >= 5 and length <= 20",
-				"ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(RegisterPage.registerForm,
+					"Invalid username: must be numbers and alphabetical characters with length >= 5 and length <= 20",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return created;
 	}
 
 	// calls the password verification function: if invalid displays error message
 	boolean passwordAnalysis() {
-		boolean created = verifyPassword(registerForm.getPasswordField().getText());
+		boolean created = verifyPassword(password);
 		if (!created) {
-			JOptionPane.showMessageDialog(registerForm,
-				"Invalid password: must be numbers and alphabetical characters with length >= 8 and length <= 15",
-				"ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(RegisterPage.registerForm,
+					"Invalid password: must be numbers and alphabetical characters with length >= 8 and length <= 15",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return created;
 	}
 
-	// calls the age verification function: if invalid displays error message and closes registration form
-	boolean ageAnalysis(JButton sub) {
-		boolean created = verifyAge(registerForm.getAgeField().getText());
-		if(!created) {
-			JOptionPane.showMessageDialog(registerForm,
-					"Too young to register or entered bad age, goodbye!\n", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-
-//			Window win = SwingUtilities.getWindowAncestor(sub);
-//
-//			if (win != null) {
-//				win.setVisible(false);
-//			}
+	// calls the age verification function: if invalid displays error message and
+	// closes registration form
+	boolean ageAnalysis() {
+		boolean created = verifyAge(age);
+		if (!created) {
+			JOptionPane.showMessageDialog(RegisterPage.registerForm,
+					"Too young to register or entered bad age, goodbye!\n", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return created;
 	}
 
 	// calls the email verification function: if invalid displays error message
 	boolean emailAnalysis() {
-		boolean created = verifyEmail(registerForm.getEmailField().getText());
-		if(!created) {
-			JOptionPane.showMessageDialog(registerForm,
-					"Invalid email\n", "ERROR",
+		boolean created = verifyEmail(email);
+		if (!created) {
+			JOptionPane.showMessageDialog(RegisterPage.registerForm, "Invalid email\n", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return created;
