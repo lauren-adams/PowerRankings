@@ -192,6 +192,10 @@ public class Table extends JPanel {
 
     }
 
+    /**
+     * @param model table to add menu to
+     * @return menu bar for table
+     */
     private JMenuBar initMenu(DefaultTableModel model) {
         JMenuBar menuBar;
         JMenu menu;
@@ -322,7 +326,15 @@ public class Table extends JPanel {
         }
         return selectedFile;
     }
-
+    /**
+     * @param p panel
+     * @param c component
+     * @param x x-dem
+     * @param y y-dem
+     * @param width width of panel
+     * @param height height of panel
+     * @param align alignment og panel
+     */
     public void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = x;

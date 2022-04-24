@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CharacterDAO extends Character {
+    /**
+     * @param name name of character
+     * @param world world of charcter
+     * @return Character object matching name and world
+     */
 	public Character findChar(String name, String world){
         File file = new File("CharacterFile.csv");
 
@@ -31,7 +36,10 @@ public class CharacterDAO extends Character {
         Character c = new Character();
         return c;
     }
-	
+
+    /**
+     * @param id id of character we want to update
+     */
 	//When you change values for a character, use setters to update and then use update to store changes
     public void updateCSV(Integer id){
         String filePath = "CharacterFile.csv";
@@ -85,6 +93,9 @@ public class CharacterDAO extends Character {
         }
     }
 
+    /**
+     * @return ArrayList of al characters in the database
+     */
     public ArrayList<Character> makeList(){
         String filePath = "CharacterFile.csv";
         ArrayList<Character> cList = new ArrayList();
@@ -106,6 +117,14 @@ public class CharacterDAO extends Character {
         }
         return cList;
     }
+
+    /**
+     * @param name name of character
+     * @param world world of character
+     * @param desc description of character
+     * @param URL url of character
+     * @param currUser user who made character
+     */
     protected void addCharacter(String name, String world, String desc, String URL, String currUser) {
         try {
             List<String[]> allData = new ArrayList<String[]>();
@@ -129,7 +148,12 @@ public class CharacterDAO extends Character {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * @param name name of character to search for
+     * @param world world of character to search for
+     * @return true if character exsists
+     */
     protected boolean doesCharExist(String name, String world) {
 		try {
 			Scanner sc = new Scanner(new File("CharacterFile.csv"));

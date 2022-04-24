@@ -21,6 +21,9 @@ public class CharacterLayout extends JFrame {
 
     JButton closeButton = new JButton("Close");
 
+    /**
+     * @param c character to display
+     */
     public CharacterLayout(Character c) {
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -84,7 +87,15 @@ public class CharacterLayout extends JFrame {
         this.pack();
         this.setVisible(true);
     }
-
+    /**
+     * @param p panel
+     * @param c component
+     * @param x x-dem
+     * @param y y-dem
+     * @param width width of panel
+     * @param height height of panel
+     * @param align alignment og panel
+     */
     private void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = x;

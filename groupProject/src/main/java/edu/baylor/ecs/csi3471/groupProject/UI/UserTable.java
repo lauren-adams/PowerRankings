@@ -142,7 +142,15 @@ public class UserTable extends JPanel {
         }
 
 
-
+    /**
+     * @param p panel
+     * @param c component
+     * @param x x-dem
+     * @param y y-dem
+     * @param width width of panel
+     * @param height height of panel
+     * @param align alignment og panel
+     */
         public void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
             GridBagConstraints gc = new GridBagConstraints();
             gc.gridx = x;

@@ -19,6 +19,15 @@ public class Character {
         id = id++;
     }
 
+    /**
+     * @param name string name of character
+     * @param world fanstasy world of character
+     * @param desc description of character and  abilites
+     * @param win total number of wins
+     * @param loss total number of losses
+     * @param picture url for image of character
+     * @param owner user who uploaded character
+     */
     public Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
         this.name = name;
         this.world = world;
@@ -30,6 +39,9 @@ public class Character {
         id = id++;
     }
 
+    /**
+     * @param line line of data from database to be split and added to character
+     */
     public Character(String line){
         String[] split = line.split("\t");
         this.name = split[0];
@@ -54,26 +66,44 @@ public class Character {
         id = id++;
     }
 
+    /**
+     * @return user who made character
+     */
     public String getOwner() {
         return owner;
     }
 
+    /**
+     * @param owner user who made character
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
+    /**
+     * @return charcater id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @return ratio of wins to losses
+     */
     public Double getRatio() {
         return ratio;
     }
 
+    /**
+     * @return number of losses
+     */
     public Integer getLoss() {
         return loss;
     }
 
+    /**
+     * @param loss number of losses
+     */
     public void setLoss(Integer loss) {
         this.loss = loss;
         if (loss != 0) {
@@ -88,10 +118,16 @@ public class Character {
         ratio = Math.round(ratio * 100.0) / 100.0;
     }
 
+    /**
+     * @return  number of wins
+     */
     public Integer getWin() {
         return win;
     }
 
+    /**
+     * @param win number of wins
+     */
     public void setWin(Integer win) {
         this.win = win;
         if (loss != 0) {
@@ -106,38 +142,66 @@ public class Character {
         ratio = Math.round(ratio * 100.0) / 100.0;
     }
 
+    /**
+     * @return decription of character
+     */
     public String getDesc() {
         return desc;
     }
 
+    /**
+     * @param desc decription of character
+     */
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
+    /**
+     * @return worl dof character
+     */
     public String getWorld() {
         return world;
     }
 
+    /**
+     * @param world world of charcater
+     */
     public void setWorld(String world) {
         this.world = world;
     }
 
+    /**
+     * @return name of character
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name name of charcater
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return
+     */
     public String getPicture() {
         return picture;
     }
 
+    /**
+     * @param picture url of character image
+     */
     public void setPicture(String picture) {
         this.picture = picture;
     }
 
+    /**
+     * @param o charctaer object
+     * @return true if they are equivalent
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
