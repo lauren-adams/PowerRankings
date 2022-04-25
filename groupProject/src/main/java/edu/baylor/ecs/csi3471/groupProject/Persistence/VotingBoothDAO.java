@@ -25,11 +25,16 @@ public class VotingBoothDAO extends JPanel {
     User bill = Runner.curUser;
 
 
-    public VotingBoothDAO(Character a, Character b) throws MalformedURLException {
+    public VotingBoothDAO(Character a, Character b) throws Exception {
         //FIXME get the current characters for current round from the file instead
         applicationlog.info("VotingBooth Class Called");
         Character bert = a;
         Character gandhi = b;
+        if(a == null || b == null){
+            applicationlog.severe("One of the Characters isn't loading!");
+            Exception Exception = new Exception();
+            throw Exception;
+        }
         //this.frame = frame;
         JLabel title;
 

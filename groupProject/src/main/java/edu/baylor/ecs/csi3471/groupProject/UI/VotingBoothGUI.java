@@ -10,7 +10,20 @@ import java.util.logging.Logger;
 
 public class VotingBoothGUI {
     private static Logger applicationlog = Logger.getLogger(Timer.class.getName());
-    protected void createAndShowGUI(Character a, Character b) throws MalformedURLException {
+    /**
+     *
+     * <p>
+     * This method always returns immediately, whether or not the
+     * image exists. When this applet attempts to draw the image on
+     * the screen, the data will be loaded. The graphics primitives
+     * that draw the image will incrementally paint on the screen.
+     *
+     * @param  a  an absolute URL giving the base location of the image
+     * @param  b the location of the image, relative to the url argument
+     * @return      void
+     * @see         Image
+     */
+    protected void createAndShowGUI(Character a, Character b) throws Exception {
         JFrame frame = new JFrame("VoteDialog");
         applicationlog.info("create GUI invoked");
 

@@ -154,7 +154,7 @@ public class HomePage {
 				Character b = myChars[5];
 				try {
 					windvote.createAndShowGUI(a, b);
-				} catch (MalformedURLException ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 				//}
