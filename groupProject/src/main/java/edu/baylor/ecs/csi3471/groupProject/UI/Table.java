@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Character;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.CharacterDAO;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -14,8 +15,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Table extends JPanel {
+    public static Logger logger = Logger.getLogger(Timer.class.getName());
+
+    static {
+        try {
+            InputStream configFile = Table.class.getClassLoader().getResourceAsStream("logger.properties");
+            LogManager.getLogManager().readConfiguration(configFile);
+            configFile.close();
+        } catch (IOException ex) {
+            System.out.println("WARNING: Could not open configuration file");
+            System.out.println("WARNING: Logging not configured (console output only)");
+        }
+        logger.info("starting the app");
+    }
     private JTable table;
     //dont think i need text field
     //dont think i need status text
@@ -50,6 +66,7 @@ public class Table extends JPanel {
 
     public Table() {
         super();
+        logger.info("Character table generated");
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         String[] columnNames = {"Name", "World", "Record", "Added By", "View", "Edit"};
         String[][] data = {{"yes", "no", "idk", "maybe"}};
@@ -106,6 +123,7 @@ public class Table extends JPanel {
         Action delete = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                logger.info("delete action called");
                 JTable table = (JTable) e.getSource();
                 int modelRow = Integer.valueOf(e.getActionCommand());
                 /***FIX MEEE -> get character and call display function***/
@@ -113,6 +131,7 @@ public class Table extends JPanel {
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 String n = (String) model.getValueAt(modelRow, 0);
                 String w = (String) model.getValueAt(modelRow, 1);
+                logger.info("Deleted: " + n +" w");
                 CharacterDAO c = new CharacterDAO();
                 Character ret = c.findChar(n, w);
                 ret.displayChar();
@@ -131,47 +150,51 @@ public class Table extends JPanel {
         Action edit = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTable table = (JTable) e.getSource();
-                int modelRow = Integer.valueOf(e.getActionCommand());
+                logger.log("Edit action selected")
+                if(Runner.curUser.isAdmin()) {
+                    JTable table = (JTable) e.getSource();
+                    int modelRow = Integer.valueOf(e.getActionCommand());
 
-                JTextField animalField = new JTextField(10);
-                JTextField idField = new JTextField(10);
-                animalField.setText((String) model.getValueAt(modelRow, 0));
-                idField.setText((String) model.getValueAt(modelRow, 1));
-                CharacterDAO c = new CharacterDAO();
-                Character cc = c.findChar(animalField.getText(), idField.getText());
-                JTextField nameField = new JTextField(10);
-                JTextField ageField = new JTextField(10);
-                JTextField infoField = new JTextField(10);
-                nameField.setText(cc.getDesc());
-                ageField.setText(cc.getPicture());
+                    JTextField animalField = new JTextField(10);
+                    JTextField idField = new JTextField(10);
+                    animalField.setText((String) model.getValueAt(modelRow, 0));
+                    idField.setText((String) model.getValueAt(modelRow, 1));
+                    edu.baylor.ecs.csi3471.groupProject.CharacterDAO c = new edu.baylor.ecs.csi3471.groupProject.CharacterDAO();
+                    Character cc = c.findChar(animalField.getText(), idField.getText());
+                    JTextField nameField = new JTextField(10);
+                    JTextField ageField = new JTextField(10);
+                    JTextField infoField = new JTextField(10);
+                    nameField.setText(cc.getDesc());
+                    ageField.setText(cc.getPicture());
 
-                JPanel myPanel = new JPanel();
-                myPanel.setBackground(Color.PINK);
-                myPanel.add(new JLabel("Name: "));
-                myPanel.add(animalField);
-                myPanel.add(new JLabel("World: "));
-                myPanel.add(idField);
-                myPanel.add(new JLabel("Decription: "));
-                myPanel.add(nameField);
-                myPanel.add(new JLabel("Picture url: "));
-                myPanel.add(ageField);
+                    JPanel myPanel = new JPanel();
+                    myPanel.setBackground(Color.PINK);
+                    myPanel.add(new JLabel("Name: "));
+                    myPanel.add(animalField);
+                    myPanel.add(new JLabel("World: "));
+                    myPanel.add(idField);
+                    myPanel.add(new JLabel("Decription: "));
+                    myPanel.add(nameField);
+                    myPanel.add(new JLabel("Picture url: "));
+                    myPanel.add(ageField);
                 /*myPanel.add(new JLabel("Info (Optional): "));
                 myPanel.add(infoField);*/
 
-                int result = JOptionPane.showConfirmDialog(null, myPanel,
-                        "Enter values", JOptionPane.OK_CANCEL_OPTION);
-                if (result == JOptionPane.OK_OPTION) {
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    model.setValueAt(animalField.getText(), modelRow, 0);
-                    model.setValueAt(idField.getText(), modelRow, 1);
-                    //model.setValueAt(nameField.getText(), modelRow, 2);
-                    //model.setValueAt(ageField.getText(), modelRow, 3);
-                    cc.setName(animalField.getText());
-                    cc.setWorld(idField.getText());
-                    cc.setDesc(nameField.getText());
-                    cc.setPicture(ageField.getText());
-                    c.updateCSV(c.getId());
+                    int result = JOptionPane.showConfirmDialog(null, myPanel,
+                            "Enter values", JOptionPane.OK_CANCEL_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        model.setValueAt(animalField.getText(), modelRow, 0);
+                        model.setValueAt(idField.getText(), modelRow, 1);
+                        //model.setValueAt(nameField.getText(), modelRow, 2);
+                        //model.setValueAt(ageField.getText(), modelRow, 3);
+                        cc.setName(animalField.getText());
+                        cc.setWorld(idField.getText());
+                        cc.setDesc(nameField.getText());
+                        cc.setPicture(ageField.getText());
+                        c.updateCSV(c.getId());
+                        logger.info(nameField.getText() + " successfully edited");
+                    }
                 }
 
             }
@@ -184,7 +207,7 @@ public class Table extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                log.info("Changes saved");
             }
         });
         add(submit);
@@ -197,6 +220,7 @@ public class Table extends JPanel {
      * @return menu bar for table
      */
     private JMenuBar initMenu(DefaultTableModel model) {
+        logger.info("Menu created");
         JMenuBar menuBar;
         JMenu menu;
         JMenuItem menuItem;
@@ -227,6 +251,7 @@ public class Table extends JPanel {
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                logger.info("export action selected");
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 String separator = ","; //add the character as specified ny user
                 JPanel myPanel = new JPanel();
@@ -371,7 +396,7 @@ public class Table extends JPanel {
             myPanel.add(ageField);*/
             //**myPanel.add(new JLabel("Info (Optional): "));
             //myPanel.add(infoField);
-
+    logger.info("Add action selected");
 
             JTextField nameW = new JTextField(20), worldW = new JTextField(10), descW = new JTextField(20);
             JTextField recordW = new JTextField(20);
@@ -450,6 +475,7 @@ public class Table extends JPanel {
     private final class RemoveLineActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            logger.info("Remove action selected");
             int viewRow = table.getSelectedRow();
             if (viewRow < 0) {
                 JOptionPane.showMessageDialog(null, "No row selected");

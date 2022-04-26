@@ -1,10 +1,29 @@
 package edu.baylor.ecs.csi3471.groupProject.Business;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import edu.baylor.ecs.csi3471.groupProject.UI.CharacterLayout;
 
+import javax.swing.*;
+
 public class Character {
+    public static Logger logger = Logger.getLogger(Timer.class.getName());
+
+    static {
+        try {
+            InputStream configFile = edu.baylor.ecs.csi3471.groupProject.UI.UserTable.class.getClassLoader().getResourceAsStream("logger.properties");
+            LogManager.getLogManager().readConfiguration(configFile);
+            configFile.close();
+        } catch (IOException ex) {
+            System.out.println("WARNING: Could not open configuration file");
+            System.out.println("WARNING: Logging not configured (console output only)");
+        }
+        logger.info("starting the app");
+    }
     String name = "";
     String world = "";
     String desc = "";
@@ -29,6 +48,7 @@ public class Character {
      * @param owner user who uploaded character
      */
     public Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
+        logger.info("Character " + name + " created");
         this.name = name;
         this.world = world;
         this.desc = desc;
@@ -52,6 +72,7 @@ public class Character {
         this.id = Integer.valueOf(split[5]);
         this.picture = split[6];
         this.owner = split[7];
+        logger.info("Character " + this.name + " created from splitting constructor");
 
         if (loss != 0) {
             ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
@@ -216,11 +237,13 @@ public class Character {
     }
 
     public void displayChar(){
+        logger.info("Character displayed");
         new CharacterLayout(this);
         //This may open a dialog box to see character data
     }
 
     public String charToCSV(){
+        logger.info("Character converted to csv form to print");
         String ret = "\n";
         ret += name + "\t" + world + "\t" + desc + "\t";
         ret += win + "\t" + loss + "\t" + id + "\t" + picture + "\t" + owner;
