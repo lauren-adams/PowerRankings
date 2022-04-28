@@ -1,5 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -16,11 +18,14 @@ public class ForgotDAO {
                 String line = scanner.nextLine();
                 String [] data = line.split("\t");
                 if(data[0].equals(userField)){
+                    Runner.logger.info("user was found");
                     return data[1];
                 }
             }
+            Runner.logger.info("user was not found");
             return "User not found";
         } catch (FileNotFoundException f) {
+            Runner.logger.warning("user file was not found");
         	return "User not found";
         }
 	}
@@ -36,12 +41,15 @@ public class ForgotDAO {
                  String line = scanner.nextLine();
                  String [] data = line.split("\t");
                  if(data[2].equals(email)){
+                     Runner.logger.info("user was found");
                      return data[0];
                  }
              }
+             Runner.logger.info("user was not found");
              return "User not found";
 
          } catch (FileNotFoundException f) {
+             Runner.logger.warning("user file was not found");
         	 return "User not found";
          }
 	}

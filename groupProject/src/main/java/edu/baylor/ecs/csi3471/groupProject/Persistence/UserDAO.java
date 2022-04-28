@@ -19,6 +19,7 @@ public class UserDAO {
      */
     //update one specific user from
     public void updateUser(User user) throws IOException {
+        Runner.logger.info("updating the user");
         List<String[]> data = new ArrayList<>();
         ArrayList<User> savedUsers = getUsers();
 
@@ -50,6 +51,7 @@ public class UserDAO {
      */
     //Get full list of users from file
     public ArrayList<User> getUsers() throws IOException {
+        Runner.logger.info("getting all the users from the file into list");
         ArrayList<User> users = new ArrayList<User>();
         BufferedReader br = new BufferedReader(new FileReader("UserFile.tsv"));
         String line = "";
@@ -72,6 +74,7 @@ public class UserDAO {
      */
     //Find User from file
     public User getUserByUsername(String username) throws Exception {
+        Runner.logger.info("getting user from username");
     	Scanner sc = new Scanner(new File("UserFile.tsv"));
     	String data[];
     	while(sc.hasNextLine()) {
@@ -81,6 +84,7 @@ public class UserDAO {
     			return curr;
     		}
     	}
+        Runner.logger.warning("username did not exist");
     	throw new NoSuchElementException("This user does not exist");
     }
 

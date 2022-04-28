@@ -1,15 +1,22 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.ForgotDAO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-//FIXME MAYBE IMPLEMENT TO ALSO DO FORGOT PASSWORD
 public class ForgotUsername extends JPanel {
+
     public ForgotUsername(){
+
+        Runner.logger.info("Forgot password has been launched");
 
         //JFrame frame = new JFrame("Forgot Username");				// creating instance of JFrame
         this.setSize(500, 500);									// 500 width and 500 height
@@ -36,6 +43,8 @@ public class ForgotUsername extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Runner.logger.info("User submitted to get their email back");
+
             	ForgotDAO f = new ForgotDAO();
             	username.setText(f.findUsername(emailField.getText()));
             }

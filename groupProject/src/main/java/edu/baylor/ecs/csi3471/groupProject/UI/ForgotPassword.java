@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.ForgotDAO;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class ForgotPassword extends JPanel {
     public ForgotPassword(){
+        Runner.logger.info("Forgot password has been launched");
 
         //JFrame frame = new JFrame("Forgot Username");				// creating instance of JFrame
         this.setSize(500, 500);									// 500 width and 500 height
@@ -35,6 +37,7 @@ public class ForgotPassword extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Runner.logger.info("User submitted to get their password back");
             	ForgotDAO f = new ForgotDAO();
             	password.setText(f.findPassword(userField.getText()));
             }
