@@ -127,7 +127,11 @@ public class CreateCharacter extends CharacterDAO {
 		createFrame.setSize(400, 300);
 		createFrame.setVisible(true);
 	}
-	
+
+	/**
+	 * @param name name for character from user
+	 * @return validates length is okay
+	 */
 	protected boolean isValidCharName(String name) {
 		//checking if character name length is valid
 		if(49<name.length()||name.length()==0) {
@@ -144,7 +148,11 @@ public class CreateCharacter extends CharacterDAO {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * @param world world inserted into character
+	 * @return validates the text of the world
+	 */
 	protected boolean isValidWorld(String world) {
 		//checking if character world length is valid
 		if(49<world.length()||world.length()==0) {
@@ -161,7 +169,11 @@ public class CreateCharacter extends CharacterDAO {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * @param desc character description
+	 * @return validates character description is valid
+	 */
 	protected boolean isValidCharDesc(String desc) {
 		//checking if character description length is valid
 		if(299<desc.length()||desc.length()==0) {
@@ -178,7 +190,11 @@ public class CreateCharacter extends CharacterDAO {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * @param URL url to picture
+	 * @return validates the url is functional
+	 */
 	protected boolean isValidCharURL(String URL) {
 		//checking if URL is within required length
 		if(299<URL.length()) {
