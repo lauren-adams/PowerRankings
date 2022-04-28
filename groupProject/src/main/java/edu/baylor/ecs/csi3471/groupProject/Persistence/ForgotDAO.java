@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class ForgotDAO {
+    /**
+     * @param userField entered username field
+     * @return the password of the user is returned
+     */
 	public String findPassword(String userField){
         try {
             Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));
@@ -20,7 +24,11 @@ public class ForgotDAO {
         	return "User not found";
         }
 	}
-	
+
+    /**
+     * @param email user entered email
+     * @return users username is returned
+     */
 	public String findUsername(String email) {
          try {
              Scanner scanner = new Scanner(new FileReader("UserFile.tsv"));

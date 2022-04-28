@@ -11,6 +11,11 @@ import javax.swing.*;
 
 public class HomePage {
 	static String currUsername;
+
+	/**
+	 * @param username current user passed from login
+	 * creates the homepage of the app
+	 */
 	public static void createAndShowGUI(String username) {
 		currUsername = username;
 		//create mainFrame

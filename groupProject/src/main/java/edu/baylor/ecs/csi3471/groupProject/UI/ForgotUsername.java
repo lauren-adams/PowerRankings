@@ -49,7 +49,9 @@ public class ForgotUsername extends JPanel {
     }
 
 
-
+    /**
+     * creates prompt for the forgotten username prompt
+     */
     public void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");

@@ -98,6 +98,10 @@ public class Register {
 		}
 	}
 
+	/**
+	 * @param name user input name
+	 * @return verification for if the name is valid
+	 */
 	// checks user name and nickname: ensures names meet requirements
 	boolean verifyName(String name) {
 		boolean created = verifyInputSizeIsValid(nameMinSize, nameMaxSize, name);
@@ -108,6 +112,10 @@ public class Register {
 	}
 
 	// Checks password: ensures it meets requirements
+	/**
+	 * @param password user input password
+	 * @return verification for if the password is valid
+	 */
 	boolean verifyPassword(String password) {
 		boolean created = verifyInputSizeIsValid(passwordMinSize, passwordMaxSize, password);
 		if (created) {
@@ -117,6 +125,10 @@ public class Register {
 	}
 
 	// ensures: 18 >= age <= 200
+	/**
+	 * @param age user input age
+	 * @return verification for if the age is valid
+	 */
 	boolean verifyAge(String age) {
 		boolean valid = verifyAgeLength(age);
 		if (valid) {
@@ -134,6 +146,10 @@ public class Register {
 	}
 
 	// ensures email is a letter, digit, '.', '@', or '_' and is within valid range
+	/**
+	 * @param email user input password
+	 * @return verification for if the email is valid
+	 */
 	boolean verifyEmail(String email) {
 		boolean valid = verifyInputSizeIsValid(emailMinSize, emailMaxSize, email);
 		if (!email.contains("@") || !email.contains(".")) {
@@ -151,6 +167,13 @@ public class Register {
 	}
 
 	// checks input size and returns true if the input is within a valid range
+
+	/**
+	 * @param minSize length is greater than this number
+	 * @param maxSize length is less than this number
+	 * @param input user input
+	 * @return returns if the length of input is good
+	 */
 	boolean verifyInputSizeIsValid(Integer minSize, Integer maxSize, String input) {
 		boolean valid = false;
 		if (input.length() >= minSize && input.length() <= maxSize) {
@@ -160,6 +183,11 @@ public class Register {
 	}
 
 	// ensures age is at least 2 characters and at most 3 characters
+
+	/**
+	 * @param age user input age
+	 * @return if the age is long enough or short enough
+	 */
 	boolean verifyAgeLength(String age) {
 		boolean valid = true;
 		if (age.length() < 2 || age.length() > 3) {
@@ -169,6 +197,10 @@ public class Register {
 	}
 
 	// ensures each character in the age is a digit
+	/**
+	 * @param age user input age
+	 * @return verifies if the age is a number
+	 */
 	boolean verifyAgeIsNumeric(String age) {
 		boolean valid = true;
 		for (int i = 0; i < age.length(); i++) {
@@ -180,6 +212,10 @@ public class Register {
 	}
 
 	// ensures age is not less than 18
+	/**
+	 * @param age user input age
+	 * @return verifies that the age is above 18
+	 */
 	boolean verifyOlderThanEighteen(String age) {
 		boolean valid = true;
 		if (age.charAt(0) == '1') {
@@ -191,6 +227,10 @@ public class Register {
 	}
 
 	// ensures age is not greater than 200
+	/**
+	 * @param age user input age
+	 * @return verifies the user is younger than 200
+	 */
 	boolean verifyYoungerThanTwoHundred(String age) {
 		boolean valid = true;
 		if (age.charAt(0) > '2') {
@@ -199,6 +239,10 @@ public class Register {
 		return valid;
 	}
 
+	/**
+	 * @param input user input
+	 * @return makes sure the input is alphanumeric
+	 */
 	// checks each characters of a given text field (user name, password, or nick
 	// name)
 	boolean verifyInputIsDigitOrLetter(String input) {
@@ -211,6 +255,9 @@ public class Register {
 		return valid;
 	}
 
+	/**
+	 * @return ensures the username is valid
+	 */
 	// calls the name verification function: if invalid displays error message
 	boolean usernameAnalysis() {
 		boolean created = verifyName(username);
@@ -222,6 +269,9 @@ public class Register {
 		return created;
 	}
 
+	/**
+	 * @return ensures password is valid
+	 */
 	// calls the password verification function: if invalid displays error message
 	boolean passwordAnalysis() {
 		boolean created = verifyPassword(password);
@@ -233,6 +283,9 @@ public class Register {
 		return created;
 	}
 
+	/**
+	 * @return ensures age is valid
+	 */
 	// calls the age verification function: if invalid displays error message and
 	// closes registration form
 	boolean ageAnalysis() {
@@ -244,6 +297,9 @@ public class Register {
 		return created;
 	}
 
+	/**
+	 * @return ensures email is valid
+	 */
 	// calls the email verification function: if invalid displays error message
 	boolean emailAnalysis() {
 		boolean created = verifyEmail(email);

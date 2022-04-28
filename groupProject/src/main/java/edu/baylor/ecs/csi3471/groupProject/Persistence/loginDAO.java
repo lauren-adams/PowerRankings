@@ -5,7 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class loginDAO {
 	public static String[] userData;
-	
+
+	/**
+	 * @param username username entered
+	 * @return validates if the username is taken
+	 */
 	protected boolean isUsernameTaken(String username){
 		//Scan user file, seeing if a username matches the attempted username
 		try {
@@ -25,7 +29,12 @@ public class loginDAO {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param username username of user
+	 * @param password password of user
+	 * @return asserts that the username and password match for login
+	 */
 	public static boolean validatePassword(String username, String password) {
     	//Scan user file, seeing if a username and password match passed
     	//parameters

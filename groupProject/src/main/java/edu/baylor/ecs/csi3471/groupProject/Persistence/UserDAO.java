@@ -13,6 +13,10 @@ import java.util.Scanner;
 //just writes to the file
 public class UserDAO {
 
+    /**
+     * @param user the user we want to update
+     * @throws IOException if the file is not found
+     */
     //update one specific user from
     public void updateUser(User user) throws IOException {
         List<String[]> data = new ArrayList<>();
@@ -39,6 +43,11 @@ public class UserDAO {
         pw.close();
 
     }
+
+    /**
+     * @return list of all the users from the user file
+     * @throws IOException if file is not found
+     */
     //Get full list of users from file
     public ArrayList<User> getUsers() throws IOException {
         ArrayList<User> users = new ArrayList<User>();
@@ -56,6 +65,11 @@ public class UserDAO {
         return users;
     }
 
+    /**
+     * @param username username of the user we need info for
+     * @return the user that matches the given username
+     * @throws Exception
+     */
     //Find User from file
     public User getUserByUsername(String username) throws Exception {
     	Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -70,6 +84,10 @@ public class UserDAO {
     	throw new NoSuchElementException("This user does not exist");
     }
 
+    /**
+     * @param username given username
+     * @return the balance of the user
+     */
     protected int findCurrentBal(String username) {
         try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -85,7 +103,11 @@ public class UserDAO {
             return 0;
         }
     }
-    
+
+    /**
+     * @param username user to change value of
+     * @param newBalance new balance for user
+     */
     protected void setCurrentBal(String username, int newBalance) {
     	try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -107,6 +129,10 @@ public class UserDAO {
         }
     }
 
+    /**
+     * @param username given username to find
+     * @return
+     */
     protected int findCurrentStreak(String username) {
     	try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -122,7 +148,11 @@ public class UserDAO {
             return 0;
         }
     }
-    
+
+    /**
+     * @param username username of user to change
+     * @param newStreak new streak to add to profile
+     */
     protected void setCurrentStreak(String username, int newStreak) {
     	try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -143,7 +173,11 @@ public class UserDAO {
         	e.printStackTrace();
         }
     }
-    
+
+    /**
+     * @param username username of user to find
+     * @return returns when they last logged in
+     */
     protected String findLastLogin(String username) {
     	try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));
@@ -159,7 +193,11 @@ public class UserDAO {
             return "null";
         }
     }
-    
+
+    /**
+     * @param username username of user to find
+     * @param newLastLogin new login date to set
+     */
     protected void setLastLogin(String username, String newLastLogin) {
     	try {
             Scanner sc = new Scanner(new File("UserFile.tsv"));

@@ -47,6 +47,9 @@ public class ForgotPassword extends JPanel {
 
     }
 
+    /**
+     * creates the window for the forgotten password prompt
+     */
     public void createAndShowGUI2() {
         //Create and set up the window.
         JFrame frame = new JFrame("TableFilterDemo");
