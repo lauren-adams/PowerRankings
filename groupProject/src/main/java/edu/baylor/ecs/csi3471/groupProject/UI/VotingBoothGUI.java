@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.VotingBoothDAO;
 
 import javax.swing.*;
