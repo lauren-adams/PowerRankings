@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -22,19 +23,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class UserTable extends JPanel {
-    public static Logger logger = Logger.getLogger(Timer.class.getName());
-
-    static {
-        try {
-            InputStream configFile = UserTable.class.getClassLoader().getResourceAsStream("logger.properties");
-            LogManager.getLogManager().readConfiguration(configFile);
-            configFile.close();
-        } catch (IOException ex) {
-            System.out.println("WARNING: Could not open configuration file");
-            System.out.println("WARNING: Logging not configured (console output only)");
-        }
-        logger.info("starting the app");
-    }
         private JTable table;
         //dont think i need text field
         //dont think i need status text
@@ -60,7 +48,7 @@ public class UserTable extends JPanel {
 
         public UserTable() {
             super();
-            logger.info("New userTable generated");
+            Runner.logger.info("New userTable generated");
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             String[] columnNames = {"Rank", "Currency", "Name"};
             String[][] data = {{"yes", "no", "idk", "maybe"}};
@@ -187,7 +175,7 @@ public class UserTable extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                logger.info("Add Line Action Listener selected");
+                Runner.logger.info("Add Line Action Listener selected");
 
                 JTextField nameW = new JTextField(20), worldW = new JTextField(10), descW = new JTextField(20);
                 JTextField recordW = new JTextField(20);
@@ -266,7 +254,7 @@ public class UserTable extends JPanel {
         private final class RemoveLineActionListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-                logger.info("remove line action listener selected ");
+                Runner.logger.info("remove line action listener selected ");
                 int viewRow = table.getSelectedRow();
                 if (viewRow < 0) {
                     JOptionPane.showMessageDialog(null, "No row selected");

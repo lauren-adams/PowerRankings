@@ -4,25 +4,31 @@ import edu.baylor.ecs.csi3471.groupProject.UI.LoginPage;
 import edu.baylor.ecs.csi3471.groupProject.UI.UserTable;
 
 import javax.swing.*;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class Runner {
-	public static Logger logger = Logger.getLogger(Timer.class.getName());
-
+	public static Logger logger = Logger.getLogger(Runner.class.getName());
 	static {
 		try {
-			InputStream configFile = UserTable.class.getClassLoader().getResourceAsStream("logger.properties");
+			InputStream configFile = Runner.class.getClassLoader().getResourceAsStream("logger.properties");
 			LogManager.getLogManager().readConfiguration(configFile);
 			configFile.close();
 		} catch (IOException ex) {
 			System.out.println("WARNING: Could not open configuration file");
-			System.out.println("WARNING: Logging not configured (console output only)");
+		    System.out.println("WARNING: Logging not configured (console output only)");
+		} catch (NullPointerException ne) {
+			System.out.println("WARNING: Could not open configuration file");
+		    System.out.println("WARNING: Logging not configured (console output only)");
 		}
-		logger.info("Logger initialized for the application");
+		logger.info("starting the app");
 	}
+	
 	public static User curUser;
 	public static void main(String[] args) {
 		LoginPage lp = new LoginPage();

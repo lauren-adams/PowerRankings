@@ -42,7 +42,6 @@ public class UserDAO {
             pw.write("\n");
         }
         pw.close();
-
     }
 
     /**

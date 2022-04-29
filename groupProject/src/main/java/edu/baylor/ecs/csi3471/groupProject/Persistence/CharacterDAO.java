@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 
 import javax.swing.*;
 import java.io.*;
@@ -11,19 +12,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class CharacterDAO extends Character {
-    public static Logger logger = Logger.getLogger(Timer.class.getName());
-
-    static {
-        try {
-            InputStream configFile = edu.baylor.ecs.csi3471.groupProject.UI.UserTable.class.getClassLoader().getResourceAsStream("logger.properties");
-            LogManager.getLogManager().readConfiguration(configFile);
-            configFile.close();
-        } catch (IOException ex) {
-            System.out.println("WARNING: Could not open configuration file");
-            System.out.println("WARNING: Logging not configured (console output only)");
-        }
-        logger.info("starting the app");
-    }
     /**
      * @param name name of character
      * @param world world of charcter
@@ -31,7 +19,7 @@ public class CharacterDAO extends Character {
      */
 	public Character findChar(String name, String world){
         File file = new File("CharacterFile.csv");
-        logger.info("Searching file for " + name);
+        Runner.logger.info("Searching file for " + name);
 
         try {
             Scanner scanner = new Scanner(file);
@@ -59,7 +47,7 @@ public class CharacterDAO extends Character {
      */
 	//When you change values for a character, use setters to update and then use update to store changes
     public void updateCSV(Integer id){
-        logger.info("Updating character in database with id " + id);
+        Runner.logger.info("Updating character in database with id " + id);
         String filePath = "CharacterFile.csv";
         //Instantiating the Scanner class to read the file
         Scanner sc = null;
@@ -115,7 +103,7 @@ public class CharacterDAO extends Character {
      * @return ArrayList of al characters in the database
      */
     public ArrayList<Character> makeList(){
-        logger.info("Making list of all characters from database");
+        Runner.logger.info("Making list of all characters from database");
         String filePath = "CharacterFile.csv";
         ArrayList<Character> cList = new ArrayList();
         //Instantiating the Scanner class to read the file
@@ -145,7 +133,7 @@ public class CharacterDAO extends Character {
      * @param currUser user who made character
      */
     protected void addCharacter(String name, String world, String desc, String URL, String currUser) {
-        logger.info("Adding " + name + " to database");
+        Runner.logger.info("Adding " + name + " to database");
         try {
             List<String[]> allData = new ArrayList<String[]>();
             Scanner sc = new Scanner(new File("CharacterFile.csv"));
@@ -175,14 +163,14 @@ public class CharacterDAO extends Character {
      * @return true if character exsists
      */
     protected boolean doesCharExist(String name, String world) {
-        logger.info("Cheching if " + name + " is in database");
+        Runner.logger.info("Cheching if " + name + " is in database");
 		try {
 			Scanner sc = new Scanner(new File("CharacterFile.csv"));
 			String data[];
 			while(sc.hasNextLine()) {
 				data = sc.nextLine().split("\t");
 				if(data[0].equalsIgnoreCase(name)&&data[1].equalsIgnoreCase(world)) {
-                    logger.info(name + " is in database");
+                    Runner.logger.info(name + " is in database");
 					return true;
 				}
 			}
