@@ -20,21 +20,22 @@ public class Character {
     String picture = "";
     Double ratio = 0.0;
     String owner = "";
+    Integer currVote = 0;
 
-    public Character(){
+    public Character() {
         id = id++;
     }
 
     /**
-     * @param name string name of character
-     * @param world fanstasy world of character
-     * @param desc description of character and  abilites
-     * @param win total number of wins
-     * @param loss total number of losses
+     * @param name    string name of character
+     * @param world   fanstasy world of character
+     * @param desc    description of character and abilites
+     * @param win     total number of wins
+     * @param loss    total number of losses
      * @param picture url for image of character
-     * @param owner user who uploaded character
+     * @param owner   user who uploaded character
      */
-    public Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner){
+    public Character(String name, String world, String desc, Integer win, Integer loss, String picture, String owner) {
         Runner.logger.info("Character " + name + " created");
         this.name = name;
         this.world = world;
@@ -49,7 +50,7 @@ public class Character {
     /**
      * @param line line of data from database to be split and added to character
      */
-    public Character(String line){
+    public Character(String line) {
         String[] split = line.split("\t");
         this.name = split[0];
         this.world = split[1];
@@ -59,12 +60,13 @@ public class Character {
         this.id = Integer.valueOf(split[5]);
         this.picture = split[6];
         this.owner = split[7];
+        this.currVote = Integer.valueOf(split[8]);
         Runner.logger.info("Character " + this.name + " created from splitting constructor");
 
         if (loss != 0) {
-            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+            ratio = Double.valueOf((1.0 * win) / (1.0 * (win + loss)));
         } else {
-            if(win == 0){
+            if (win == 0) {
                 ratio = 0.0;
             } else {
                 ratio = 1.0;
@@ -115,9 +117,9 @@ public class Character {
     public void setLoss(Integer loss) {
         this.loss = loss;
         if (loss != 0) {
-            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+            ratio = Double.valueOf((1.0 * win) / (1.0 * (win + loss)));
         } else {
-            if(win == 0){
+            if (win == 0) {
                 ratio = 0.0;
             } else {
                 ratio = 1.0;
@@ -127,7 +129,7 @@ public class Character {
     }
 
     /**
-     * @return  number of wins
+     * @return number of wins
      */
     public Integer getWin() {
         return win;
@@ -139,9 +141,9 @@ public class Character {
     public void setWin(Integer win) {
         this.win = win;
         if (loss != 0) {
-            ratio = Double.valueOf((1.0 * win) /(1.0 * (win + loss)));
+            ratio = Double.valueOf((1.0 * win) / (1.0 * (win + loss)));
         } else {
-            if(win == 0){
+            if (win == 0) {
                 ratio = 0.0;
             } else {
                 ratio = 1.0;
@@ -212,8 +214,10 @@ public class Character {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Character character = (Character) o;
         return Objects.equals(name, character.name) && Objects.equals(world, character.world);
     }
@@ -223,19 +227,25 @@ public class Character {
         return Objects.hash(name, world);
     }
 
-    public void displayChar(){
+    public void displayChar() {
         Runner.logger.info("Character displayed");
         new CharacterLayout(this);
-        //This may open a dialog box to see character data
+        // This may open a dialog box to see character data
     }
 
-    public String charToCSV(){
+    public String charToCSV() {
         Runner.logger.info("Character converted to csv form to print");
         String ret = "\n";
         ret += name + "\t" + world + "\t" + desc + "\t";
-        ret += win + "\t" + loss + "\t" + id + "\t" + picture + "\t" + owner;
+        ret += win + "\t" + loss + "\t" + id + "\t" + picture + "\t" + owner + "\t" + currVote;
         return ret;
     }
+
+    public Integer getCurrVote() {
+        return currVote;
+    }
+
+    public void setCurrVote(Integer currVote) {
+        this.currVote = currVote;
+    }
 }
-
-
