@@ -1,21 +1,25 @@
 package edu.baylor.ecs.csi3471.groupProject.UI;
 
-import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.CharacterDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.*;
 
+/**
+ * Class responsible for character creation screen
+ * and character creation user input validation
+ * @author jackh
+ *
+ */
 public class CreateCharacter extends CharacterDAO {
+	/**
+	 * Function responsible for character creation screen
+	 * @param currUsername
+	 */
 	protected void createAndShowGUI(String currUsername) {
 		//declaration of variables
 		JFrame createFrame;
@@ -126,9 +130,11 @@ public class CreateCharacter extends CharacterDAO {
 		//setting visible
 		createFrame.setSize(400, 300);
 		createFrame.setVisible(true);
+		Runner.logger.info("create character screen displayed");
 	}
 
 	/**
+	 * Function responsible for character name input validation
 	 * @param name name for character from user
 	 * @return validates length is okay
 	 */
@@ -150,6 +156,7 @@ public class CreateCharacter extends CharacterDAO {
 	}
 
 	/**
+	 * Function responsible for character world input validation
 	 * @param world world inserted into character
 	 * @return validates the text of the world
 	 */
@@ -171,6 +178,7 @@ public class CreateCharacter extends CharacterDAO {
 	}
 
 	/**
+	 * Function responsible for character description input validation
 	 * @param desc character description
 	 * @return validates character description is valid
 	 */
@@ -192,6 +200,7 @@ public class CreateCharacter extends CharacterDAO {
 	}
 
 	/**
+	 * Function responsible for character url input validation
 	 * @param URL url to picture
 	 * @return validates the url is functional
 	 */

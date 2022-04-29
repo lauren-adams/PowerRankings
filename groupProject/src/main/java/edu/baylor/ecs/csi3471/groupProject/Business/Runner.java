@@ -1,12 +1,7 @@
 package edu.baylor.ecs.csi3471.groupProject.Business;
 
 import edu.baylor.ecs.csi3471.groupProject.UI.LoginPage;
-import edu.baylor.ecs.csi3471.groupProject.UI.UserTable;
 
-import javax.swing.*;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
@@ -17,14 +12,15 @@ public class Runner {
 	static {
 		try {
 			InputStream configFile = Runner.class.getClassLoader().getResourceAsStream("logger.properties");
+			//configFile is null after above line... which makes logging impossible
 			LogManager.getLogManager().readConfiguration(configFile);
 			configFile.close();
 		} catch (IOException ex) {
 			System.out.println("WARNING: Could not open configuration file");
-		    System.out.println("WARNING: Logging not configured (console output only)");
+		    System.out.println("WARNING: Logging not configured");
 		} catch (NullPointerException ne) {
 			System.out.println("WARNING: Could not open configuration file");
-		    System.out.println("WARNING: Logging not configured (console output only)");
+		    System.out.println("WARNING: Logging not configured");
 		}
 		logger.info("starting the app");
 	}

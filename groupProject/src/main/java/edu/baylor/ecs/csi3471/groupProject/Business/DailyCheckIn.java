@@ -2,16 +2,19 @@ package edu.baylor.ecs.csi3471.groupProject.Business;
 
 import edu.baylor.ecs.csi3471.groupProject.Persistence.UserDAO;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.FileHandler;
 
 import javax.swing.JLabel;
 
 
 public class DailyCheckIn extends UserDAO {
 	public JLabel showBalance(String username) {
+		Runner.logger.info("starting rendering of balance");
 		//declare label, current balance, and string for label
 		JLabel balanceLabel;
 		int currBalance = findCurrentBal(username);
@@ -52,6 +55,7 @@ public class DailyCheckIn extends UserDAO {
 		
 		//create label from string and return it
 		balanceLabel = new JLabel(labelString);
+		Runner.logger.info("balance rendered");
 		return balanceLabel;
 	}
 }

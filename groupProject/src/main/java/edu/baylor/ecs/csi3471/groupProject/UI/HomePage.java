@@ -2,6 +2,7 @@ package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Business.DailyCheckIn;
+import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,7 +121,6 @@ public class HomePage {
 				charLead.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("character leaderboard selected");
 						Table t = new Table();
 						t.createAndShowGUI();
 					}
