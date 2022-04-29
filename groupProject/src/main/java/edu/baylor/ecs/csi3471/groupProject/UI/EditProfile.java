@@ -27,6 +27,7 @@ public class EditProfile extends JPanel {
      * @param username
      */
     public EditProfile(String username){
+    	Runner.logger.info("displaying edit profile window");
         User user;
         
         JFrame editFrame = new JFrame("Edit Profile");

@@ -21,6 +21,7 @@ public class CreateCharacter extends CharacterDAO {
 	 * @param currUsername
 	 */
 	protected void createAndShowGUI(String currUsername) {
+		Runner.logger.info("displaying create character window");
 		//declaration of variables
 		JFrame createFrame;
 		JLabel nameLabel, worldLabel, descLabel, urlLabel;
@@ -28,23 +29,27 @@ public class CreateCharacter extends CharacterDAO {
 		JPanel createPanel;
 		JButton createButton;
 		
-		//initialization of variables
+		//initialization of character creation frame, panel, and button
 		createFrame = new JFrame("Create Character");
 		createPanel = new JPanel();
 		createButton = new JButton("Create");
 		
+		//initialization of name label and field
 		nameLabel = new JLabel("Name:           ");
 		nameField = new JTextField();
 		nameField.setColumns(30);
 		
+		//initialization of world label and field
 		worldLabel = new JLabel("World:          ");
 		worldField = new JTextField();
 		worldField.setColumns(30);
 		
+		//initialization of desc label and field
 		descLabel = new JLabel("Description:");
 		descField = new JTextField();
 		descField.setColumns(30);
 		
+		//initialization of URL label and field
 		urlLabel = new JLabel("Photo URL:  ");
 		urlField = new JTextField();
 		urlField.setColumns(30);
@@ -97,7 +102,9 @@ public class CreateCharacter extends CharacterDAO {
 							JOptionPane.showMessageDialog(createFrame, "Character already exists in chosen world",
 									"ERROR", JOptionPane.ERROR_MESSAGE);
 						}else {
-
+							Runner.logger.info(currUsername + " created a new character with data name: " + 
+									nameField.getText() + ", world: " + worldField.getText() + ", description: "
+									+ descField.getText() + ", and URL: " + urlField.getText());
 							addCharacter(nameField.getText(), worldField.getText(), descField.getText(),
 									urlField.getText(), currUsername);
 							createFrame.dispose();
@@ -133,10 +140,11 @@ public class CreateCharacter extends CharacterDAO {
 		Runner.logger.info("create character screen displayed");
 	}
 
+	
 	/**
-	 * Function responsible for character name input validation
-	 * @param name name for character from user
-	 * @return validates length is okay
+	 * This function is responsible for checking if the input character name is valid
+	 * @param name
+	 * @return
 	 */
 	protected boolean isValidCharName(String name) {
 		//checking if character name length is valid
@@ -155,10 +163,11 @@ public class CreateCharacter extends CharacterDAO {
 		return true;
 	}
 
+	
 	/**
-	 * Function responsible for character world input validation
-	 * @param world world inserted into character
-	 * @return validates the text of the world
+	 * This function is responsible for checking if the input world is valid
+	 * @param world
+	 * @return
 	 */
 	protected boolean isValidWorld(String world) {
 		//checking if character world length is valid
@@ -177,10 +186,11 @@ public class CreateCharacter extends CharacterDAO {
 		return true;
 	}
 
+	
 	/**
-	 * Function responsible for character description input validation
-	 * @param desc character description
-	 * @return validates character description is valid
+	 * This function is responsible for checking if the input description is valid
+	 * @param desc
+	 * @return
 	 */
 	protected boolean isValidCharDesc(String desc) {
 		//checking if character description length is valid
@@ -199,10 +209,11 @@ public class CreateCharacter extends CharacterDAO {
 		return true;
 	}
 
+	
 	/**
-	 * Function responsible for character url input validation
-	 * @param URL url to picture
-	 * @return validates the url is functional
+	 * This function is responsible for checking if the input URL is valid
+	 * @param URL
+	 * @return
 	 */
 	protected boolean isValidCharURL(String URL) {
 		//checking if URL is within required length
