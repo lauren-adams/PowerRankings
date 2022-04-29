@@ -222,6 +222,9 @@ public class Character {
         return Objects.equals(name, character.name) && Objects.equals(world, character.world);
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, world);
@@ -233,6 +236,9 @@ public class Character {
         // This may open a dialog box to see character data
     }
 
+    /**
+     * @return String
+     */
     public String charToCSV() {
         Runner.logger.info("Character converted to csv form to print");
         String ret = "\n";
@@ -241,10 +247,16 @@ public class Character {
         return ret;
     }
 
+    /**
+     * @return Integer
+     */
     public Integer getCurrVote() {
         return currVote;
     }
 
+    /**
+     * @param currVote
+     */
     public void setCurrVote(Integer currVote) {
         this.currVote = currVote;
     }
