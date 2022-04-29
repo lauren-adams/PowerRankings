@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.VotingBoothDAO;
+import edu.baylor.ecs.csi3471.groupProject.UI.CreateCharacter;
 import edu.baylor.ecs.csi3471.groupProject.UI.VotingBoothGUI;
 import org.junit.Test;
 
@@ -13,14 +14,7 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+public class AppTest {
     @Test
     public void shouldAnswerWithTrue()
     {
@@ -49,5 +43,52 @@ public class AppTest
         assert(boothGUI.isValid());
     }
 
+    @Test
+    public void characterCreationBadName() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(!c.isValidCharName("*"));
+    }
     
+    @Test
+    public void characterCreationGoodName() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(c.isValidCharName("jack"));
+    }
+    
+    @Test
+    public void characterCreationBadURL() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(!c.isValidCharURL("google"));
+    }
+    
+    @Test
+    public void characterCreationGoodURL() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(c.isValidCharURL("http://google.com"));
+    }
+    
+    @Test
+    public void characterCreationBadWorld() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(!c.isValidWorld("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    			+ "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"));
+    }
+    
+    @Test
+    public void characterCreationGoodWorld() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(c.isValidWorld("Earth"));
+    }
+    
+    @Test
+    public void characterCreationBadDescription() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(!c.isValidCharDesc(""));
+    }
+    
+    @Test
+    public void characterCreationGoodDescription() {
+    	CreateCharacter c = new CreateCharacter();
+    	assert(c.isValidCharDesc("description"));
+    }
 }
