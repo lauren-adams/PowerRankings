@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 public class VotingBoothDAO extends JPanel {
-    private static Logger applicationlog = Logger.getLogger(Timer.class.getName());
     JLabel label;
 
     JFrame frame;
@@ -27,11 +26,11 @@ public class VotingBoothDAO extends JPanel {
 
     public VotingBoothDAO(Character a, Character b) throws Exception {
         //FIXME get the current characters for current round from the file instead
-        applicationlog.info("VotingBooth Class Called");
+        Runner.logger.info("VotingBooth Class Called");
         Character bert = a;
         Character gandhi = b;
         if(a == null || b == null){
-            applicationlog.severe("One of the Characters isn't loading!");
+            Runner.logger.severe("One of the Characters isn't loading!");
             Exception Exception = new Exception();
             throw Exception;
         }
@@ -58,14 +57,14 @@ public class VotingBoothDAO extends JPanel {
         add(choicePanel, BorderLayout.CENTER);
 
         if(Runner.curUser.isAdmin()){
-            applicationlog.info("User is Admin");
+            Runner.logger.info("User is Admin");
             JButton endRound = new JButton("End Round");
             endRound.setPreferredSize(new Dimension(100, 30));
             endRound.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     //FIXME GO TO NEXT ROUND FUNCTIONALITY
-                    applicationlog.info("End Round Button Pressed");
+                    Runner.logger.info("End Round Button Pressed");
                     Integer a = 0;
                     if(bert.getRatio() > gandhi.getRatio()){
                         a = bert.getWin();
@@ -76,7 +75,7 @@ public class VotingBoothDAO extends JPanel {
                         if(bill.isVoted()){
                             if(bill.getBet() != 0) {
                                 if (bill.getCurrentVote() == bert.getName()) {
-                                    applicationlog.info("User wins the bet");
+                                    Runner.logger.info("User wins the bet");
                                     bill.setFunds(bill.getFunds() + (bill.getBet() * 2));
                                     JOptionPane.showMessageDialog(null, "Congrats! You won " + bill.getBet() + "!\n Your current funds are: " + bill.getFunds());
 
@@ -93,7 +92,7 @@ public class VotingBoothDAO extends JPanel {
                         if(bill.isVoted()){
                             if(bill.getBet() != 0) {
                                 if (bill.getCurrentVote() == bert.getName()) {
-                                    applicationlog.info("User wins the vote");
+                                    Runner.logger.info("User wins the vote");
                                     bill.setFunds(bill.getFunds() + (bill.getBet() * 2));
                                     JOptionPane.showMessageDialog(null, "Congrats! You won " + bill.getBet() + "!\n Your current funds are: " + bill.getFunds());
                                 }
@@ -159,7 +158,7 @@ public class VotingBoothDAO extends JPanel {
 
         voteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                applicationlog.info("Vote Button is Activated");
+                Runner.logger.info("Vote Button is Activated");
                 boolean exit = false;
                 while (!exit) {
                     String command = group.getSelection().getActionCommand();
@@ -174,12 +173,12 @@ public class VotingBoothDAO extends JPanel {
                         while (!broke) {
                             String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
                             if (value == null) {
-                                applicationlog.info("User Doesn't Want to bet");
+                                Runner.logger.info("User Doesn't Want to bet");
                                 value = "0";
                             }
                             int totel = Integer.parseInt(value);
                             if (totel > bill.getFunds()) {
-                                applicationlog.warning("User can't bet that much");
+                                Runner.logger.warning("User can't bet that much");
                                 JOptionPane.showMessageDialog(null, "Insufficent Funds");
                             } else {
                                 broke = true;
@@ -193,7 +192,7 @@ public class VotingBoothDAO extends JPanel {
 									update.updateUser(Runner.curUser);
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
-                                    applicationlog.severe("Can't Update User!");
+                                    Runner.logger.severe("Can't Update User!");
 									e1.printStackTrace();
 								}
                                 JOptionPane.showMessageDialog(null, "Total Wager on " + a.getName() + " is:  " + totel + "\n You have " + (bill.getFunds() - totel) + " coins.");
@@ -211,7 +210,7 @@ public class VotingBoothDAO extends JPanel {
                             }
                             int totel = Integer.parseInt(value);
                             if (totel > bill.getFunds()) {
-                                applicationlog.warning("User can't bet that much");
+                                Runner.logger.warning("User can't bet that much");
                                 JOptionPane.showMessageDialog(null, "Insufficent Funds");
                             } else {
                                 broke = true;
@@ -225,7 +224,7 @@ public class VotingBoothDAO extends JPanel {
 									update.updateUser(Runner.curUser);
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
-                                    applicationlog.severe("Can't Update User!");
+                                    Runner.logger.severe("Can't Update User!");
 									e1.printStackTrace();
 								}
                                 //FIXME TRACK NUMBER OF VOTES PER CHARACTER
@@ -250,7 +249,7 @@ public class VotingBoothDAO extends JPanel {
 
     private JPanel createPane(String description, JRadioButton[] radioButtons,
                               JButton showButton) {
-        applicationlog.info("create pane");
+        Runner.logger.info("create pane");
         int numChoices = radioButtons.length;
         JPanel box = new JPanel();
         JLabel label = new JLabel(description);

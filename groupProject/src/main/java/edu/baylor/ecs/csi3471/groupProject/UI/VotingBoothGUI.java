@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.util.logging.Logger;
 
 public class VotingBoothGUI {
-    private static Logger applicationlog = Logger.getLogger(Timer.class.getName());
     /**
      *
      * <p>
@@ -25,7 +24,7 @@ public class VotingBoothGUI {
      */
     protected void createAndShowGUI(Character a, Character b) throws Exception {
         JFrame frame = new JFrame("VoteDialog");
-        applicationlog.info("create GUI invoked");
+        Runner.logger.info("create GUI invoked");
 
 
         Container contentPane = frame.getContentPane();
