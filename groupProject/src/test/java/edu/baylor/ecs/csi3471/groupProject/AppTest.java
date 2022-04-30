@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Persistence.VotingBoothDAO;
 import edu.baylor.ecs.csi3471.groupProject.UI.CreateCharacter;
+import edu.baylor.ecs.csi3471.groupProject.UI.EditProfile;
 import edu.baylor.ecs.csi3471.groupProject.UI.VotingBoothGUI;
 import org.junit.Test;
 
@@ -90,5 +91,41 @@ public class AppTest {
     public void characterCreationGoodDescription() {
     	CreateCharacter c = new CreateCharacter();
     	assert(c.isValidCharDesc("description"));
+    }
+    
+    @Test
+    public void editProfileBadName() {
+    	EditProfile e = new EditProfile("test");
+    	assert(!e.isNameValid(null));
+    }
+    
+    @Test
+    public void editProfileGoodName() {
+    	EditProfile e = new EditProfile("test");
+    	assert(e.isNameValid("Jack"));
+    }
+    
+    @Test
+    public void editProfileBadAge() {
+    	EditProfile e = new EditProfile("test");
+    	assert(!e.isAgeValid("201"));
+    }
+    
+    @Test
+    public void editProfileGoodAge() {
+    	EditProfile e = new EditProfile("test");
+    	assert(e.isAgeValid("32"));
+    }
+    
+    @Test
+    public void editProfileBadDesc() {
+    	EditProfile e = new EditProfile("test");
+    	assert(!e.isDescValid(null));
+    }
+    
+    @Test
+    public void editProfileGoodDesc() {
+    	EditProfile e = new EditProfile("test");
+    	assert(e.isDescValid("regular description"));
     }
 }

@@ -164,6 +164,6 @@ public class EditProfile extends JPanel {
      */
     public boolean isDescValid(String newDesc) {
     	Runner.logger.info("checking new description for validity");
-    	return newDesc != null && newDesc.matches("^[a-zA-Z0-9]*$") && (newDesc.length() < 75);
+    	return newDesc != null && newDesc.matches("^[a-zA-Z0-9 ]*$") && (newDesc.length() < 75);
     }
 }
