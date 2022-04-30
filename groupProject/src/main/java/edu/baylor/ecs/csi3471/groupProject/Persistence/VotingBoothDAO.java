@@ -308,6 +308,10 @@ public class VotingBoothDAO extends JPanel {
                     if (command == choosingA) {
                         JOptionPane.showMessageDialog(frame,
                                 "Thank you for choosing " + a.getName() + "!");
+                        radioButtons[0].setEnabled(false);
+                        radioButtons[1].setEnabled(false);
+                        radioButtons[2].setEnabled(false);
+                        finalVoteButton.setEnabled(false);
 
 
                         if(loop.length < 10){
@@ -346,6 +350,9 @@ public class VotingBoothDAO extends JPanel {
                         int vote = a.getCurrVote();
                         a.setCurrVote(vote++);
                         while (!broke) {
+                            radioButtons[0].setEnabled(false);
+                            radioButtons[1].setEnabled(false);
+                            finalVoteButton.setEnabled(false);
                             String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
                             if (value == null) {
                                 Runner.logger.info("User Doesn't Want to bet");
@@ -388,6 +395,10 @@ public class VotingBoothDAO extends JPanel {
 
                         // yes/no dialog
                     } else if (command == choosingB) {
+                        radioButtons[0].setEnabled(false);
+                        radioButtons[1].setEnabled(false);
+                        radioButtons[2].setEnabled(false);
+                        finalVoteButton.setEnabled(false);
                         JOptionPane.showMessageDialog(frame,
                                 "Thank you for choosing " + b.getName() + "!");
                         if(loop.length < 10){
