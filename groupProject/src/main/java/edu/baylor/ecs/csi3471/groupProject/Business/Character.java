@@ -11,6 +11,19 @@ import edu.baylor.ecs.csi3471.groupProject.UI.CharacterLayout;
 import javax.swing.*;
 
 public class Character {
+    public static Logger logger = Logger.getLogger(Timer.class.getName());
+
+//    static {
+//        try {
+//            InputStream configFile = edu.baylor.ecs.csi3471.groupProject.UI.UserTable.class.getClassLoader().getResourceAsStream("logger.properties");
+//            LogManager.getLogManager().readConfiguration(configFile);
+//            configFile.close();
+//        } catch (IOException ex) {
+//            System.out.println("WARNING: Could not open configuration file");
+//            System.out.println("WARNING: Logging not configured (console output only)");
+//        }
+//        logger.info("starting the app");
+//    }
     String name = "";
     String world = "";
     String desc = "";
@@ -20,6 +33,7 @@ public class Character {
     String picture = "";
     Double ratio = 0.0;
     String owner = "";
+    Integer currVote = 0;
 
     public Character(){
         id = id++;
@@ -206,6 +220,14 @@ public class Character {
         this.picture = picture;
     }
 
+    public Integer getCurrVote() {
+        return currVote;
+    }
+
+    public void setCurrVote(Integer currVote) {
+        this.currVote = currVote;
+    }
+
     /**
      * @param o charctaer object
      * @return true if they are equivalent
@@ -224,13 +246,13 @@ public class Character {
     }
 
     public void displayChar(){
-        Runner.logger.info("Character displayed");
+        logger.info("Character displayed");
         new CharacterLayout(this);
         //This may open a dialog box to see character data
     }
 
     public String charToCSV(){
-        Runner.logger.info("Character converted to csv form to print");
+        logger.info("Character converted to csv form to print");
         String ret = "\n";
         ret += name + "\t" + world + "\t" + desc + "\t";
         ret += win + "\t" + loss + "\t" + id + "\t" + picture + "\t" + owner;

@@ -9,29 +9,47 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.util.logging.Logger;
 
+/**
+ * The VotingBoothGUI is in charge of taking the two characters, creating the GUI
+ * of the voting booth and calling the DAO for the functionality.
+ */
 public class VotingBoothGUI {
+    private static Logger applicationlog = Logger.getLogger(Timer.class.getName());
     /**
-     *
-     * <p>
-     * This method always returns immediately, whether or not the
-     * image exists. When this applet attempts to draw the image on
-     * the screen, the data will be loaded. The graphics primitives
-     * that draw the image will incrementally paint on the screen.
+     * This method always takes two Characters and creates the GUI of the
+     * Voting Booth parameters.
      *
      * @param  a  an absolute URL giving the base location of the image
-     * @param  b the location of the image, relative to the url argument
      * @return      void
-     * @see         Image
      */
-    protected void createAndShowGUI(Character a, Character b) throws Exception {
+    protected void createAndShowGUI(Character[] a) throws Exception {
         JFrame frame = new JFrame("VoteDialog");
-        Runner.logger.info("create GUI invoked");
+        applicationlog.info("create GUI invoked");
+        int length = 0;
+        while(a[length] != null){
+            length++;
+        }
+        System.out.println(length);
+        length--;
 
 
         Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new GridLayout(2, 2));
-        contentPane.add(new VotingBoothDAO(a, b));
-
+        if(length < 8) {
+            contentPane.setLayout(new GridLayout(4, 4));
+            contentPane.add(new VotingBoothDAO(a[0], a[1]));
+            contentPane.add(new VotingBoothDAO(a[2], a[3]));
+            contentPane.add(new VotingBoothDAO(a[4], a[5]));
+            contentPane.add(new VotingBoothDAO(a[6], a[7]));
+        }
+        else if(length < 12){
+            contentPane.setLayout(new GridLayout(2, 2));
+            contentPane.add(new VotingBoothDAO(a[8], a[9]));
+            contentPane.add(new VotingBoothDAO(a[10], a[11]));
+        }
+        else{
+            contentPane.setLayout(new GridLayout(2, 2));
+            contentPane.add(new VotingBoothDAO(a[12], a[13]));
+        }
 
         // Exit when the window is closed.
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

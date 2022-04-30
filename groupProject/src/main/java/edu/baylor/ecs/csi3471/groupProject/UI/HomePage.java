@@ -2,7 +2,6 @@ package edu.baylor.ecs.csi3471.groupProject.UI;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
 import edu.baylor.ecs.csi3471.groupProject.Business.DailyCheckIn;
-import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -148,17 +147,16 @@ public class HomePage {
 		
 		currentRound = new JButton("Current Round");
 		currentRound.setFocusPainted(false);
+		TournamentBracketPanel frame = new TournamentBracketPanel();
+		Character[] myChars = frame.getBracketCharacters();
+
 
 		currentRound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VotingBoothGUI windvote = new VotingBoothGUI();
-				TournamentBracketPanel frame = new TournamentBracketPanel();
-				Character[] myChars = frame.getBracketCharacters();
-				Character a = myChars[1];
-				Character b = myChars[5];
 				try {
-					windvote.createAndShowGUI(a, b);
+					windvote.createAndShowGUI(myChars);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

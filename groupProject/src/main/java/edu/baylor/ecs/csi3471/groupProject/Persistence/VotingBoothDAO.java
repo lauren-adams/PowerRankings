@@ -1,19 +1,27 @@
 package edu.baylor.ecs.csi3471.groupProject.Persistence;
 
 import edu.baylor.ecs.csi3471.groupProject.Business.Character;
+import edu.baylor.ecs.csi3471.groupProject.Business.CharacterVotes;
 import edu.baylor.ecs.csi3471.groupProject.Business.Runner;
 import edu.baylor.ecs.csi3471.groupProject.Business.User;
+import edu.baylor.ecs.csi3471.groupProject.UI.TournamentBracketPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.swing.*;
+//Based on Round Configure the List
 
+/**
+ * The VotingBoothDAO sets up the voting booth and allows the user to place votes and bets.
+ */
 public class VotingBoothDAO extends JPanel {
     JLabel label;
 
@@ -22,6 +30,7 @@ public class VotingBoothDAO extends JPanel {
     String simpleDialogDesc = "";
 
     User bill = Runner.curUser;
+
 
 
     public VotingBoothDAO(Character a, Character b) throws Exception {
@@ -64,16 +73,72 @@ public class VotingBoothDAO extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     //FIXME GO TO NEXT ROUND FUNCTIONALITY
+                    TournamentBracketPanel frame = new TournamentBracketPanel();
                     Runner.logger.info("End Round Button Pressed");
                     Integer a = 0;
-                    if(bert.getRatio() > gandhi.getRatio()){
+                    if(bert.getCurrVote() > gandhi.getCurrVote()) {
                         a = bert.getWin();
                         bert.setWin(a++);
                         a = gandhi.getLoss();
                         gandhi.setLoss(a++);
+                        //TournamentBracketPanel frame = new TournamentBracketPanel();
+                        FileWriter fileWriter = null;
+                        try {
+                            fileWriter = new FileWriter("CharacterRounds.csv", true);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            fileWriter.write(bert.charToCSV());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        Character[] myChars = frame.getBracketCharacters();
+                        int length = 0;
+                        while(myChars[length] != null){
+                            length++;
+                        }
+                        System.out.println(length);
+                        length--;
+                        Integer match = 0;
+                        if (length == 9 || length == 13) {
+                            match = 1;
+                        } else if (length == 10 || length == 14) {
+                            match = 2;
+                        } else if (length == 11) {
+                            match = 3;
+                        } else if (length == 12) {
+                            match = 4;
+                        }
                         JOptionPane.showMessageDialog(null, bert.getName() + " won the match!");
-                        if(bill.isVoted()){
-                            if(bill.getBet() != 0) {
+                        CharacterVotesDAO charVote = new CharacterVotesDAO();
+                        UserDAO users = new UserDAO();
+                        ArrayList<User> userList = null;
+                        try {
+                            userList = users.getUsers();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            ArrayList<CharacterVotes> votes = charVote.getCharacterVotes();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        for (User u : userList) {
+                            try {
+                                String opt = charVote.findCurrentVote(u.getUsername(), match);
+                                if(opt.equalsIgnoreCase(bert.getName())){
+                                    int base = u.getFunds();
+                                    int win = charVote.findCurrentBet(u.getUsername(), match);
+                                    u.setFunds(base + (win * 2));
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+
+                        if (bill.isVoted()) {
+                            if (bill.getBet() != 0) {
                                 if (bill.getCurrentVote() == bert.getName()) {
                                     Runner.logger.info("User wins the bet");
                                     bill.setFunds(bill.getFunds() + (bill.getBet() * 2));
@@ -88,7 +153,60 @@ public class VotingBoothDAO extends JPanel {
                         gandhi.setWin(a++);
                         a = bert.getLoss();
                         bert.setLoss(a++);
+                        FileWriter fileWriter = null;
+                        try {
+                            fileWriter = new FileWriter("CharacterRounds.csv", true);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            fileWriter.write(gandhi.charToCSV());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                         JOptionPane.showMessageDialog(null, gandhi.getName() + " won the match!");
+                        Character[] myChars = frame.getBracketCharacters();
+                        int length = 0;
+                        while(myChars[length] != null){
+                            length++;
+                        }
+                        System.out.println(length);
+                        length--;
+                        Integer match = 0;
+                        if (length == 9 || length == 13) {
+                            match = 1;
+                        } else if (length == 10 || length == 14) {
+                            match = 2;
+                        } else if (length == 11) {
+                            match = 3;
+                        } else if (length == 12) {
+                            match = 4;
+                        }
+                        CharacterVotesDAO charVote = new CharacterVotesDAO();
+                        UserDAO users = new UserDAO();
+                        ArrayList<User> userList = null;
+                        try {
+                            userList = users.getUsers();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            ArrayList<CharacterVotes> votes = charVote.getCharacterVotes();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        for (User u : userList) {
+                            try {
+                                String opt = charVote.findCurrentVote(u.getUsername(), match);
+                                if(opt.equalsIgnoreCase(gandhi.getName())){
+                                    int base = u.getFunds();
+                                    int win = charVote.findCurrentBet(u.getUsername(), match);
+                                    u.setFunds(base + (win * 2));
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
                         if(bill.isVoted()){
                             if(bill.getBet() != 0) {
                                 if (bill.getCurrentVote() == bert.getName()) {
@@ -99,12 +217,21 @@ public class VotingBoothDAO extends JPanel {
                             }
                         }
                     }
+                    bert.setCurrVote(0);
+                    gandhi.setCurrVote(0);
                 }
             });
             add(endRound, BorderLayout.WEST);
         }
     }
 
+    /**
+     * This method always takes two Characters in order to make the voting mechanism
+     *
+     * @param  a  One of the characters in the match
+     * @param  b The other characters in the match
+     * @return      JPanel
+     */
     private JPanel createSimpleDialogBox(final Character a, final Character b) throws MalformedURLException {
         final int numButtons = 3;
         JRadioButton[] radioButtons = new JRadioButton[numButtons];
@@ -156,6 +283,7 @@ public class VotingBoothDAO extends JPanel {
 
         voteButton = new JButton("Vote");
 
+        JButton finalVoteButton = voteButton;
         voteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Runner.logger.info("Vote Button is Activated");
@@ -163,13 +291,60 @@ public class VotingBoothDAO extends JPanel {
                 while (!exit) {
                     String command = group.getSelection().getActionCommand();
                     boolean broke = false;
-
+                    TournamentBracketPanel bracketPanel = new TournamentBracketPanel();
+                    Character[] loop = bracketPanel.getBracketCharacters();
+                    CharacterVotesDAO characterVotesDAO = new CharacterVotesDAO();
+                    UserDAO userDAO = new UserDAO();
+                    CharacterVotes red = null;
+                    Integer match = 0;
+                    try {
+                        red = characterVotesDAO.getCharacterVoteByUsername(bill.getUsername());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
                 // ok dialog
 
                     if (command == choosingA) {
                         JOptionPane.showMessageDialog(frame,
                                 "Thank you for choosing " + a.getName() + "!");
+
+
+                        if(loop.length < 10){
+                            if(loop[1].equals(a)){
+                                red.setMatchAChoice(a.getName());
+                                match = 1;
+                            }
+                            else if(loop[3].equals(a)){
+                                red.setMatchBChoice(a.getName());
+                                match = 2;
+                            }
+                            else if(loop[5].equals(a)){
+                                red.setMatchCChoice(a.getName());
+                                match = 3;
+                            }
+                            else{
+                                red.setMatchDChoice(a.getName());
+                                match = 4;
+                            }
+                        }
+                        else if(loop.length < 14){
+                            if(loop[9].equals(a)){
+                                red.setMatchAChoice(a.getName());
+                                match = 1;
+                            }
+                            else{
+                                red.setMatchBChoice(a.getName());
+                                match = 2;
+                            }
+                        }
+                        else{
+                            red.setMatchAChoice(a.getName());
+                            match = 1;
+                        }
+
+                        int vote = a.getCurrVote();
+                        a.setCurrVote(vote++);
                         while (!broke) {
                             String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
                             if (value == null) {
@@ -184,6 +359,18 @@ public class VotingBoothDAO extends JPanel {
                                 broke = true;
                                 exit = true;
                                 bill.setBet(totel);
+                                if(match == 1){
+                                    red.setMatchABet(totel);
+                                }
+                                else if(match == 2){
+                                    red.setMatchBBet(totel);
+                                }
+                                else if(match == 3){
+                                    red.setMatchCBet(totel);
+                                }
+                                else if(match == 4){
+                                    red.setMatchDBet(totel);
+                                }
                                 //bill.setFunds(bill.getFunds() - totel);
                                 bill.setVoted(true);
                                 bill.setCurrentVote(a.getName());
@@ -203,6 +390,38 @@ public class VotingBoothDAO extends JPanel {
                     } else if (command == choosingB) {
                         JOptionPane.showMessageDialog(frame,
                                 "Thank you for choosing " + b.getName() + "!");
+                        if(loop.length < 10){
+                            if(loop[2].equals(b)){
+                                red.setMatchAChoice(b.getName());
+                                match = 1;
+                            }
+                            else if(loop[4].equals(b)){
+                                red.setMatchBChoice(b.getName());
+                                match = 2;
+                            }
+                            else if(loop[6].equals(b)){
+                                red.setMatchCChoice(b.getName());
+                                match = 3;
+                            }
+                            else{
+                                red.setMatchDChoice(b.getName());
+                                match = 4;
+                            }
+                        }
+                        else if(loop.length < 14){
+                            if(loop[10].equals(b)){
+                                red.setMatchAChoice(b.getName());
+                                match = 1;
+                            }
+                            else{
+                                red.setMatchBChoice(b.getName());
+                                match = 2;
+                            }
+                        }
+                        else{
+                            red.setMatchAChoice(b.getName());
+                            match = 1;
+                        }
                         while (!broke) {
                             String value = JOptionPane.showInputDialog("Would you LIke to Wager?" + "\n You have " + bill.getFunds() + " coins.", "0");
                             if (value == null) {
@@ -216,6 +435,18 @@ public class VotingBoothDAO extends JPanel {
                                 broke = true;
                                 exit = true;
                                 bill.setBet(totel);
+                                if(match == 1){
+                                    red.setMatchABet(totel);
+                                }
+                                else if(match == 2){
+                                    red.setMatchBBet(totel);
+                                }
+                                else if(match == 3){
+                                    red.setMatchCBet(totel);
+                                }
+                                else if(match == 4){
+                                    red.setMatchDBet(totel);
+                                }
                                 //bill.setFunds(bill.getFunds() - totel);
                                 bill.setVoted(true);
                                 bill.setCurrentVote(b.getName());
@@ -233,11 +464,14 @@ public class VotingBoothDAO extends JPanel {
                         }
                     } else {
                         exit = true;
+                        radioButtons[0].setEnabled(false);
+                        radioButtons[1].setEnabled(false);
+                        finalVoteButton.setEnabled(false);
                     }
                 }
-                JComponent comp = (JComponent) e.getSource();
-                Window win = SwingUtilities.getWindowAncestor(comp);
-                win.dispose();
+                //JComponent comp = (JComponent) e.getSource();
+                //Window win = SwingUtilities.getWindowAncestor(comp);
+                //win.dispose();
                 return;
             }
 
@@ -246,7 +480,14 @@ public class VotingBoothDAO extends JPanel {
         return createPane(simpleDialogDesc, radioButtons, voteButton);
     }
 
-
+    /**
+     * This method always takes two Characters in order to create a VotingBoothDAO
+     *
+     * @param  description  the description of the pane to come
+     * @param  radioButtons The voting buttons
+     * @param  showButton the vote button
+     * @return      JPanel
+     */
     private JPanel createPane(String description, JRadioButton[] radioButtons,
                               JButton showButton) {
         Runner.logger.info("create pane");
